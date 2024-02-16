@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospeda Pet Pe</title>
+	<center><img src="3.jpg" alt = "logo" width= "200px",height= "200px">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css">
+</head>
+<body>
+    <h1>Bem-vindo à nossa Hospedagem de Pets!</h1>
+   	
+	</head>
+<body>
+    <div class="container">
+        <h3>Selecione as datas de hospedagem do seu Pet</h3>
+		</center>
+        <form action="/hospedagem" method="post">
+            <div>
+                <label for="dataIda">Data de Inicial:</label>
+                <input type="text" id="dataIda" name="dataIda" readonly>
+            </div>
+            <div>
+                <label for="dataVolta">Data de final:</label>
+                <input type="text" id="dataVolta" name="dataVolta" readonly>
+            </div>
+            <button type="submit">Enviar</button>
+        </form>
+		
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"></script>
+    <script>
+        const datePickerOptions = {
+            onSelect: (instance, date) => {
+                const input = instance.el;
+                input.value = date.toLocaleDateString();
+            }
+        };
+
+        const dataIda = document.getElementById('dataIda');
+        const dataVolta = document.getElementById('dataVolta');
+
+        datepicker(dataIda, datePickerOptions);
+        datepicker(dataVolta, datePickerOptions);
+    </script>
+	<style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 50%;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</body>
+</html>
+</body>
+</html>
+
+

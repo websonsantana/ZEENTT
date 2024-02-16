@@ -1,0 +1,52 @@
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+@RestController
+public class Main {
+
+    public static void main(String[] args) {
+        SpringApplication.run(Main.class, args);
+    }
+
+    @PostMapping("/hospedagem")
+    public String hospedarPet(@RequestBody Pet pet) {
+        // Lógica para hospedar o pet
+        return "Pet " + pet.getNomePet() + " hospedado com sucesso!";
+    }
+}
+
+class Pet {
+    private String nomePet;
+    private String tipoPet;
+    private int diasHospedagem;
+
+    // Getters e setters omitidos para brevidade
+
+    public String getNomePet() {
+        return nomePet;
+    }
+
+    public void setNomePet(String nomePet) {
+        this.nomePet = nomePet;
+    }
+
+    public String getTipoPet() {
+        return tipoPet;
+    }
+
+    public void setTipoPet(String tipoPet) {
+        this.tipoPet = tipoPet;
+    }
+
+    public int getDiasHospedagem() {
+        return diasHospedagem;
+    }
+
+    public void setDiasHospedagem(int diasHospedagem) {
+        this.diasHospedagem = diasHospedagem;
+    }
+}
