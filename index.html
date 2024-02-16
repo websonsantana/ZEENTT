@@ -5,8 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hospeda Pet Pe</title>
 	<center><img src="3.jpg" alt = "logo" width= "200px",height= "200px">
-	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css">
-    <style>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css">
+</head>
+<body>
+    <h1>Bem-vindo à nossa Hospedagem de Pets!</h1>
+   	
+	</head>
+<body>
+    <div class="container">
+        <h3>Selecione as datas de hospedagem do seu Pet</h3>
+		</center>
+        <form action="/hospedagem" method="post">
+            <div>
+                <label for="dataIda">Data de Inicial:</label>
+                <input type="text" id="dataIda" name="dataIda" readonly>
+            </div>
+            <div>
+                <label for="dataVolta">Data de final:</label>
+                <input type="text" id="dataVolta" name="dataVolta" readonly>
+            </div>
+            <button type="submit">Enviar</button>
+        </form>
+		
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"></script>
+    <script>
+        const datePickerOptions = {
+            onSelect: (instance, date) => {
+                const input = instance.el;
+                input.value = date.toLocaleDateString();
+            }
+        };
+
+        const dataIda = document.getElementById('dataIda');
+        const dataVolta = document.getElementById('dataVolta');
+
+        datepicker(dataIda, datePickerOptions);
+        datepicker(dataVolta, datePickerOptions);
+    </script>
+	<style>
         body {
             font-family: Arial, sans-serif;
         }
@@ -35,31 +73,9 @@
             background-color: #0056b3;
         }
     </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Marque a data de hospedagem do seu Pet</h1>
-        <form action="/marcar-hospedagem" method="post">
-            <div>
-                <label for="dataHospedagem">Data de Hospedagem:</label>
-                <input type="text" id="dataHospedagem" name="dataHospedagem" readonly>
-            </div>
-            <button type="submit">Enviar</button>
-        </form>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"></script>
-    <script>
-        const datePickerOptions = {
-            onSelect: (instance, date) => {
-                const input = instance.el;
-                input.value = date.toLocaleDateString();
-            }
-        };
-
-        const dataHospedagem = document.getElementById('dataHospedagem');
-
-        datepicker(dataHospedagem, datePickerOptions);
-    </script>
 </body>
 </html>
+</body>
+</html>
+
+
