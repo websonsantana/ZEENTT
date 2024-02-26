@@ -1,81 +1,111 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hospeda Pet Pe</title>
-	<center><img src="3.jpg" alt = "logo" width= "200px",height= "200px">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css">
-</head>
-<body>
-    <h1>Bem-vindo à nossa Hospedagem de Pets!</h1>
-   	
-	</head>
-<body>
-    <div class="container">
-        <h3>Selecione as datas de hospedagem do seu Pet</h3>
-		</center>
-        <form action="/hospedagem" method="post">
-            <div>
-                <label for="dataIda">Data de Inicial:</label>
-                <input type="text" id="dataIda" name="dataIda" readonly>
-            </div>
-            <div>
-                <label for="dataVolta">Data de final:</label>
-                <input type="text" id="dataVolta" name="dataVolta" readonly>
-            </div>
-            <button type="submit">Enviar</button>
-        </form>
-		
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"></script>
-    <script>
-        const datePickerOptions = {
-            onSelect: (instance, date) => {
-                const input = instance.el;
-                input.value = date.toLocaleDateString();
-            }
-        };
-
-        const dataIda = document.getElementById('dataIda');
-        const dataVolta = document.getElementById('dataVolta');
-
-        datepicker(dataIda, datePickerOptions);
-        datepicker(dataVolta, datePickerOptions);
-    </script>
-	<style>
+    <title>Hospeda Pet PE</title>
+    <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #444;
         }
-        .container {
-            width: 50%;
-            margin: 0 auto;
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: left;
         }
-        label {
+        nav {
+            background-color: #fff;
+            color: black;
+            width: 200px;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: -200px;
+            transition: left 0.3s ease;
+            padding-top: 60px;
+        }
+        nav.open {
+            left: 0;
+        }
+        nav a {
             display: block;
-            margin-bottom: 5px;
-        }
-        input[type="text"] {
-            width: 100%;
+            color: black;
+            text-decoration: none;
             padding: 10px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
+            border-bottom: 1px solid #fff;
         }
-        button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            cursor: pointer;
+        nav img {
+            display: block;
+            margin: 0 auto;
+            padding: 20px 0;
         }
-        button:hover {
-            background-color: #0056b3;
+        section {
+            padding: 20px;
+            margin-left: 0px;
+            text-align: center;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        @media screen and (max-width: px) {
+            nav {
+                left: -200px;
+            }
+            section {
+                margin-left: 0;
+            }
+            nav.open {
+                left: -200px;
+            }
+            button {
+                display: block;
+            }
         }
     </style>
+	<p>
+</head>
+<body>
+    <header>
+        <h1>Hospeda Pet PE</h1>
+		<button onclick="toggleMenu()">Menu</button>
+    </header>
+    
+    <nav id="sideNav" onclick="closeMenu()">
+        <img src="brasao.jpg" alt="Coca-Cola Logo" width="150">
+        <a href="#">Início</a>
+        <a href="#">Produtos</a>
+        <a href="#">Sobre</a>
+        <a href="#">Contatos</a>
+    </nav>
+    <section>
+        <h2>Refreshing Taste Since 1886</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non magna tincidunt, feugiat dui non, bibendum velit. Integer in libero neque.</p>
+        <img src="https://www.coca-colacompany.com/content/dam/journey/us/en/brands/coca-cola/coca-cola-original-taste/product-hub-icons/Coca-Cola-Original-Taste-10.png" alt="Coca-Cola" width="200">
+    </section>
+    <footer>
+        <p>&copy; 2024 Hospeda Pet PE. Todos os Direitos Reservados.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            var nav = document.getElementById('sideNav');
+            nav.classList.toggle('open');
+        }
+
+        function closeMenu() {
+            var nav = document.getElementById('sideNav');
+            if (nav.classList.contains('open')) {
+                nav.classList.remove('open');
+            }
+        }
+    </script>
 </body>
 </html>
-</body>
-</html>
-
-
