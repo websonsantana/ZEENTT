@@ -75,9 +75,6 @@
         </div>
         <h1> Propostas e Serviços</h1>
         <form id="serviceForm">
-            <label for="serviceKey">Chave do Serviço:</label>
-            <input type="text" id="serviceKey" required>
-
             <label for="clientName">Nome do Cliente:</label>
             <input type="text" id="clientName" required>
 
@@ -101,13 +98,23 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script>
+        function generateServiceKey(clientName) {
+            const date = new Date();
+            const dateString = date.toISOString().split('T')[0].replace(/-/g, '');
+            const randomNum = Math.floor(Math.random() * 1000);
+            const clientInitials = clientName.slice(0, 3).toUpperCase();
+
+            return `${dateString}-${clientInitials}-${randomNum}`;
+        }
+
         function generateProposal() {
-            const serviceKey = document.getElementById('serviceKey').value;
             const clientName = document.getElementById('clientName').value;
             const clientEmail = document.getElementById('clientEmail').value;
             const clientPhone = document.getElementById('clientPhone').value;
             const serviceDescription = document.getElementById('serviceDescription').value;
             const serviceValue = parseFloat(document.getElementById('serviceValue').value).toFixed(2);
+
+            const serviceKey = generateServiceKey(clientName);
 
             const proposalHTML = `
                 <div>
