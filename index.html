@@ -3,108 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hospeda Pet PE</title>
+    <title>Sistema de Propostas de Serviço</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
-            color: #444;
         }
-        header {
-            background-color: #333;
-            color: white;
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
             padding: 20px;
-            text-align: left;
-        }
-        nav {
             background-color: #fff;
-            color: black;
-            width: 200px;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            left: -200px;
-            transition: left 0.3s ease;
-            padding-top: 60px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
         }
-        nav.open {
-            left: 0;
+        h1, h2 {
+            text-align: center;
+            color: #072739;
         }
-        nav a {
-            display: block;
-            color: black;
-            text-decoration: none;
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input, textarea, select {
             padding: 10px;
-            border-bottom: 1px solid #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
-        nav img {
-            display: block;
-            margin: 0 auto;
-            padding: 20px 0;
-        }
-        section {
-            padding: 20px;
-            margin-left: 0px;
-            text-align: center;
-        }
-        footer {
-            background-color: #333;
+        button {
+            background-color: #072739;
             color: white;
-            padding: 20px;
-            text-align: center;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
         }
-        @media screen and (max-width: px) {
-            nav {
-                left: -200px;
-            }
-            section {
-                margin-left: 0;
-            }
-            nav.open {
-                left: -200px;
-            }
-            button {
-                display: block;
-            }
+        button:hover {
+            background-color: #078996;
+        }
+        .output {
+            margin-top: 20px;
+        }
+        .output div {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #e7f3f7;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
     </style>
-	<p>
 </head>
 <body>
-    <header>
-        <h1>Hospeda Pet PE</h1>
-		<button onclick="toggleMenu()">Menu</button>
-    </header>
-    
-    <nav id="sideNav" onclick="closeMenu()">
-        <img src="brasao.jpg" alt="Coca-Cola Logo" width="150">
-        <a href="#">Início</a>
-        <a href="#">Produtos</a>
-        <a href="#">Sobre</a>
-        <a href="#">Contatos</a>
-    </nav>
-    <section>
-        <h2>Refreshing Taste Since 1886</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non magna tincidunt, feugiat dui non, bibendum velit. Integer in libero neque.</p>
-        <img src="https://www.coca-colacompany.com/content/dam/journey/us/en/brands/coca-cola/coca-cola-original-taste/product-hub-icons/Coca-Cola-Original-Taste-10.png" alt="Coca-Cola" width="200">
-    </section>
-    <footer>
-        <p>&copy; 2024 Hospeda Pet PE. Todos os Direitos Reservados.</p>
-    </footer>
+    <div class="container">
+        <h1>Sistema de Propostas de Serviço</h1>
+        <form id="serviceForm">
+            <label for="serviceKey">Chave do Serviço:</label>
+            <input type="text" id="serviceKey" required>
 
+            <label for="clientName">Nome do Cliente:</label>
+            <input type="text" id="clientName" required>
+
+            <label for="serviceDescription">Descrição do Serviço:</label>
+            <textarea id="serviceDescription" rows="4" required></textarea>
+
+            <label for="serviceValue">Valor do Serviço (R$):</label>
+            <input type="number" id="serviceValue" required>
+
+            <button type="button" onclick="generateProposal()">Gerar Proposta</button>
+        </form>
+
+        <div class="output" id="output"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script>
-        function toggleMenu() {
-            var nav = document.getElementById('sideNav');
-            nav.classList.toggle('open');
+        function generateProposal() {
+            const serviceKey = document.getElementById('serviceKey').value;
+            const clientName = document.getElementById('clientName').value;
+            const serviceDescription = document.getElementById('serviceDescription').value;
+            const serviceValue = parseFloat(document.getElementById('serviceValue').value).toFixed(2);
+
+            const proposalHTML = `
+                <div>
+                    <h2>Proposta de Serviço</h2>
+                    <p><strong>Chave do Serviço:</strong> ${serviceKey}</p>
+                    <p><strong>Nome do Cliente:</strong> ${clientName}</p>
+                    <p><strong>Descrição do Serviço:</strong> ${serviceDescription}</p>
+                    <p><strong>Valor do Serviço:</strong> R$ ${serviceValue}</p>
+                    <button onclick="generateBudget('${serviceKey}', '${clientName}', '${serviceDescription}', ${serviceValue})">Gerar Orçamento</button>
+                    <button onclick="generatePDF('Proposta de Serviço', '${serviceKey}', '${clientName}', '${serviceDescription}', ${serviceValue})">Gerar PDF</button>
+                </div>
+            `;
+
+            document.getElementById('output').innerHTML = proposalHTML;
         }
 
-        function closeMenu() {
-            var nav = document.getElementById('sideNav');
-            if (nav.classList.contains('open')) {
-                nav.classList.remove('open');
-            }
+        function generateBudget(serviceKey, clientName, serviceDescription, serviceValue) {
+            const budgetHTML = `
+                <div>
+                    <h2>Orçamento</h2>
+                    <p><strong>Chave do Serviço:</strong> ${serviceKey}</p>
+                    <p><strong>Nome do Cliente:</strong> ${clientName}</p>
+                    <p><strong>Descrição do Serviço:</strong> ${serviceDescription}</p>
+                    <p><strong>Valor do Serviço:</strong> R$ ${serviceValue.toFixed(2)}</p>
+                    <button onclick="generateServiceNote('${serviceKey}', '${clientName}', '${serviceDescription}', ${serviceValue})">Gerar Nota de Serviço</button>
+                    <button onclick="generatePDF('Orçamento', '${serviceKey}', '${clientName}', '${serviceDescription}', ${serviceValue})">Gerar PDF</button>
+                </div>
+            `;
+
+            document.getElementById('output').innerHTML = budgetHTML;
+        }
+
+        function generateServiceNote(serviceKey, clientName, serviceDescription, serviceValue) {
+            const serviceNoteHTML = `
+                <div>
+                    <h2>Nota de Serviço</h2>
+                    <p><strong>Chave do Serviço:</strong> ${serviceKey}</p>
+                    <p><strong>Nome do Cliente:</strong> ${clientName}</p>
+                    <p><strong>Descrição do Serviço:</strong> ${serviceDescription}</p>
+                    <p><strong>Valor do Serviço:</strong> R$ ${serviceValue.toFixed(2)}</p>
+                    <button onclick="generateReceipt('${serviceKey}', '${clientName}', '${serviceDescription}', ${serviceValue})">Gerar Recibo</button>
+                    <button onclick="generatePDF('Nota de Serviço', '${serviceKey}', '${clientName}', '${serviceDescription}', ${serviceValue})">Gerar PDF</button>
+                </div>
+            `;
+
+            document.getElementById('output').innerHTML = serviceNoteHTML;
+        }
+
+        function generateReceipt(serviceKey, clientName, serviceDescription, serviceValue) {
+            const receiptHTML = `
+                <div>
+                    <h2>Recibo</h2>
+                    <p><strong>Chave do Serviço:</strong> ${serviceKey}</p>
+                    <p><strong>Nome do Cliente:</strong> ${clientName}</p>
+                    <p><strong>Descrição do Serviço:</strong> ${serviceDescription}</p>
+                    <p><strong>Valor do Serviço:</strong> R$ ${serviceValue.toFixed(2)}</p>
+                    <button onclick="generatePDF('Recibo', '${serviceKey}', '${clientName}', '${serviceDescription}', ${serviceValue})">Gerar PDF</button>
+                </div>
+            `;
+
+            document.getElementById('output').innerHTML = receiptHTML;
+        }
+
+        function generatePDF(documentType, serviceKey, clientName, serviceDescription, serviceValue) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFontSize(16);
+            doc.text(`${documentType}`, 10, 10);
+            doc.setFontSize(12);
+            doc.text(`Chave do Serviço: ${serviceKey}`, 10, 20);
+            doc.text(`Nome do Cliente: ${clientName}`, 10, 30);
+            doc.text(`Descrição do Serviço: ${serviceDescription}`, 10, 40);
+            doc.text(`Valor do Serviço: R$ ${serviceValue.toFixed(2)}`, 10, 50);
+
+            doc.save(`${documentType}_${serviceKey}.pdf`);
         }
     </script>
 </body>
