@@ -47,7 +47,7 @@
             font-size: 16px;
         }
         button:hover {
-            background-color: #AFFCD73;
+            background-color: #FFD700;
         }
         .output {
             margin-top: 20px;
@@ -71,9 +71,9 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="IMG-20240306-WA0066(1).jpg" alt="Logotipo da Empresa">
+            <img src="logotipo.jpg" alt="Logotipo da Empresa">
         </div>
-        <h1> Propostas e Serviços</h1>
+        <h1>Propostas e Serviços</h1>
         <form id="serviceForm">
             <label for="clientName">Nome do Cliente:</label>
             <input type="text" id="clientName" required>
@@ -98,22 +98,12 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script>
-        function generateServiceKey(clientName) {
-            const date = new Date();
-            const dateString = date.toISOString().split('T')[0].replace(/-/g, '');
-            const randomNum = Math.floor(Math.random() * 1000);
-            const clientInitials = clientName.slice(0, 3).toUpperCase();
-
-            return `${dateString}-${clientInitials}-${randomNum}`;
-        }
-
         function generateProposal() {
             const clientName = document.getElementById('clientName').value;
             const clientEmail = document.getElementById('clientEmail').value;
             const clientPhone = document.getElementById('clientPhone').value;
             const serviceDescription = document.getElementById('serviceDescription').value;
             const serviceValue = parseFloat(document.getElementById('serviceValue').value).toFixed(2);
-
             const serviceKey = generateServiceKey(clientName);
 
             const proposalHTML = `
@@ -131,6 +121,13 @@
             `;
 
             document.getElementById('output').innerHTML = proposalHTML;
+        }
+
+        function generateServiceKey(clientName) {
+            const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+            const clientInitials = clientName.slice(0, 3).toUpperCase();
+            const randomNumber = Math.floor(Math.random() * 10000);
+            return `${date}-${clientInitials}-${randomNumber}`;
         }
 
         function generateBudget(serviceKey, clientName, clientEmail, clientPhone, serviceDescription, serviceValue) {
@@ -190,17 +187,24 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            doc.setFontSize(16);
-            doc.text(`${documentType}`, 10, 10);
-            doc.setFontSize(12);
-            doc.text(`Chave do Serviço: ${serviceKey}`, 10, 20);
-            doc.text(`Nome do Cliente: ${clientName}`, 10, 30);
-            doc.text(`Email do Cliente: ${clientEmail}`, 10, 40);
-            doc.text(`Telefone do Cliente: ${clientPhone}`, 10, 50);
-            doc.text(`Descrição do Serviço: ${serviceDescription}`, 10, 60);
-            doc.text(`Valor do Serviço: R$ ${serviceValue.toFixed(2)}`, 10, 70);
+            doc.setFontSize(18);
+            doc.text(documentType, 105, 20, null, null, 'center');
 
-            doc.save(`${documentType}_${serviceKey}.pdf`);
+            doc.setFontSize(12);
+            doc.text(`Chave do Serviço: ${serviceKey}`, 10, 40);
+            doc.text(`Nome do Cliente: ${clientName}`, 10, 50);
+            doc.text(`Email do Cliente: ${clientEmail}`, 10, 60);
+            doc.text(`Telefone do Cliente: ${clientPhone}`, 10, 70);
+            doc.text(`Descrição do Serviço: ${serviceDescription}`, 10, 80);
+            doc.text(`Valor do Serviço: R$ ${serviceValue.toFixed(2)}`, 10, 90);
+
+            // Add logo
+            const logo = new Image();
+            logo.src = 'logotipo.jpg';
+            logo.onload = function() {
+                doc.addImage(logo, 'JPEG', 10, 10, 50, 15);
+                doc.save(`${documentType}-${serviceKey}.pdf`);
+            };
         }
     </script>
 </body>
