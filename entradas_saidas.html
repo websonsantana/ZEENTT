@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Estoque </title>
+    <link rel="icon" type="image/x-icon" href="logofinanceiro.png">
+	
+    
+    <style>
+        body {
+            font-family: Arial, helvetica, sans-serif;
+            background-image: linear-gradient(45deg, #C1C8D4, #072739);
+            color: #b6ef1b;    
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-image: linear-gradient(20deg, #072739, #C1C8D4);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            color: #b6ef1b;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        header img {
+            width: 150px;
+        }
+        #cliente {
+            display: flex;
+            justify-content: space-between;
+            background-color: #0c213b;
+            color: #b6ef1b;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        #filtro {
+            display: flex;
+            justify-content: space-between;
+            margin: 2px 0;
+        }
+        .form-inline {
+            display: flex;
+            flex-direction: column; /* Ajuste para que os inputs fiquem um abaixo do outro */
+            align-items: flex-start; /* Alinhar os inputs à esquerda */
+        }
+        .form-inline select,
+        .form-inline input {
+            margin-top: 5px; /* Espaçamento entre os inputs */
+            padding: 3px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        
+        
+        input {
+            padding: 10px;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            border-radius: 5px;
+            margin-bottom: 5px; /* Espaçamento entre os inputs */
+			color:#b6ef1b;
+        }
+        
+        .movimentacao {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<script>
+        // Desabilitar o botão direito do mouse
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+    </script>
+   
+    
+    <div id="main" class="container">
+        
+        <header>
+            <img src="MB.png" alt="Logo Financeiro" width="80%">
+        </header>
+        <div id="cliente">
+            <div> Cadastro de Itens de escritorio</div>
+            </div>
+        <div id="filtro">
+            <div class="form-inline">
+               <center> <label for="filtroMes">Mês:</label>
+                <select id="filtroMes" onchange="filtrarMovimentacoes()">
+                    <option value="jan">Janeiro</option>
+                    <option value="fev">Fevereiro</option>
+                    <option value="mar">Março</option>
+                    <option value="abr">Abril</option>
+                    <option value="mai">Maio</option>
+                    <option value="jun">Junho</option>
+                    <option value="jul">Julho</option>
+                    <option value="ago">Agosto</option>
+                    <option value="set">Setembro</option>
+                    <option value="out">Outubro</option>
+                    <option value="nov">Novembro</option>
+                    <option value="dez">Dezembro</option>
+					</center>
+                </select>
+            </div>
+            <div class="form-inline">
+                <center><label for="filtroAno">Ano:</label>
+                <select id="filtroAno" onchange="filtrarMovimentacoes()">
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+					</center>
+                </select>
+            </div>
+        </div>
+        <hr>
+        <div id="entradas">
+            <h4>Entradas </h4>
+            <div class="movimentacao">
+			    <input id="entradaDescricao" type="date" placeholder="Data">
+                <input id="entradaDescricao" type="text" placeholder="Descrição">
+                <input id="entradaValor" type="number" placeholder="Quantidade">
+				<input id="entradaDescricao" type="text" placeholder="Marca">
+                <button onclick="inserirEntrada()">Adicionar</button>
+            </div>
+            <ul id="listaEntradas"></ul>
+        </div>
+        
+       
+    </div>
+       <!-- Incluindo a biblioteca jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <!-- Incluindo o plugin jspdf.plugin.autotable.min.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+    <script>
+        document.getElementById('dataHora').textContent = new Date().toLocaleString();
+
+        function toggleSaldoVisibility() {
+            var saldoDiv = document.getElementById('saldo');
+            if (saldoDiv.style.display === 'none') {
+                saldoDiv.style.display = 'block';
+            } else {
+                saldoDiv.style.display = 'none';
+            }
+        }
+
+        function openNav() {
+            document.getElementById('sideNav').style.width = '250px';
+        }
+
+        function closeNav() {
+            document.getElementById('sideNav').style.width = '0';
+        }
+
+        window.onclick = function(event) {
+            if (event.target !== document.getElementById('sideNav') && !document.getElementById('sideNav').contains(event.target) && event.target !== document.getElementById('menuBtn')) {
+                closeNav();
+            }
+        };
+
+        function gerarPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const clienteNome = 'Webson Santana';
+            const entradas = JSON.parse(localStorage.getItem('entradas')) || [];
+            const saidas = JSON.parse(localStorage.getItem('saidas')) || [];
+
+            doc.setFontSize(22);
+            doc.text('Fluxo de Caixa', 20, 20);
+
+            doc.setFontSize(12);
+            doc.text(Cliente: ${clienteNome}, 20, 40);
+
+            doc.setFontSize(16);
+            doc.text('Entradas', 20, 60);
+
+            doc.autoTable({
+                startY: 70,
+                head: [['Descrição', 'Valor']],
+                body: entradas.map(item => [item.descricao, item.valor])
+            });
+
+            const lastPos = doc.autoTable.previous.finalY + 10;
+            doc.text('Saídas', 20, lastPos);
+
+            doc.autoTable({
+                startY: lastPos + 10,
+                head: [['Descrição', 'Valor']],
+                body: saidas.map(item => [item.descricao, item.valor])
+            });
+
+            doc.save('fluxo_de_caixa.pdf');
+        }
+
+        function filtrarMovimentacoes() {
+            // Lógica para filtrar as movimentações por mês e ano selecionados
+        }
+
+        function inserirEntrada() {
+            const descricao = document.getElementById('entradaDescricao').value;
+            const valor = document.getElementById('entradaValor').value;
+            if (descricao && valor) {
+                const entrada = { descricao, valor: parseFloat(valor) };
+                const entradas = JSON.parse(localStorage.getItem('entradas')) || [];
+                entradas.push(entrada);
+                localStorage.setItem('entradas', JSON.stringify(entradas));
+                listarEntradas();
+                document.getElementById('entradaDescricao').value = '';
+                document.getElementById('entradaValor').value = '';
+            }
+        }
+
+        function inserirSaida() {
+            const descricao = document.getElementById('saidaDescricao').value;
+            const valor = document.getElementById('saidaValor').value;
+            if (descricao && valor) {
+                const saida = { descricao, valor: parseFloat(valor) };
+                const saidas = JSON.parse(localStorage.getItem('saidas')) || [];
+                saidas.push(saida);
+                localStorage.setItem('saidas', JSON.stringify(saidas));
+                listarSaidas();
+                document.getElementById('saidaDescricao').value = '';
+                document.getElementById('saidaValor').value = '';
+            }
+        }
+
+        function listarEntradas() {
+            const entradas = JSON.parse(localStorage.getItem('entradas')) || [];
+            const listaEntradas = document.getElementById('listaEntradas');
+            listaEntradas.innerHTML = '';
+            entradas.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<strong>${item.descricao}</strong><br>R$ ${item.valor.toFixed(2)} 
+                    <button onclick="excluirEntrada(${index})">Excluir</button>`;
+                listaEntradas.appendChild(li);
+            });
+        }
+
+        function excluirEntrada(index) {
+            let entradas = JSON.parse(localStorage.getItem('entradas')) || [];
+            entradas.splice(index, 1); // Remove o item do array
+            localStorage.setItem('entradas', JSON.stringify(entradas)); // Atualiza o localStorage
+            listarEntradas(); // Atualiza a lista exibida
+        }
+
+        function listarSaidas() {
+            const saidas = JSON.parse(localStorage.getItem('saidas')) || [];
+            const listaSaidas = document.getElementById('listaSaidas');
+            listaSaidas.innerHTML = '';
+            saidas.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<strong>${item.descricao}</strong><br>R$ ${item.valor.toFixed(2)} 
+                    <button onclick="excluirSaida(${index})">Excluir</button>`;
+                listaSaidas.appendChild(li);
+            });
+        }
+
+        function excluirSaida(index) {
+            let saidas = JSON.parse(localStorage.getItem('saidas')) || [];
+            saidas.splice(index, 1); // Remove o item do array
+            localStorage.setItem('saidas', JSON.stringify(saidas)); // Atualiza o localStorage
+            listarSaidas(); // Atualiza a lista exibida
+        }
+
+        listarEntradas();
+        listarSaidas();
+    </script>
+</body>
+</html>
