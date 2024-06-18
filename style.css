@@ -1,13 +1,12 @@
-
 body {
             font-family: Arial, Helvetica, sans-serif;
             background-image: linear-gradient(45deg, #000e19,#000e19);
-	   
+			
         }
         div {
             background-color: rgba(0, 0, 0, 0.5);
             position: absolute;
-            padding: 60px;
+            padding: 30px;
             color: white;
             top: 50%;
             left: 50%;
@@ -20,9 +19,10 @@ body {
             outline: none;
             font-size: 15px;
             border-radius: 15px;
-	    width:100%;
+			width:88%;
+			color: #000;
         }
-	select {
+		select {
             background-color: #bef91b;
             border: none;
             padding: 5px;
@@ -35,7 +35,7 @@ body {
             background-color: #bef91b;
             border: none;
             padding: 15px;
-            width: 100%;
+            width: 96%;
             border-radius: 10px;
             color: #01a1a19;
         }
@@ -45,7 +45,7 @@ body {
 		}
        container {
             max-width: 600px;
-            margin: 80px auto;
+            margin: 20px auto;
             padding: 20px;
             background-image: linear-gradient(20deg, #072739, #4c6c1a);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
