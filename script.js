@@ -1,4 +1,4 @@
- <script>
+
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             var username = document.getElementById('username').value;
@@ -26,4 +26,4 @@
                 alert('Usuário ou senha incorretos');
             }
         });
-    </script>
+  
