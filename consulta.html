@@ -76,6 +76,10 @@
             font-weight: 600;
         }
 
+        tr {
+            cursor: pointer;
+        }
+
         .status-concluido {
             background-color: green;
             color: white;
@@ -111,6 +115,44 @@
         .load-more {
             text-align: center;
             margin-top: 20px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
         }
 
         @media (max-width: 768px) {
@@ -187,6 +229,15 @@
         <center><h5>V. ws000.1</h5></center>
     </div>
 
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Detalhes do Cliente</h2>
+            <div id="detalhes-cliente"></div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
@@ -197,46 +248,36 @@
 
         // Dados fictícios para teste
         const dataTeste = [
-            {data: '01/07/2024', pedido: '001', cliente: 'Cliente A', saldo_final: 'R$ 1.000,00', status_venda: 'Concluído'},
-            {data: '02/07/2024', pedido: '002', cliente: 'Cliente B', saldo_final: 'R$ 2.000,00', status_venda: 'Pendente'},
-            {data: '03/07/2024', pedido: '003', cliente: 'Cliente C', saldo_final: 'R$ 3.000,00', status_venda: 'Cancelado'},
-            {data: '04/07/2024', pedido: '004', cliente: 'Cliente D', saldo_final: 'R$ 4.000,00', status_venda: 'Concluído'},
-            {data: '05/07/2024', pedido: '005', cliente: 'Cliente E', saldo_final: 'R$ 5.000,00', status_venda: 'Pendente'},
-            {data: '06/07/2024', pedido: '006', cliente: 'Cliente F', saldo_final: 'R$ 6.000,00', status_venda: 'Cancelado'},
-            {data: '07/07/2024', pedido: '007', cliente: 'Cliente G', saldo_final: 'R$ 7.000,00', status_venda: 'Concluído'},
-            {data: '08/07/2024', pedido: '008', cliente: 'Cliente H', saldo_final: 'R$ 8.000,00', status_venda: 'Pendente'},
-            {data: '09/07/2024', pedido: '009', cliente: 'Cliente I', saldo_final: 'R$ 9.000,00', status_venda: 'Cancelado'},
-            {data: '10/07/2024', pedido: '010', cliente: 'Cliente J', saldo_final: 'R$ 10.000,00', status_venda: 'Concluído'},
-            {data: '11/07/2024', pedido: '011', cliente: 'Cliente K', saldo_final: 'R$ 11.000,00', status_venda: 'Pendente'},
-            {data: '12/07/2024', pedido: '012', cliente: 'Cliente L', saldo_final: 'R$ 12.000,00', status_venda: 'Cancelado'},
-            {data: '13/07/2024', pedido: '013', cliente: 'Cliente M', saldo_final: 'R$ 13.000,00', status_venda: 'Concluído'},
-            {data: '14/07/2024', pedido: '014', cliente: 'Cliente N', saldo_final: 'R$ 14.000,00', status_venda: 'Pendente'},
-            {data: '15/07/2024', pedido: '015', cliente: 'Cliente O', saldo_final: 'R$ 15.000,00', status_venda: 'Cancelado'},
-            {data: '16/07/2024', pedido: '016', cliente: 'Cliente P', saldo_final: 'R$ 16.000,00', status_venda: 'Concluído'},
-            {data: '17/07/2024', pedido: '017', cliente: 'Cliente Q', saldo_final: 'R$ 17.000,00', status_venda: 'Pendente'},
-            {data: '18/07/2024', pedido: '018', cliente: 'Cliente R', saldo_final: 'R$ 18.000,00', status_venda: 'Cancelado'},
-            {data: '19/07/2024', pedido: '019', cliente: 'Cliente S', saldo_final: 'R$ 19.000,00', status_venda: 'Concluído'},
-            {data: '20/07/2024', pedido: '020', cliente: 'Cliente T', saldo_final: 'R$ 20.000,00', status_venda: 'Pendente'}
+            {data: '01/07/2024', pedido: '001', cliente: 'Cliente A', saldo_final: 'R$ 1.000,00', status_venda: 'Concluído', detalhes: 'Detalhes do Cliente A'},
+            {data: '02/07/2024', pedido: '002', cliente: 'Cliente B', saldo_final: 'R$ 2.000,00', status_venda: 'Pendente', detalhes: 'Detalhes do Cliente B'},
+            {data: '03/07/2024', pedido: '003', cliente: 'Cliente C', saldo_final: 'R$ 3.000,00', status_venda: 'Cancelado', detalhes: 'Detalhes do Cliente C'},
+            {data: '04/07/2024', pedido: '004', cliente: 'Cliente D', saldo_final: 'R$ 4.000,00', status_venda: 'Concluído', detalhes: 'Detalhes do Cliente D'},
+            {data: '05/07/2024', pedido: '005', cliente: 'Cliente E', saldo_final: 'R$ 5.000,00', status_venda: 'Pendente', detalhes: 'Detalhes do Cliente E'},
+            {data: '06/07/2024', pedido: '006', cliente: 'Cliente F', saldo_final: 'R$ 6.000,00', status_venda: 'Cancelado', detalhes: 'Detalhes do Cliente F'},
+            {data: '07/07/2024', pedido: '007', cliente: 'Cliente G', saldo_final: 'R$ 7.000,00', status_venda: 'Concluído', detalhes: 'Detalhes do Cliente G'},
+            {data: '08/07/2024', pedido: '008', cliente: 'Cliente H', saldo_final: 'R$ 8.000,00', status_venda: 'Pendente', detalhes: 'Detalhes do Cliente H'},
+            {data: '09/07/2024', pedido: '009', cliente: 'Cliente I', saldo_final: 'R$ 9.000,00', status_venda: 'Cancelado', detalhes: 'Detalhes do Cliente I'},
+            {data: '10/07/2024', pedido: '010', cliente: 'Cliente J', saldo_final: 'R$ 10.000,00', status_venda: 'Concluído', detalhes: 'Detalhes do Cliente J'},
+            {data: '11/07/2024', pedido: '011', cliente: 'Cliente K', saldo_final: 'R$ 11.000,00', status_venda: 'Concluído', detalhes: 'Detalhes do Cliente K'},
+            {data: '12/07/2024', pedido: '012', cliente: 'Cliente L', saldo_final: 'R$ 12.000,00', status_venda: 'Pendente', detalhes: 'Detalhes do Cliente L'}
         ];
 
-        window.onload = function() {
+        document.addEventListener('DOMContentLoaded', function() {
             mostrarResultados(dataTeste.slice(0, pageSize));
-        };
+        });
 
         function processarConsulta() {
-            var cliente = document.getElementById('consulta-cliente').value.toLowerCase();
-            var resultadosFiltrados = dataTeste.filter(function(item) {
-                return item.pedido.includes(cliente);
-            });
+            const cliente = document.getElementById('consulta-cliente').value.toLowerCase();
+            const resultadosFiltrados = dataTeste.filter(item => item.pedido.includes(cliente));
             mostrarResultados(resultadosFiltrados);
         }
 
         function mostrarResultados(data) {
-            var tabela = '<table>';
+            let tabela = '<table>';
             tabela += '<thead><tr><th>Data</th><th>Nº Pedido</th><th>Cliente</th><th>Saldo Final</th><th>Status da Venda</th></tr></thead>';
             tabela += '<tbody>';
-            data.forEach(function(item) {
-                var statusClass = '';
+            data.forEach(item => {
+                let statusClass = '';
                 if (item.status_venda === 'Concluído') {
                     statusClass = 'status-concluido';
                 } else if (item.status_venda === 'Pendente') {
@@ -244,7 +285,7 @@
                 } else if (item.status_venda === 'Cancelado') {
                     statusClass = 'status-cancelado';
                 }
-                tabela += `<tr><td>${item.data}</td><td>${item.pedido}</td><td>${item.cliente}</td><td>${item.saldo_final}</td><td class="${statusClass}">${item.status_venda}</td></tr>`;
+                tabela += `<tr onclick="mostrarDetalhes('${item.detalhes}')"><td>${item.data}</td><td>${item.pedido}</td><td>${item.cliente}</td><td>${item.saldo_final}</td><td class="${statusClass}">${item.status_venda}</td></tr>`;
             });
             tabela += '</tbody></table>';
 
@@ -256,6 +297,25 @@
             const start = currentPage * pageSize;
             const end = start + pageSize;
             mostrarResultados(dataTeste.slice(0, end));
+        }
+
+        // Modal functionality
+        const modal = document.getElementById("myModal");
+        const span = document.getElementsByClassName("close")[0];
+
+        function mostrarDetalhes(detalhes) {
+            document.getElementById("detalhes-cliente").innerText = detalhes;
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
         }
     </script>
 </body>
