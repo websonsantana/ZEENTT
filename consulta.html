@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Cadastros</title>
+    <link rel="icon" type="image/x-icon" href="fivecon.png"> 
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: linear-gradient(45deg, #6C6E71);
+            margin: 0;
+            padding: 0;
+            color: black;
+        }
+
+        .container {
+            max-width: 90%;
+            margin: 20px auto;
+            padding: 20px;
+            background-image: linear-gradient(45deg, #6C6E71);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            color: #fff;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        header img {
+            width: 150px;
+            margin-top: 10px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+
+        .form-group input, 
+        .form-group select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #fff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            color: black;
+        }
+
+        th {
+            background-color: #711d15;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .status-concluido {
+            background-color: green;
+            color: white;
+        }
+
+        .status-pendente {
+            background-color: orange;
+            color: white;
+        }
+
+        .status-cancelado {
+            background-color: red;
+            color: white;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #711d15;
+            color: white;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #6c6e71;
+        }
+
+        .load-more {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="logo_transparente.png" alt="Logo Financeiro" width="150">
+        </header>
+
+        <!-- Seção de Consulta -->
+        <div class="consulta-container">
+            <h2>Consulta de Cadastros</h2>
+            <div class="form-group">
+                <input type="text" id="consulta-cliente" name="cliente" placeholder="Número do Pedido">
+            </div>
+            <div>
+                <button type="button" onclick="processarConsulta()">Consultar</button>
+            </div>
+        </div>
+
+        <!-- Tabela de Resultados -->
+        <div id="tabela-resultados"></div>
+
+        <div class="load-more">
+            <button type="button" onclick="loadMore()">Carregar mais</button>
+        </div>
+
+        <center><h5>V. ws000.1</h5></center>
+    </div>
+
+    <script>
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        let currentPage = 0;
+        const pageSize = 10;
+
+        // Dados fictícios para teste
+        const dataTeste = [
+            {data: '01/07/2024', pedido: '001', cliente: 'Cliente A', saldo_final: 'R$ 1.000,00', status_venda: 'Concluído'},
+            {data: '02/07/2024', pedido: '002', cliente: 'Cliente B', saldo_final: 'R$ 2.000,00', status_venda: 'Pendente'},
+            {data: '03/07/2024', pedido: '003', cliente: 'Cliente C', saldo_final: 'R$ 3.000,00', status_venda: 'Cancelado'},
+            {data: '04/07/2024', pedido: '004', cliente: 'Cliente D', saldo_final: 'R$ 4.000,00', status_venda: 'Concluído'},
+            {data: '05/07/2024', pedido: '005', cliente: 'Cliente E', saldo_final: 'R$ 5.000,00', status_venda: 'Pendente'},
+            {data: '06/07/2024', pedido: '006', cliente: 'Cliente F', saldo_final: 'R$ 6.000,00', status_venda: 'Cancelado'},
+            {data: '07/07/2024', pedido: '007', cliente: 'Cliente G', saldo_final: 'R$ 7.000,00', status_venda: 'Concluído'},
+            {data: '08/07/2024', pedido: '008', cliente: 'Cliente H', saldo_final: 'R$ 8.000,00', status_venda: 'Pendente'},
+            {data: '09/07/2024', pedido: '009', cliente: 'Cliente I', saldo_final: 'R$ 9.000,00', status_venda: 'Cancelado'},
+            {data: '10/07/2024', pedido: '010', cliente: 'Cliente J', saldo_final: 'R$ 10.000,00', status_venda: 'Concluído'},
+            {data: '11/07/2024', pedido: '011', cliente: 'Cliente K', saldo_final: 'R$ 11.000,00', status_venda: 'Pendente'},
+            {data: '12/07/2024', pedido: '012', cliente: 'Cliente L', saldo_final: 'R$ 12.000,00', status_venda: 'Cancelado'},
+            {data: '13/07/2024', pedido: '013', cliente: 'Cliente M', saldo_final: 'R$ 13.000,00', status_venda: 'Concluído'},
+            {data: '14/07/2024', pedido: '014', cliente: 'Cliente N', saldo_final: 'R$ 14.000,00', status_venda: 'Pendente'},
+            {data: '15/07/2024', pedido: '015', cliente: 'Cliente O', saldo_final: 'R$ 15.000,00', status_venda: 'Cancelado'},
+            {data: '16/07/2024', pedido: '016', cliente: 'Cliente P', saldo_final: 'R$ 16.000,00', status_venda: 'Concluído'},
+            {data: '17/07/2024', pedido: '017', cliente: 'Cliente Q', saldo_final: 'R$ 17.000,00', status_venda: 'Pendente'},
+            {data: '18/07/2024', pedido: '018', cliente: 'Cliente R', saldo_final: 'R$ 18.000,00', status_venda: 'Cancelado'},
+            {data: '19/07/2024', pedido: '019', cliente: 'Cliente S', saldo_final: 'R$ 19.000,00', status_venda: 'Concluído'},
+            {data: '20/07/2024', pedido: '020', cliente: 'Cliente T', saldo_final: 'R$ 20.000,00', status_venda: 'Pendente'}
+        ];
+
+        window.onload = function() {
+            mostrarResultados(dataTeste.slice(0, pageSize));
+        };
+
+        function processarConsulta() {
+            const cliente = document.getElementById('consulta-cliente').value.toLowerCase();
+            const resultados = dataTeste.filter(item => item.pedido.includes(cliente));
+            mostrarResultados(resultados);
+        }
+
+        function mostrarResultados(data) {
+            let tabela = '<table>';
+            tabela += '<thead><tr><th>Data</th><th>Nº Pedido</th><th>Cliente</th><th>Saldo Final</th><th>Status da Venda</th></tr></thead>';
+            tabela += '<tbody>';
+            data.forEach(item => {
+                let statusClass = '';
+                if (item.status_venda === 'Concluído') {
+                    statusClass = 'status-concluido';
+                } else if (item.status_venda === 'Pendente') {
+                    statusClass = 'status-pendente';
+                } else if (item.status_venda === 'Cancelado') {
+                    statusClass = 'status-cancelado';
+                }
+                tabela += `<tr><td>${item.data}</td><td>${item.pedido}</td><td>${item.cliente}</td><td>${item.saldo_final}</td><td class="${statusClass}">${item.status_venda}</td></tr>`;
+            });
+            tabela += '</tbody></table>';
+
+            document.getElementById('tabela-resultados').innerHTML = tabela;
+        }
+
+        function loadMore() {
+            currentPage++;
+            const start = currentPage * pageSize;
+            const end = start + pageSize;
+            mostrarResultados(dataTeste.slice(0, end));
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Clientes</title>
+    <link rel="icon" type="image/x-icon" href="fivecon.png"> 
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: linear-gradient(45deg, #6C6E71);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 90%;
+            margin: 20px auto;
+            padding: 20px;
+            background-image: linear-gradient(45deg, #6C6E71);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            color: #fff;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        header img {
+            width: 150px;
+            margin-top: 10px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+
+        .form-group input, 
+        .form-group select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .form-group select {
+            font-size: 14px;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #711d15;
+            color: white;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #6c6e71;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+	
+        <header>
+            <img src="logo_transparente.png" alt="Logo Financeiro" width="150">
+        </header>
+<hr>
+        <!-- Seção de Cadastro -->
+        <div class="cadastro-container">
+            <h2>Cadastro de Clientes</h2>
+            <form id="cadastro-form" method="POST">
+                <div class="form-group">
+                    <input type="date" id="cadastro-data" name="data" required>
+                    <input type="text" id="cadastro-pedido" name="pedido" placeholder="Nº Pedido" required>
+                    <input type="text" id="cadastro-cliente" name="cliente" placeholder="Cliente" required>
+                    <input type="number" id="cadastro-valor-bruto" name="valor_bruto" placeholder="Valor Bruto Venda" required>
+                    <input type="number" id="cadastro-valor-liquido" name="valor_liquido" placeholder="Valor Líquido Venda" required>
+                    <input type="number" id="cadastro-comissao-vendas" name="comissao_vendas" placeholder="Comissão Vendas" required>
+                    <input type="number" id="cadastro-comissao-tecnico" name="comissao_tecnico" placeholder="Comissão Técnico" required>
+                    <input type="text" id="cadastro-rt" name="rt" placeholder="RT" required>
+                    <input type="text" id="cadastro-campanha" name="campanha" placeholder="CAMPANHA" required>
+                    <input type="text" id="cadastro-fabrica" name="fabrica" placeholder="Fábrica" required>
+                    <input type="number" id="cadastro-frete-marel" name="frete_marel" placeholder="Frete Marel" required>
+                    <input type="number" id="cadastro-frete-biano" name="frete_biano" placeholder="Frete Biano" required>
+                    <input type="number" id="cadastro-das" name="das" placeholder="DAS" required>
+                    <input type="number" id="cadastro-dae" name="dae" placeholder="DAE" required>
+                    <input type="number" id="cadastro-instalacao" name="instalacao" placeholder="Instalação" required>
+                    <input type="number" id="cadastro-custos-extras" name="custos_extras" placeholder="Custos Extras" required>
+                    <input type="number" id="cadastro-saldo-final" name="saldo_final" placeholder="Saldo Final" required>
+                </div>
+                <div>
+                    <button type="button" onclick="cadastrarItem()">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+
+        <center><h5>V. ws000.1</h5></center>
+    </div>
+
+    <script>
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        function cadastrarItem() {
+            var form = document.getElementById('cadastro-form');
+            var formData = new FormData(form);
+
+            // Enviar os dados para o arquivo PHP usando AJAX
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'salvar_cadastro.php', true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    alert('Cadastro realizado com sucesso!');
+                    form.reset();
+                } else {
+                    alert('Erro ao cadastrar. Por favor, tente novamente.');
+                }
+            };
+            xhr.onerror = function () {
+                alert('Erro de conexão. Por favor, tente novamente mais tarde.');
+            };
+            xhr.send(formData);
+        }
+    </script>
+</body>
+</html>
