@@ -7,7 +7,6 @@
     <link rel="icon" type="image/x-icon" href="fivecon.png"> 
     <style>
         body {
-	    max-width: 1200px	
             font-family: Arial, Helvetica, sans-serif;
             background-image: linear-gradient(45deg, #6C6E71);
             margin: 0;
@@ -16,7 +15,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 90%;
             margin: 20px auto;
             padding: 20px;
             background-image: linear-gradient(45deg, #6C6E71);
@@ -35,9 +34,18 @@
             margin-top: 10px;
         }
         
+        .consulta-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
         .form-group {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
+            align-items: center;
             margin-bottom: 15px;
         }
 
@@ -46,16 +54,24 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            margin-bottom: 10px;
+            margin-right: 10px;
             font-size: 14px;
-			align:rigth;
+            flex: 1 1 auto;
+        }
+
+        .form-group label {
+            margin-right: 10px;
+            font-size: 14px;
+            color: #fff;
+            flex: 0 0 auto;
         }
 
         h2 {
-            color: #fff;
+            color: #333;
             font-size: 24px;
             margin-bottom: 15px;
             text-align: center;
+            color: #fff;
         }
 
         table {
@@ -66,42 +82,36 @@
 
         th, td {
             padding: 12px;
+            text-align: left;
             border-bottom: 1px solid #ddd;
             color: black;
-			text-align: center; /* Centraliza texto nas células */
-            vertical-align: middle; /* Alinha verticalmente com o conteúdo */
         }
 
-       th {
-    background-color: #711d15;
-    color: #fff;
-    font-weight: 600;
-    text-align: center; /* Centraliza texto no cabeçalho */
-    vertical-align: middle; /* Alinha verticalmente com o conteúdo */
-}
+        th {
+            background-color: #711d15;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .status-concluido, .status-pendente, .status-cancelado {
+            padding: 6px 12px;
+            border-radius: 20px;
+            text-align: center;
+        }
 
         .status-concluido {
             background-color: green;
             color: white;
-            border-radius: 15px;
-            text-align: center;
-            vertical-align: middle;
         }
 
         .status-pendente {
             background-color: orange;
             color: white;
-            border-radius: 15px;
-            text-align: center;
-            vertical-align: middle;
         }
 
         .status-cancelado {
             background-color: red;
             color: white;
-            border-radius: 15px;
-            text-align: center;
-            vertical-align: middle;
         }
 
         button {
@@ -115,17 +125,14 @@
             color: white;
             font-weight: 600;
             transition: background-color 0.3s ease;
+            margin-top: 10px;
         }
 
         button:hover {
             background-color: #6c6e71;
         }
 
-        .load-more {
-            text-align: center;
-            margin-top: 20px;
-        }
-
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -146,7 +153,6 @@
             width: 80%;
             max-width: 600px;
             border-radius: 10px;
-            color: #333;
         }
 
         .close {
@@ -162,13 +168,21 @@
             text-decoration: none;
             cursor: pointer;
         }
-		select{
-		width: 20%;
-		}
-		
-		input{
-		width: 25%;
-		}
+
+        @media screen and (max-width: 768px) {
+            .form-group {
+                flex-direction: column;
+            }
+
+            .form-group label {
+                margin-bottom: 5px;
+            }
+
+            .form-group input, .form-group select {
+                margin-bottom: 10px;
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -179,17 +193,25 @@
 
         <!-- Seção de Consulta -->
         <div class="consulta-container">
-            <h2>Consulta de Cadastros</h2>
             <div class="form-group">
                 <input type="text" id="consulta-cliente" name="cliente" placeholder="Número do Pedido">
-            </div>
-            <div class="form-group">
+                <label for="filtro-status">Filtrar por status:</label>
                 <select id="filtro-status">
                     <option value="">Todos os Status</option>
                     <option value="Concluído">Concluído</option>
                     <option value="Pendente">Pendente</option>
                     <option value="Cancelado">Cancelado</option>
                 </select>
+            </div>
+            <div class="form-group">
+                <label for="filtro-periodo">Filtrar por período:</label>
+                <input type="date" id="filtro-data-inicio" name="data-inicio">
+                <span> até </span>
+                <input type="date" id="filtro-data-fim" name="data-fim">
+            </div>
+            <div class="form-group">
+                <label for="filtro-mes-ano">Filtrar por mês e ano:</label>
+                <input type="month" id="filtro-mes-ano" name="mes-ano">
             </div>
             <div>
                 <button type="button" onclick="processarConsulta()">Consultar</button>
@@ -198,16 +220,15 @@
 
         <!-- Tabela de Resultados -->
         <div id="tabela-resultados"></div>
-
-        <div class="load-more">
-            <button type="button" onclick="loadMore()">Carregar mais</button>
+        <div id="carregar-mais" style="text-align: center; display: none;">
+            <button type="button" onclick="carregarMais()">Carregar Mais</button>
         </div>
 
-        <!-- Modal de Detalhes -->
+        <!-- Modal -->
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <p id="detalhes-cliente"></p>
+                <p id="modal-content-details"></p>
             </div>
         </div>
 
@@ -226,38 +247,37 @@
             { data: '07/07/2024', pedido: '007', cliente: 'Cliente G', saldo_final: 'R$ 7.000,00', status_venda: 'Concluído', detalhes: 'Detalhes do Cliente G' },
             { data: '08/07/2024', pedido: '008', cliente: 'Cliente H', saldo_final: 'R$ 8.000,00', status_venda: 'Pendente', detalhes: 'Detalhes do Cliente H' },
             { data: '09/07/2024', pedido: '009', cliente: 'Cliente I', saldo_final: 'R$ 9.000,00', status_venda: 'Cancelado', detalhes: 'Detalhes do Cliente I' },
-            { data: '10/07/2024', pedido: '010', cliente: 'Cliente J', saldo_final: 'R$ 10.000,00', status_venda: 'Concluído', detalhes: 'Detalhes do Cliente J' },
-			{ data: '11/07/2024', pedido: '011', cliente: 'Cliente K', saldo_final: 'R$ 1.000,00', status_venda: 'Concluído', detalhes: 'Detalhes do Cliente K' },
-            { data: '12/07/2024', pedido: '012', cliente: 'Cliente L', saldo_final: 'R$ 2.000,00', status_venda: 'Pendente', detalhes: 'Detalhes do Cliente L' },
-            { data: '13/07/2024', pedido: '013', cliente: 'Cliente M', saldo_final: 'R$ 3.000,00', status_venda: 'Cancelado', detalhes: 'Detalhes do Cliente M' },
-            { data: '14/07/2024', pedido: '014', cliente: 'Cliente N', saldo_final: 'R$ 4.000,00', status_venda: 'Concluído', detalhes: 'Detalhes do Cliente N' },
-            { data: '15/07/2024', pedido: '015', cliente: 'Cliente O', saldo_final: 'R$ 5.000,00', status_venda: 'Pendente', detalhes: 'Detalhes do Cliente O' },
-            { data: '16/07/2024', pedido: '016', cliente: 'Cliente P', saldo_final: 'R$ 6.000,00', status_venda: 'Cancelado', detalhes: 'Detalhes do Cliente P' },
-            { data: '17/07/2024', pedido: '017', cliente: 'Cliente Q', saldo_final: 'R$ 7.000,00', status_venda: 'Concluído', detalhes: 'Detalhes do Cliente Q' },
-            { data: '18/07/2024', pedido: '018', cliente: 'Cliente R', saldo_final: 'R$ 8.000,00', status_venda: 'Pendente', detalhes: 'Detalhes do Cliente R' },
-            { data: '19/07/2024', pedido: '019', cliente: 'Cliente S', saldo_final: 'R$ 9.000,00', status_venda: 'Cancelado', detalhes: 'Detalhes do Cliente S' },
-            { data: '20/07/2024', pedido: '020', cliente: 'Cliente T', saldo_final: 'R$ 10.000,00', status_venda: 'Concluído', detalhes: 'Detalhes do Cliente T' }
+            { data: '10/07/2024', pedido: '010', cliente: 'Cliente J', saldo_final: 'R$ 10.000,00', status_venda: 'Concluído', detalhes: 'Detalhes do Cliente J' }
         ];
 
-        // Variáveis para paginação
-        let currentPage = 0;
-        const pageSize = 07;
-
-        document.addEventListener('DOMContentLoaded', function() {
-            mostrarResultados(dataTeste.slice(1, pageSize));
-        });
+        let resultadosExibidos = 10; // Quantidade inicial de resultados exibidos
+        const resultadosPorPagina = 10; // Quantidade de resultados por página
 
         function processarConsulta() {
             const cliente = document.getElementById('consulta-cliente').value.toLowerCase();
             const filtroStatus = document.getElementById('filtro-status').value.toLowerCase();
-            
+            const dataInicio = document.getElementById('filtro-data-inicio').value;
+            const dataFim = document.getElementById('filtro-data-fim').value;
+            const filtroMesAno = document.getElementById('filtro-mes-ano').value;
+
             let resultadosFiltrados = dataTeste.filter(item => {
                 const matchCliente = item.pedido.includes(cliente);
                 const matchStatus = filtroStatus === '' || item.status_venda.toLowerCase() === filtroStatus;
-                return matchCliente && matchStatus;
+
+                // Filtro por período
+                const matchPeriodo = (dataInicio === '' || dataFim === '') ||
+                                     (new Date(item.data) >= new Date(dataInicio) && new Date(item.data) <= new Date(dataFim));
+
+                // Filtro por mês e ano
+                const matchMesAno = filtroMesAno === '' ||
+                                    (new Date(item.data).toISOString().slice(0, 7) === filtroMesAno);
+
+                return matchCliente && matchStatus && matchPeriodo && matchMesAno;
             });
 
-            mostrarResultados(resultadosFiltrados);
+            resultadosExibidos = resultadosPorPagina; // Reinicia o contador de resultados exibidos
+            mostrarResultados(resultadosFiltrados.slice(0, resultadosExibidos));
+            verificarMostrarBotao(resultadosFiltrados);
         }
 
         function mostrarResultados(data) {
@@ -292,6 +312,22 @@
             });
         }
 
+        function carregarMais() {
+            resultadosExibidos += resultadosPorPagina; // Incrementa a quantidade de resultados exibidos
+            const resultadosAtuais = dataTeste.slice(0, resultadosExibidos);
+            mostrarResultados(resultadosAtuais);
+            verificarMostrarBotao(dataTeste);
+        }
+
+        function verificarMostrarBotao(data) {
+            const botaoCarregarMais = document.getElementById('carregar-mais');
+            if (resultadosExibidos < data.length) {
+                botaoCarregarMais.style.display = 'block';
+            } else {
+                botaoCarregarMais.style.display = 'none';
+            }
+        }
+
         function abrirModalDetalhes(cliente) {
             const modal = document.getElementById('myModal');
             const modalContent = document.querySelector('.modal-content');
@@ -311,12 +347,20 @@
             };
         }
 
-        function loadMore() {
-            currentPage++;
-            const start = currentPage * pageSize;
-            const end = start + pageSize;
-            mostrarResultados(dataTeste.slice(start, end));
-        }
+        // Fecha o modal ao clicar no botão de fechar
+        const spanClose = document.getElementsByClassName('close')[0];
+        spanClose.onclick = function() {
+            const modal = document.getElementById('myModal');
+            modal.style.display = 'none';
+        };
+
+        // Fecha o modal ao clicar fora da área do modal
+        window.onclick = function(event) {
+            const modal = document.getElementById('myModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
     </script>
 </body>
 </html>
