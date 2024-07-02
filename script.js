@@ -1,5 +1,4 @@
-
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             var username = document.getElementById('username').value;
             var password = document.getElementById('password').value;
@@ -26,4 +25,3 @@
                 alert('Usuário ou senha incorretos');
             }
         });
-  
