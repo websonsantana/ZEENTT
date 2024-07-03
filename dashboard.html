@@ -2,25 +2,10 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>dimare Planejados</title>
     <link rel="icon" type="image/x-icon" href="fivecon.png"> 
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-<body>
-<div class="container">
-        <a href="index.html">
-            <i class="material-icons" style="font-size:35px;color:#711d15">exit_to_app</i>
-        </a>
-        <a href="opcoes.html">
-            <i class="material-icons" style="font-size:35px;color:#711d15">
-                <svg xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="48px" fill="#711d15">
-                    <path d="m274-450 248 248-42 42-320-320 320-320 42 42-248 248h526v60H274Z"/>
-                </svg>
-            </i>
-        </a>
-    <center><img src="logo_transparente.png" width="200px"></center>
-    <br>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -36,103 +21,179 @@
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
-            color: white;
         }
 
         h2 {
-            color: white;
             text-align: center;
         }
 
-        .chart-container {
-            margin: 20px 0;
+        .chart-row {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .chart-column {
+            flex: 1;
+            max-width: 45%;
+            margin: 10px;
         }
 
         canvas {
             width: 100% !important;
-            max-width: 600px;
+            max-width: 100%;
             height: auto !important;
-			color:white;
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    
-        <h2>Dashboard de Vendas</h2>
-   <br>
-<hr>     
-        
-          <center>  <canvas id="salesChart"></canvas></center>
-<br>
-<hr>
+<div class="container">
+    <center><img src="logo_transparente.png" width="200px"></center>
+    <h2>Dashboard de Vendas</h2>
+    <br>
+    <hr>
 
-            <center><canvas id="customerChart"></canvas></center>
-        
-		
-<br>
-<hr>
-      
-            <center><canvas id="performanceChart"></canvas></center>
+    <div class="chart-row">
+        <div class="chart-column">
+            <h3>Clientes por Categoria</h3>
+            <canvas id="customerChart"></canvas>
         </div>
-		
-    
+        <div class="chart-column">
+            <h3>Desempenho por Meta</h3>
+            <canvas id="performanceChart"></canvas>
+        </div>
+    </div>
 
-    <script>
-        // Dados fictícios para os gráficos
-        const salesData = {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            datasets: [{
-                label: 'Vendas',
-                backgroundColor: '#711d15',
-                borderColor: '#fff',
-                data: [3000, 4000, 5000, 4500, 6000, 7000, 8000, 7500, 6500, 5500, 4500, 5000]
-            }]
-        };
+    <div class="chart-row">
+       <div class="chart-column">
+            <h3>Vendas Mensais</h3>
+            <canvas id="salesChart"></canvas>
+        </div>
+        <div class="chart-column">
+            <h3>Comparativo de Produtos</h3>
+            <canvas id="productComparisonChart"></canvas>
+        </div>
+    </div>
 
-        const customerData = {
-            labels: ['Cliente A', 'Cliente B', 'Cliente C', 'Cliente D', 'Cliente E'],
-            datasets: [{
-                label: 'Clientes',
-                backgroundColor: ['#711d15', '#6c6e71', '#b6ef1b', '#072739', '#4c6c1a'],
-                borderColor: '#fff',
-                data: [1200, 1500, 1800, 1300, 1600]
-            }]
-        };
+    <div class="chart-row">
+        <div class="chart-column">
+            <h3>Vendas por Região</h3>
+            <canvas id="regionSalesChart"></canvas>
+        </div>
+        <div class="chart-column">
+            <h3>Feedback de Clientes</h3>
+            <canvas id="feedbackChart"></canvas>
+        </div>
+    </div>
+</div>
 
-        const performanceData = {
-            labels: ['Meta 1', 'Meta 2', 'Meta 3', 'Meta 4', 'Meta 5'],
-            datasets: [{
-                label: 'Desempenho',
-                backgroundColor: '#072739',
-                borderColor: '#b6ef1b',
-                data: [70, 80, 90, 85, 95]
-            }]
-        };
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Dados fictícios para os gráficos
+    const salesData = {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [{
+            label: 'Vendas',
+            backgroundColor: '#711d15',
+            borderColor: '#fff',
+            data: [3000, 4000, 5000, 4500, 6000, 7000, 8000, 7500, 6500, 5500, 4500, 5000]
+        }]
+    };
 
-        // Configurações dos gráficos
-        const configSales = {
-            type: 'bar',
-            data: salesData,
-            options: {}
-        };
+    const customerData = {
+        labels: ['Cliente A', 'Cliente B', 'Cliente C', 'Cliente D', 'Cliente E'],
+        datasets: [{
+            label: 'Clientes',
+            backgroundColor: ['#711d15', '#6c6e71', '#b6ef1b', '#072739', '#4c6c1a'],
+            borderColor: '#fff',
+            data: [1200, 1500, 1800, 1300, 1600]
+        }]
+    };
 
-        const configCustomer = {
-            type: 'pie',
-            data: customerData,
-            options: {}
-        };
+    const performanceData = {
+        labels: ['Meta 1', 'Meta 2', 'Meta 3', 'Meta 4', 'Meta 5'],
+        datasets: [{
+            label: 'Desempenho',
+            backgroundColor: '#072739',
+            borderColor: '#b6ef1b',
+            data: [70, 80, 90, 85, 95]
+        }]
+    };
 
-        const configPerformance = {
-            type: 'radar',
-            data: performanceData,
-            options: {}
-        };
+    const productComparisonData = {
+        labels: ['Produto A', 'Produto B', 'Produto C', 'Produto D', 'Produto E'],
+        datasets: [{
+            label: 'Comparativo de Produtos',
+            backgroundColor: ['#711d15', '#6c6e71', '#b6ef1b', '#072739', '#4c6c1a'],
+            borderColor: '#fff',
+            data: [800, 700, 600, 500, 400]
+        }]
+    };
 
-        // Renderização dos gráficos
-        new Chart(document.getElementById('salesChart'), configSales);
-        new Chart(document.getElementById('customerChart'), configCustomer);
-        new Chart(document.getElementById('performanceChart'), configPerformance);
-    </script>
+    const regionSalesData = {
+        labels: ['Região 1', 'Região 2', 'Região 3', 'Região 4', 'Região 5'],
+        datasets: [{
+            label: 'Vendas por Região',
+            backgroundColor: ['#711d15', '#6c6e71', '#b6ef1b', '#072739', '#4c6c1a'],
+            borderColor: '#fff',
+            data: [1200, 1500, 1800, 1300, 1600]
+        }]
+    };
+
+    const feedbackData = {
+        labels: ['Feedback 1', 'Feedback 2', 'Feedback 3', 'Feedback 4', 'Feedback 5'],
+        datasets: [{
+            label: 'Feedback de Clientes',
+            backgroundColor: ['#711d15', '#6c6e71', '#b6ef1b', '#072739', '#4c6c1a'],
+            borderColor: '#fff',
+            data: [4, 3, 5, 2, 4]
+        }]
+    };
+
+    // Configurações dos gráficos
+    const configSales = {
+        type: 'bar',
+        data: salesData,
+        options: {}
+    };
+
+    const configCustomer = {
+        type: 'pie',
+        data: customerData,
+        options: {}
+    };
+
+    const configPerformance = {
+        type: 'radar',
+        data: performanceData,
+        options: {}
+    };
+
+    const configProductComparison = {
+        type: 'bar',
+        data: productComparisonData,
+        options: {}
+    };
+
+    const configRegionSales = {
+        type: 'bar',
+        data: regionSalesData,
+        options: {}
+    };
+
+    const configFeedback = {
+        type: 'bar',
+        data: feedbackData,
+        options: {}
+    };
+
+    // Renderização dos gráficos
+    new Chart(document.getElementById('salesChart'), configSales);
+    new Chart(document.getElementById('customerChart'), configCustomer);
+    new Chart(document.getElementById('performanceChart'), configPerformance);
+    new Chart(document.getElementById('productComparisonChart'), configProductComparison);
+    new Chart(document.getElementById('regionSalesChart'), configRegionSales);
+    new Chart(document.getElementById('feedbackChart'), configFeedback);
+</script>
 </body>
 </html>
