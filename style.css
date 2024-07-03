@@ -32,6 +32,26 @@ body {
 			font-weight: 600;
 			color: white;
         }
+		select {
+			background-color: rgba(0, 0, 0, 0.1);
+            border: none;
+            padding: 9px;
+            width: 38	%;
+            border-radius: 10px;
+            font-size:60%;
+			font-weight: 600;
+			color: #fff;
+        }
+		option {
+            width: 100%;
+            border-radius: 20px;
+            font-size:100%;
+			font-weight: 600;
+			color: #711d15;
+        }
+		option:hover {
+            background-color: #6c6e71;
+            color: white;
         button:hover {
             background-color: #6c6e71;
             color: white;
