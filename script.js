@@ -1,5 +1,10 @@
 
     const users = {
+        'abarreto': {
+            password: 'teste1',
+            pages: ['opcoes.html', 'cadastro.html', 'consulta.html','dashboard.html'],
+            unidade: ['piedade', 'boa_viagem']
+        },
         'rleao': {
             password: '123456',
             pages: ['opcoes.html', 'cadastro.html', 'consulta.html'],
