@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dimare Planejados</title>
+    <link rel="icon" type="image/x-icon" href="fivecon.png"> 
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+        <a href="index.html">
+            <i class="material-icons" style="font-size:35px;color:#711d15">exit_to_app</i>
+        </a>
+        <a href="opcoes.html">
+            <i class="material-icons" style="font-size:35px;color:#711d15">
+                <svg xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="48px" fill="#711d15">
+                    <path d="m274-450 248 248-42 42-320-320 320-320 42 42-248 248h526v60H274Z"/>
+                </svg>
+            </i>
+        </a>
+    <center><img src="logo_transparente.PNG" width="200px"></center>
+    <br>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: linear-gradient(35deg, #333, #fff);
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+
+        .container {
+            max-width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            color: white;
+        }
+
+        h2 {
+            color: white;
+            text-align: center;
+        }
+
+        .chart-container {
+            margin: 20px 0;
+        }
+
+        canvas {
+            width: 100% !important;
+            max-width: 600px;
+            height: auto !important;
+			color:white;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    
+        <h2>Dashboard de Vendas</h2>
+   <br>
+<hr>     
+        
+          <center>  <canvas id="salesChart"></canvas></center>
+<br>
+<hr>
+
+            <center><canvas id="customerChart"></canvas></center>
+        
+		
+<br>
+<hr>
+      
+            <center><canvas id="performanceChart"></canvas></center>
+        </div>
+		
+    
+
+    <script>
+        // Dados fictícios para os gráficos
+        const salesData = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'Vendas',
+                backgroundColor: '#711d15',
+                borderColor: '#fff',
+                data: [3000, 4000, 5000, 4500, 6000, 7000, 8000, 7500, 6500, 5500, 4500, 5000]
+            }]
+        };
+
+        const customerData = {
+            labels: ['Cliente A', 'Cliente B', 'Cliente C', 'Cliente D', 'Cliente E'],
+            datasets: [{
+                label: 'Clientes',
+                backgroundColor: ['#711d15', '#6c6e71', '#b6ef1b', '#072739', '#4c6c1a'],
+                borderColor: '#fff',
+                data: [1200, 1500, 1800, 1300, 1600]
+            }]
+        };
+
+        const performanceData = {
+            labels: ['Meta 1', 'Meta 2', 'Meta 3', 'Meta 4', 'Meta 5'],
+            datasets: [{
+                label: 'Desempenho',
+                backgroundColor: '#072739',
+                borderColor: '#b6ef1b',
+                data: [70, 80, 90, 85, 95]
+            }]
+        };
+
+        // Configurações dos gráficos
+        const configSales = {
+            type: 'bar',
+            data: salesData,
+            options: {}
+        };
+
+        const configCustomer = {
+            type: 'pie',
+            data: customerData,
+            options: {}
+        };
+
+        const configPerformance = {
+            type: 'radar',
+            data: performanceData,
+            options: {}
+        };
+
+        // Renderização dos gráficos
+        new Chart(document.getElementById('salesChart'), configSales);
+        new Chart(document.getElementById('customerChart'), configCustomer);
+        new Chart(document.getElementById('performanceChart'), configPerformance);
+    </script>
+</body>
+</html>
