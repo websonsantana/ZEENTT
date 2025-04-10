@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Cardápio</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
+        .container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .item { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #ddd; }
+        .delete { background: red; color: white; border: none; padding: 5px; cursor: pointer; }
+        .add { background: green; color: white; border: none; padding: 10px; cursor: pointer; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Cadastro de Cardápio</h2>
+        <div>
+            <input type="text" id="itemName" placeholder="Nome do item">
+            <input type="number" id="itemPrice" placeholder="Preço">
+            <button class="add" onclick="addItem()">Adicionar</button>
+        </div>
+        <ul id="menuList"></ul>
+    </div>
+
+    <script>
+        function loadMenu() {
+            const menu = JSON.parse(localStorage.getItem("menu")) || [];
+            const menuList = document.getElementById("menuList");
+            menuList.innerHTML = "";
+            menu.forEach((item, index) => {
+                const li = document.createElement("li");
+                li.classList.add("item");
+                li.innerHTML = `${item.name} - R$ ${item.price.toFixed(2)} <button class='delete' onclick='deleteItem(${index})'>X</button>`;
+                menuList.appendChild(li);
+            });
+        }
+        
+        function addItem() {
+            const name = document.getElementById("itemName").value;
+            const price = parseFloat(document.getElementById("itemPrice").value);
+            if (name && price) {
+                const menu = JSON.parse(localStorage.getItem("menu")) || [];
+                menu.push({ name, price });
+                localStorage.setItem("menu", JSON.stringify(menu));
+                loadMenu();
+            }
+        }
+        
+        function deleteItem(index) {
+            const menu = JSON.parse(localStorage.getItem("menu")) || [];
+            menu.splice(index, 1);
+            localStorage.setItem("menu", JSON.stringify(menu));
+            loadMenu();
+        }
+        
+        loadMenu();
+    </script>
+</body>
+</html>

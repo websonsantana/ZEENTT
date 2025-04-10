@@ -1,0 +1,363 @@
+* 
+h1 {
+  color: #fff;
+}
+.mobile-menu {
+  display: none;
+  background-color: #004AAD;
+  padding: 10px 0;
+  position: absolute;
+  top: 60px;
+  width: 100%;
+  z-index: 1000;
+}
+
+.mobile-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.mobile-menu ul li {
+  margin: 10px 0;
+}
+
+.mobile-menu ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Mostrar o menu quando tiver a classe 'active' */
+.mobile-menu.active {
+  display: block;
+}
+
+.menu-toggle {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: white;
+}
+
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-bar {
+  background-color: #004AAD;
+    color: white;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: relative;
+}
+
+.top-bar img {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 40px;
+}
+
+.menu-icon,
+.logout-icon {
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  z-index: 2;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 50px;
+  flex-direction: column-reverse;
+  flex-wrap: wrap;
+  align-content: stretch;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px 40px;
+  justify-items: center;
+  max-width: 400px;
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item {
+  background-color: #fff;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item img {
+  width:100px;
+  height: 100px;
+  object-fit: contain;
+}
+.logo-direita {
+  margin-right: auto;
+}
+.item-text {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #004AAD;
+  text-align: center;
+}
+button {
+  background-color: #004AAD;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 0px;
+}
+/* Estilo adicional para elemento com classe "super" */
+.super {
+  background-color: #004AAD; /* dourado */
+  color: #004AAD;
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 10px 15px;
+  box-shadow: 0 4px 10px rgba(0, 74, 173, 0.3);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.super:hover {
+  background-color: #004094;
+  color: white;
+  transform: scale(1.05);
+}
+
+
+footer {
+  background-color: #004AAD;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+/* Efeito nos ícones circulares */
+.item:hover {
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(0, 74, 173, 0.4);
+}
+
+/* Efeito no texto abaixo do ícone */
+.menu-item:hover .item-text {
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+/* Efeito no topo (menu e logout) */
+.menu-icon:hover,
+.logout-icon:hover {
+  color: #007bff; /* Dourado */
+  transform: scale(1.1);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Efeito no rodapé */
+footer:hover {
+  background-color: #00337a;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}/* --- Celulares pequenos (até 480px) --- */
+@media screen and (max-width: 480px) {
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  .menu-item .item {
+    max-width: 100px;
+    padding: 10px;
+  }
+
+  .item-text {
+    font-size: 12px;
+  }
+
+  header img {
+    max-width: 120px;
+  }
+
+  .top-bar {
+    padding: 0 10px;
+  }
+
+  footer {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
+
+/* --- Celulares grandes e phablets (481px a 600px) --- */
+@media screen and (min-width: 481px) and (max-width: 600px) {
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .menu-item .item {
+    max-width: 120px;
+  }
+
+  .item-text {
+    font-size: 13px;
+  }
+}
+
+/* --- Tablets (601px a 768px) --- */
+@media screen and (min-width: 601px) and (max-width: 768px) {
+  .menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-top: 30px;
+  }
+
+  .menu-item .item {
+    max-width: 130px;
+  }
+
+  .item-text {
+    font-size: 14px;
+  }
+
+  .top-bar {
+    padding: 0 20px;
+  }
+
+  footer {
+    font-size: 14px;
+    padding: 20px;
+  }
+}
+
+/* --- Tablets grandes e notebooks pequenos (769px a 900px) --- */
+@media screen and (min-width: 769px) and (max-width: 900px) {
+  .menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+
+  .menu-item .item {
+    max-width: 150px;
+  }
+
+  .item-text {
+    font-size: 15px;
+  }
+
+  .item img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+/* --- Laptops médios (901px a 1024px) --- */
+@media screen and (min-width: 901px) and (max-width: 1024px) {
+  .menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  .menu-item .item {
+    max-width: 180px;
+  }
+
+  .item-text {
+    font-size: 16px;
+  }
+
+  .item img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* --- Desktops comuns (1025px a 1440px) --- */
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
+  .menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px;
+  }
+
+  img {
+    max-width: 200px;
+  }
+
+  .menu-item .item {
+    max-width: 250px;
+  }
+
+  .item-text {
+    font-size: 18px;
+  }
+
+  footer {
+    font-size: 14px;
+    padding: 20px;
+    background-color: #004AAD;
+  }
+}
+
+/* --- Telas grandes e monitores 4K (acima de 1441px) --- */
+@media screen and (min-width: 1441px) {
+  .menu-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 80px;
+  }
+
+  .menu-item .item {
+    max-width: 280px;
+  }
+
+  .item-text {
+    font-size: 20px;
+  }
+
+  .item img {
+    width: 220px;
+    height: auto;
+  }
+
+  footer {
+    font-size: 16px;
+  }
+}
