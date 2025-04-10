@@ -1,60 +1,74 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Cardápio</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
-        .container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        .item { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #ddd; }
-        .delete { background: red; color: white; border: none; padding: 5px; cursor: pointer; }
-        .add { background: green; color: white; border: none; padding: 10px; cursor: pointer; margin-top: 10px; }
-    </style>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Zeentt - Cadastro</title>
+        <link rel="stylesheet" href="cadastro.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+      </head>
 <body>
-    <div class="container">
-        <h2>Cadastro de Cardápio</h2>
-        <div>
-            <input type="text" id="itemName" placeholder="Nome do item">
-            <input type="number" id="itemPrice" placeholder="Preço">
-            <button class="add" onclick="addItem()">Adicionar</button>
+    <header class="top-bar">
+        <div class="left-icons">
+          <button onclick="toggleMenu()">
+            <i class="fas fa-bars menu-icon"></i>
+          </button>
         </div>
-        <ul id="menuList"></ul>
-    </div>
-
-    <script>
-        function loadMenu() {
-            const menu = JSON.parse(localStorage.getItem("menu")) || [];
-            const menuList = document.getElementById("menuList");
-            menuList.innerHTML = "";
-            menu.forEach((item, index) => {
-                const li = document.createElement("li");
-                li.classList.add("item");
-                li.innerHTML = `${item.name} - R$ ${item.price.toFixed(2)} <button class='delete' onclick='deleteItem(${index})'>X</button>`;
-                menuList.appendChild(li);
-            });
-        }
-        
-        function addItem() {
-            const name = document.getElementById("itemName").value;
-            const price = parseFloat(document.getElementById("itemPrice").value);
-            if (name && price) {
-                const menu = JSON.parse(localStorage.getItem("menu")) || [];
-                menu.push({ name, price });
-                localStorage.setItem("menu", JSON.stringify(menu));
-                loadMenu();
-            }
-        }
-        
-        function deleteItem(index) {
-            const menu = JSON.parse(localStorage.getItem("menu")) || [];
-            menu.splice(index, 1);
-            localStorage.setItem("menu", JSON.stringify(menu));
-            loadMenu();
-        }
-        
-        loadMenu();
-    </script>
+      
+        <div class="logo">
+          <img src="sualogo.png" alt="Logo Zeentt">
+        </div>
+      
+        <div class="right-icons">
+          <button onclick="fazerLogoff()" class="logout-button">
+            <i class="fas fa-sign-out-alt logout-icon"></i>
+          </button>
+          <button onclick="window.location.href='menu.html'">
+            <i class="fas fa-home"></i>
+          </button>
+        </div>
+      </header>
+      
+  <div class="container">
+    <h1>Cadastro de Itens do Cardápio</h1>
+    
+    <form action="salvar_item.php" method="POST" enctype="multipart/form-data">
+        <label for="nome"></label>
+        <input type="text" id="nome" name="nome" placeholder="Ex: Filé à Parmegiana" required>
+      
+        <label for="tipo"></label>
+        <select id="tipo" name="tipo" required>
+          <option value="">Selecione o tipo</option>
+          <option value="Prato Principal">Prato Principal</option>
+          <option value="Sobremesa">Sobremesa</option>
+          <option value="Bebida">Bebida</option>
+          <option value="Acompanhamento">Acompanhamento</option>
+        </select>
+      
+        <label for="descricao"></label>
+        <textarea id="descricao" name="descricao" placeholder="Descreva o prato, ingredientes, etc." required></textarea>
+      
+        <label for="valor"></label>
+        <input type="number" id="valor" name="valor" step="0.01" placeholder="Ex: 29.90" required>
+      
+        <label for="imagem"></label>
+        <input type="file" id="imagem" name="imagem" accept="image/*" required>
+      <br>  <br>
+      <center>
+        <button type="submit">Salvar</button>
+        </center>
+      </form>
+      
+  </div>
+    <footer>
+    ZEENTT
+  </footer>
+   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <script src="menu.js"></script>
+  <script src="login.js"></script>
+  <script src="cadastro.js"></script>
 </body>
 </html>
+
+    
+
