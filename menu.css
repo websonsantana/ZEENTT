@@ -1,39 +1,93 @@
-* 
-h1 {
-  color: #fff;
+/* --- RESET E CONFIGURAÇÕES GERAIS --- */
+/* Remove margens e paddings padrão e define box-model para todos elementos */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Faz com que padding não some à largura total */
 }
+
+/* --- ESTILOS PARA TÍTULOS --- */
+h1 {
+  color: #fff; /* Texto branco para títulos */
+}
+
+/* --- ESTRUTURA PRINCIPAL DA PÁGINA --- */
+/* Configura altura total e fonte base */
+body, html {
+  height: 100%; /* Ocupa 100% da altura da tela */
+  font-family: Arial, sans-serif; /* Fonte padrão */
+  background-color: #fff; /* Fundo branco */
+  display: flex;
+  flex-direction: column; /* Organiza em coluna (header, main, footer) */
+}
+
+/* --- BARRA SUPERIOR (HEADER) --- */
+.top-bar {
+  background-color: #004AAD; /* Azul corporativo */
+  color: white; /* Texto branco */
+  height: 60px; /* Altura fixa */
+  display: flex;
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: space-between; /* Espaço entre itens */
+  padding: 0 20px; /* Espaçamento interno */
+  position: relative; /* Para posicionar elementos filhos */
+}
+
+/* Logo centralizado */
+.top-bar img {
+  position: absolute;
+  left: 50%; /* Centraliza horizontalmente */
+  transform: translateX(-50%); /* Ajuste fino para centralização perfeita */
+  height: 40px; /* Tamanho adequado */
+}
+
+/* Ícones do menu e logout */
+.menu-icon,
+.logout-icon {
+  font-size: 24px; /* Tamanho visível */
+  color: white; /* Ícones brancos */
+  cursor: pointer; /* Muda cursor para indicar clique */
+  z-index: 2; /* Garante que fique acima de outros elementos */
+}
+
+/* --- MENU MOBILE --- */
+/* (Só aparece em telas pequenas) */
 .mobile-menu {
-  display: none;
-  background-color: #004AAD;
+  display: none; /* Inicialmente escondido */
+  background-color: #004AAD; /* Mesma cor da barra */
   padding: 10px 0;
   position: absolute;
-  top: 60px;
-  width: 100%;
-  z-index: 1000;
+  top: 60px; /* Abaixo da top-bar */
+  width: 100%; /* Largura total */
+  z-index: 1000; /* Sobre outros elementos */
 }
 
+/* Lista do menu mobile */
 .mobile-menu ul {
-  list-style: none;
+  list-style: none; /* Remove marcadores */
   padding: 0;
   margin: 0;
-  text-align: center;
+  text-align: center; /* Centraliza itens */
 }
 
+/* Itens do menu mobile */
 .mobile-menu ul li {
-  margin: 10px 0;
+  margin: 10px 0; /* Espaçamento entre itens */
 }
 
+/* Links do menu mobile */
 .mobile-menu ul li a {
   color: white;
-  text-decoration: none;
-  font-weight: bold;
+  text-decoration: none; /* Remove sublinhado */
+  font-weight: bold; /* Destaque visual */
 }
 
-/* Mostrar o menu quando tiver a classe 'active' */
+/* Classe que mostra o menu quando ativo */
 .mobile-menu.active {
-  display: block;
+  display: block; /* Torna visível */
 }
 
+/* Botão que abre/fecha o menu */
 .menu-toggle {
   background: none;
   border: none;
@@ -42,96 +96,63 @@ h1 {
   color: white;
 }
 
-{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body, html {
-  height: 100%;
-  font-family: Arial, sans-serif;
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-}
-
-.top-bar {
-  background-color: #004AAD;
-    color: white;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  position: relative;
-}
-
-.top-bar img {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  height: 40px;
-}
-
-.menu-icon,
-.logout-icon {
-  font-size: 24px;
-  color: white;
-  cursor: pointer;
-  z-index: 2;
-}
-
+/* --- CONTEÚDO PRINCIPAL --- */
 main {
-  flex: 1;
+  flex: 1; /* Ocupa todo espaço disponível */
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 50px;
-  flex-direction: column-reverse;
-  flex-wrap: wrap;
-  align-content: stretch;
+  justify-content: center; /* Centraliza verticalmente */
+  align-items: center; /* Centraliza horizontalmente */
+  padding: 20px; /* Espaçamento interno */
 }
 
+/* Grade de itens do menu */
 .menu-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px 40px;
-  justify-items: center;
-  max-width: 400px;
+  grid-template-columns: repeat(4, 1fr); /* 4 colunas em desktop */
+  gap: 40px; /* Espaço entre itens */
+  justify-items: center; /* Centraliza itens na grade */
+  max-width: 1200px; /* Largura máxima */
+  width: 100%; /* Ocupa 100% do espaço disponível */
+  padding: 20px; /* Espaçamento interno */
 }
 
+/* Cada item do menu */
 .menu-item {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: column; /* Ícone acima do texto */
+  align-items: center; /* Centraliza horizontalmente */
 }
 
+/* Círculo que contém o ícone */
 .item {
-  background-color: #fff;
+  background-color: #fff; /* Fundo branco */
+  width: 150px; /* Tamanho adequado para desktop */
+  height: 150px;
+  border-radius: 50%; /* Forma circular */
+  display: flex;
+  justify-content: center; /* Centraliza ícone */
+  align-items: center;
+  transition: all 0.3s ease; /* Suaviza animações */
+}
+
+/* Imagens dentro dos círculos */
+.item img {
   width: 100px;
   height: 100px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  object-fit: contain; /* Garante que a imagem caiba sem distorcer */
 }
 
-.item img {
-  width:100px;
-  height: 100px;
-  object-fit: contain;
-}
-.logo-direita {
-  margin-right: auto;
-}
+/* Texto abaixo dos ícones */
 .item-text {
-  margin-top: 10px;
+  margin-top: 15px; /* Espaçamento do ícone */
   font-weight: bold;
-  font-size: 14px;
-  color: #004AAD;
-  text-align: center;
+  font-size: 16px; /* Tamanho legível */
+  color: #004AAD; /* Azul corporativo */
+  text-align: center; /* Centralizado */
+  transition: color 0.3s ease; /* Suaviza mudança de cor */
 }
+
+/* --- BOTÕES --- */
 button {
   background-color: #004AAD;
   color: white;
@@ -142,9 +163,10 @@ button {
   border-radius: 5px;
   margin-top: 0px;
 }
-/* Estilo adicional para elemento com classe "super" */
+
+/* Estilo especial para botões "super" */
 .super {
-  background-color: #004AAD; /* dourado */
+  background-color: #004AAD;
   color: #004AAD;
   font-weight: bold;
   border-radius: 10px;
@@ -160,7 +182,7 @@ button {
   transform: scale(1.05);
 }
 
-
+/* --- RODAPÉ --- */
 footer {
   background-color: #004AAD;
   color: white;
@@ -168,24 +190,25 @@ footer {
   padding: 10px 0;
   font-size: 14px;
   font-weight: bold;
+  transition: background-color 0.3s ease; /* Suaviza mudança de cor */
 }
+
+/* --- EFEITOS DE HOVER --- */
 /* Efeito nos ícones circulares */
 .item:hover {
   transform: scale(1.05);
-  transition: all 0.3s ease;
   box-shadow: 0 6px 15px rgba(0, 74, 173, 0.4);
 }
 
 /* Efeito no texto abaixo do ícone */
 .menu-item:hover .item-text {
   color: #007bff;
-  transition: color 0.3s ease;
 }
 
-/* Efeito no topo (menu e logout) */
+/* Efeito nos ícones do topo */
 .menu-icon:hover,
 .logout-icon:hover {
-  color: #007bff; /* Dourado */
+  color: #007bff;
   transform: scale(1.1);
   transition: all 0.2s ease-in-out;
 }
@@ -193,31 +216,30 @@ footer {
 /* Efeito no rodapé */
 footer:hover {
   background-color: #00337a;
-  transition: background-color 0.3s ease;
   cursor: pointer;
-}/* --- Celulares pequenos (até 480px) --- */
+}
+
+/* --- RESPONSIVIDADE --- */
+
+/* Celulares pequenos (até 480px) */
 @media screen and (max-width: 480px) {
   .menu-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas */
     gap: 15px;
     margin-top: 20px;
   }
 
   .menu-item .item {
-    max-width: 100px;
-    padding: 10px;
+    width: 100px; /* Círculos menores */
+    height: 100px;
   }
 
   .item-text {
-    font-size: 12px;
-  }
-
-  header img {
-    max-width: 120px;
+    font-size: 12px; /* Texto menor */
   }
 
   .top-bar {
-    padding: 0 10px;
+    padding: 0 10px; /* Menos espaçamento */
   }
 
   footer {
@@ -226,7 +248,7 @@ footer:hover {
   }
 }
 
-/* --- Celulares grandes e phablets (481px a 600px) --- */
+/* Celulares grandes (481px a 600px) */
 @media screen and (min-width: 481px) and (max-width: 600px) {
   .menu-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -234,7 +256,8 @@ footer:hover {
   }
 
   .menu-item .item {
-    max-width: 120px;
+    width: 120px;
+    height: 120px;
   }
 
   .item-text {
@@ -242,33 +265,24 @@ footer:hover {
   }
 }
 
-/* --- Tablets (601px a 768px) --- */
+/* Tablets (601px a 768px) */
 @media screen and (min-width: 601px) and (max-width: 768px) {
   .menu-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas */
     gap: 25px;
-    margin-top: 30px;
   }
 
   .menu-item .item {
-    max-width: 130px;
+    width: 130px;
+    height: 130px;
   }
 
   .item-text {
     font-size: 14px;
   }
-
-  .top-bar {
-    padding: 0 20px;
-  }
-
-  footer {
-    font-size: 14px;
-    padding: 20px;
-  }
 }
 
-/* --- Tablets grandes e notebooks pequenos (769px a 900px) --- */
+/* Tablets grandes (769px a 900px) */
 @media screen and (min-width: 769px) and (max-width: 900px) {
   .menu-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -276,21 +290,16 @@ footer:hover {
   }
 
   .menu-item .item {
-    max-width: 150px;
+    width: 150px;
+    height: 150px;
   }
 
   .item-text {
     font-size: 15px;
   }
-
-  .item img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-  }
 }
 
-/* --- Laptops médios (901px a 1024px) --- */
+/* Laptops (901px a 1024px) */
 @media screen and (min-width: 901px) and (max-width: 1024px) {
   .menu-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -298,46 +307,33 @@ footer:hover {
   }
 
   .menu-item .item {
-    max-width: 180px;
+    width: 180px;
+    height: 180px;
   }
 
   .item-text {
     font-size: 16px;
   }
-
-  .item img {
-    width: 100%;
-    height: auto;
-  }
 }
 
-/* --- Desktops comuns (1025px a 1440px) --- */
+/* Desktops (1025px a 1440px) */
 @media screen and (min-width: 1025px) and (max-width: 1440px) {
   .menu-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr); /* 4 colunas */
     gap: 60px;
   }
 
-  img {
-    max-width: 200px;
-  }
-
   .menu-item .item {
-    max-width: 250px;
+    width: 200px;
+    height: 200px;
   }
 
   .item-text {
     font-size: 18px;
   }
-
-  footer {
-    font-size: 14px;
-    padding: 20px;
-    background-color: #004AAD;
-  }
 }
 
-/* --- Telas grandes e monitores 4K (acima de 1441px) --- */
+/* Telas grandes (acima de 1441px) */
 @media screen and (min-width: 1441px) {
   .menu-grid {
     grid-template-columns: repeat(4, 1fr);
@@ -345,19 +341,11 @@ footer:hover {
   }
 
   .menu-item .item {
-    max-width: 280px;
+    width: 250px;
+    height: 250px;
   }
 
   .item-text {
     font-size: 20px;
-  }
-
-  .item img {
-    width: 220px;
-    height: auto;
-  }
-
-  footer {
-    font-size: 16px;
   }
 }
