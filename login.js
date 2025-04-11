@@ -2,6 +2,8 @@ const usuarios = [
     { usuario: "admin", senha: "admin123", nome: "Administrador" },
     { usuario: "usuario", senha: "user123", nome: "Usuário Padrão" },
     { usuario: "zeentt", senha: "zeentt2023", nome: "Zeentt Team" },
+    { usuario: "zeentt", senha: "zeentt2023", nome: "Zeentt Team" },
+    { usuario: "msilva", senha: "1234", nome: "Administrador" }
     { usuario: "wsantana", senha: "654321", nome: "Administrador" }
 ];
 
