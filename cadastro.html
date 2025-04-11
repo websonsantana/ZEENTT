@@ -29,14 +29,16 @@
         </div>
       </header>
       
+      
   <div class="container">
     <h1>Cadastro de Itens do Cardápio</h1>
     
     <form action="salvar_item.php" method="POST" enctype="multipart/form-data">
+        <label for="codigo"></label>
+        <input type="Number" id="number" name="codigo" placeholder="codigo do do Cardápio" required>
         <label for="nome"></label>
         <input type="text" id="nome" name="nome" placeholder="Ex: Filé à Parmegiana" required>
-      
-        <label for="tipo"></label>
+         <label for="tipo"></label>
         <select id="tipo" name="tipo" required>
           <option value="">Selecione o tipo</option>
           <option value="Prato Principal">Prato Principal</option>
