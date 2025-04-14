@@ -53,13 +53,18 @@ body, html {
 /* --- MENU MOBILE --- */
 /* (Só aparece em telas pequenas) */
 .mobile-menu {
-  display: none; /* Inicialmente escondido */
-  background-color: #004AAD; /* Mesma cor da barra */
-  padding: 10px 0;
-  position: absolute;
-  top: 60px; /* Abaixo da top-bar */
-  width: 100%; /* Largura total */
-  z-index: 1000; /* Sobre outros elementos */
+  position: fixed;
+  top: 60px; /* abaixo da top-bar */
+  left: -250px; /* fora da tela à esquerda */
+  width: 250px;
+  height: 100%;
+  background-color: #004AAD;
+  padding: 20px;
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+.mobile-menu.active {
+  left: 0; /* aparece vindo da esquerda */
 }
 
 /* Lista do menu mobile */
@@ -349,3 +354,4 @@ footer:hover {
     font-size: 20px;
   }
 }
+
