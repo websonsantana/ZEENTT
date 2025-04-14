@@ -72,7 +72,7 @@ body, html {
   list-style: none; /* Remove marcadores */
   padding: 0;
   margin: 0;
-  text-align: center; /* Centraliza itens */
+  text-align: left; 
 }
 
 /* Itens do menu mobile */
