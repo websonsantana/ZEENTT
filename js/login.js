@@ -2,7 +2,6 @@ const usuarios = [
     { usuario: "admin", senha: "admin123", nome: "Administrador" },
     { usuario: "usuario", senha: "user123", nome: "Usuário Padrão" },
     { usuario: "zeentt", senha: "zeentt2023", nome: "Zeentt Team" },
-    { usuario: "zeentt", senha: "zeentt2023", nome: "Zeentt Team" },
     { usuario: "msilva", senha: "1234", nome: "Administrador" },
     { usuario: "wsantana", senha: "654321", nome: "Administrador" }
 ];
@@ -15,7 +14,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     verificarSessao();
 
-    // Atualiza o último acesso em qualquer interação
+    // Se estiver na tela de login e já tiver sessão ativa, redireciona para o menu
+    if (window.location.pathname.includes("login.html")) {
+        const sessao = JSON.parse(localStorage.getItem("sessaoUsuario"));
+        if (sessao && sessao.ativo) {
+            window.location.href = "menu.html";
+        }
+    }
+
     document.addEventListener("click", atualizarUltimoAcesso);
     document.addEventListener("keydown", atualizarUltimoAcesso);
 });
@@ -67,7 +73,6 @@ function verificarSessao() {
         if (tempoInativo > 1800000) { // 30 minutos
             fazerLogoff(); // sessão expirada
         } else {
-            // Atualiza o último acesso
             sessao.ultimoAcesso = agora;
             localStorage.setItem("sessaoUsuario", JSON.stringify(sessao));
         }
@@ -93,7 +98,9 @@ function exibirMensagem(texto, tipo) {
     if (!mensagemEl) {
         mensagemEl = document.createElement("div");
         mensagemEl.className = "mensagem-login";
-        document.querySelector(".container").appendChild(mensagemEl);
+
+        const container = document.querySelector(".container") || document.body;
+        container.appendChild(mensagemEl);
     }
 
     mensagemEl.style.backgroundColor = tipo === "erro" ? "#f44336" : "#4CAF50";
@@ -108,4 +115,3 @@ function exibirMensagem(texto, tipo) {
         mensagemEl.remove();
     }, 3000);
 }
-
