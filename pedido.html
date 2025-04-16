@@ -6,13 +6,50 @@
     <title>Zeentt - Pedido</title>
     <link rel="stylesheet" href="style/pedido.css">
 </head>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zeentt - Relaório</title>
+  <link rel="stylesheet" href="style/cadastro.css">
+  <link rel="stylesheet" href="style/menu.css">
+
+     <!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<header class="top-bar">
+  <div class="left-icons">
+    <button onclick="toggleMenu()">
+      <i class="fas fa-bars menu-icon"></i>
+    </button>
+  </div>
+
+  <div class="logo">
+    <img src="img/sualogo.png" alt="Logo Zeentt">
+  </div>
+
+  <div class="right-icons">
+    <button onclick="fazerLogoff()" class="logout-button">
+      <i class="fas fa-sign-out-alt logout-icon"></i>
+    </button>
+    <button onclick="window.location.href='menu.html'">
+      <i class="fas fa-home"></i>
+    </button>
+  </div>
+</header>
+
 <body>
-    <div class="header">
-        <div class="menu">☰</div>
-        <button class="add">+</button>
-    </div>
+    
     <div class="container">
         <div class="info">
+            <div class="info-item">
+                <label for="table">Mesa:</label>
+                <input type="text" id="table" placeholder="Número da mesa">
+            </div>
+            <div>
+            <button class="add">+</button>
+            </div>
             <span>Total: <strong id="total-price">R$ 0,00</strong></span>
             <span>Itens: <strong id="total-items">0</strong></span>
         </div>
