@@ -6,9 +6,8 @@ function selecionarItem(item) {
     // Adiciona a classe 'selected' ao item clicado
     item.classList.add('selected');
   }
-  <script>
+  
   function toggleMenu() {
     const menu = document.querySelector('.mobile-menu');
    }
 
-</script>
