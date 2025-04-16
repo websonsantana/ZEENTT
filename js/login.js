@@ -108,3 +108,4 @@ function exibirMensagem(texto, tipo) {
         mensagemEl.remove();
     }, 3000);
 }
+
