@@ -1,68 +1,273 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zeentt - Pedido</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zeentt - Pedido</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
-     <!-- Font Awesome CDN -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-</head>
-<header class="top-bar">
-  <div class="left-icons">
-    <button onclick="toggleMenu()">
-      <i class="fas fa-bars menu-icon"></i>
-    </button>
-  </div>
+<body class="pagina-pedido">
 
-  <div class="logo">
-    <img src="img/sualogo.png" alt="Logo Zeentt">
-  </div>
-
-  <div class="right-icons">
-    <button onclick="fazerLogoff()" class="logout-button">
-      <i class="fas fa-sign-out-alt logout-icon"></i>
-    </button>
-    <button onclick="window.location.href='menu.html'">
-      <i class="fas fa-home"></i>
-    </button>
-  </div>
-</header>
-
-<body>
-  <nav class="mobile-menu">
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
     <ul>
-      <li><a href="cadastro.html">Cadastro</a></li>
-      <li><a href="relatorio.html">Relatório</a></li>
-      <li><a href="pedido.html">Pedidos</a></li>
-      <li><a href="cardapio.html">Cardápio</a></li>
-      <li><a href="cozinha.html">Cozinha</a></li>
-      <li><a href="informacoes.html">Informações</a></li>
-      <li><a href="suporte.html">Suporte</a></li>
-      <li><a href="servico.html">Outros Serviços</a></li>
+      <li><a href="menu.html"><i class="fas fa-home"></i> Início</a></li>
+      <li><a href="cadastro.html"><i class="fas fa-plus"></i> Cadastro</a></li>
+      <li><a href="cardapio.html"><i class="fas fa-utensils"></i> Cardápio</a></li>
+      <li><a href="pedido.html"><i class="fas fa-concierge-bell"></i> Pedidos</a></li>
+      <li><a href="cozinha.html"><i class="fas fa-blender"></i> Cozinha</a></li>
+      <li><a href="relatorio.html"><i class="fas fa-chart-bar"></i> Relatórios</a></li>
+      <li><a href="suporte.html"><i class="fas fa-headset"></i> Suporte</a></li>
     </ul>
-  </nav>
-    
-    <div class="container">
-        <div class="info">
-            <div class="info-item">
-                <label for="table">Mesa:</label>
-                <input type="text" id="table" placeholder="Número da mesa">
-            </div>
-            <div>
-            <button class="add">+</button>
-            </div>
-            <span>Total: <strong id="total-price">R$ 0,00</strong></span>
-            <span>Itens: <strong id="total-items">0</strong></span>
-        </div>
-        <ul class="list"></ul>
-        <div class="buttons">
-            <button class="save">Salvar</button>
-            <button class="conclude">Concluir</button>
-        </div>
+  </div>
+
+  <!-- Header -->
+  <header class="top-bar">
+    <div class="left-icons">
+      <button onclick="toggleMenu()">
+        <i class="fas fa-bars menu-icon"></i>
+      </button>
     </div>
+    <div class="logo">
+      <img src="img/sualogo.png" alt="Logo Zeentt">
+    </div>
+    <div class="right-icons">
+      <button onclick="fazerLogoff()" class="logout-button">
+        <i class="fas fa-sign-out-alt logout-icon"></i>
+      </button>
+      <button onclick="window.location.href='menu.html'">
+        <i class="fas fa-home"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Conteúdo -->
+  <div class="container">
+    <div class="info">
+      <div class="info-item">
+        <label for="table">Mesa:</label>
+        <input type="text" id="table" placeholder="Número da mesa">
+      </div>
+      <span>Total: <strong id="total-price">R$ 0,00</strong></span>
+      <span>Itens: <strong id="total-items">0</strong></span>
+    </div>
+
+    <!-- Lista de Itens -->
+    <ul class="list" id="pedido-list"></ul>
+
+    <!-- Cardápio para adicionar -->
+    <div class="menu-cardapio">
+      <h3>Adicionar Itens</h3>
+      <button onclick="adicionarItem('Hambúrguer', 25)">🍔 Hambúrguer - R$ 25</button>
+      <button onclick="adicionarItem('Pizza', 40)">🍕 Pizza - R$ 40</button>
+      <button onclick="adicionarItem('Refrigerante', 8)">🥤 Refrigerante - R$ 8</button>
+      <button onclick="adicionarItem('Batata Frita', 15)">🍟 Batata Frita - R$ 15</button>
+    </div>
+
+    <!-- Botões -->
+    <div class="buttons">
+      <button class="save" onclick="salvarPedido()">Salvar</button>
+      <button class="conclude" onclick="concluirPedido()">Concluir</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const pedidoList = document.getElementById('pedido-list');
+    const totalPriceElement = document.getElementById('total-price');
+    const totalItemsElement = document.getElementById('total-items');
+
+    let total = 0;
+    let itens = 0;
+
+    function toggleMenu() {
+      sidebar.classList.toggle('active');
+    }
+
+    function adicionarItem(nome, preco) {
+      const li = document.createElement('li');
+      li.textContent = `${nome} - R$ ${preco.toFixed(2)}`;
+      pedidoList.appendChild(li);
+      total += preco;
+      itens++;
+      atualizarTotais();
+    }
+
+    function atualizarTotais() {
+      totalPriceElement.textContent = `R$ ${total.toFixed(2)}`;
+      totalItemsElement.textContent = `${itens}`;
+    }
+
+    function salvarPedido() {
+      alert('Pedido salvo com sucesso!');
+    }
+
+    function concluirPedido() {
+      alert('Pedido concluído!');
+      pedidoList.innerHTML = '';
+      total = 0;
+      itens = 0;
+      atualizarTotais();
+    }
+
+    function fazerLogoff() {
+      alert('Você saiu do sistema.');
+    }
+  </script>
 </body>
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
-<script src="js/script.js"></script>
 </html>
+<style>
+  body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+.top-bar {
+  background-color: #004AAD;
+  color: white;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.left-icons button,
+.right-icons button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.sidebar {
+  position: fixed;
+  top: 60px;
+  left: -250px;
+  width: 250px;
+  height: calc(100% - 60px);
+  background-color: #00337a;
+  transition: left 0.3s ease;
+  z-index: 999;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.container {
+  margin-top: 80px;
+  padding: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.info input {
+  padding: 5px;
+  font-size: 16px;
+  width: 120px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.list li {
+  background: #f1f1f1;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+}
+
+.menu-cardapio {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.menu-cardapio h3 {
+  margin-bottom: 10px;
+}
+
+.menu-cardapio button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #004AAD;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.menu-cardapio button:hover {
+  background-color: #00337a;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.buttons button {
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.save {
+  background-color: #28a745;
+}
+
+.conclude {
+  background-color: #007bff;
+}
+
+</style>
