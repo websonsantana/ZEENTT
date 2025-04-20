@@ -252,3 +252,31 @@ self.addEventListener("fetch", function (event) {
   // Estratégia de cache pode ser colocada aqui
 });
 
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js")
+    .then(() => console.log("Service Worker registrado com sucesso!"))
+    .catch(erro => console.error("Erro ao registrar o SW", erro));
+}
+let deferredPrompt;
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+
+  const installBtn = document.getElementById("installBtn");
+  if (installBtn) {
+    installBtn.style.display = "block";
+    installBtn.addEventListener("click", () => {
+      installBtn.style.display = "none";
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === "accepted") {
+          console.log("Usuário aceitou instalar o app");
+        } else {
+          console.log("Usuário recusou instalar");
+        }
+        deferredPrompt = null;
+      });
+    });
+  }
+});
