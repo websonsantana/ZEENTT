@@ -339,17 +339,47 @@ button[type="submit"]:hover {
   background-color: #003890;
   transform: scale(1.02);
 }
-.sidebar {
-  position: fixed;
-  top: 60px; /* abaixo do header */
-  left: -250px; /* escondido inicialmente */
-  width: 250px;
-  height: calc(100% - 60px);
+.top-bar {
   background-color: #004AAD;
   color: white;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.left-icons button,
+.right-icons button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.sidebar {
+  position: fixed;
+  top: 60px;
+  left: -250px;
+  width: 250px;
+  height: calc(100% - 60px);
+  background-color: #00337a;
   transition: left 0.3s ease;
   z-index: 999;
-  padding-top: 20px;
+}
+
+.sidebar.active {
+  left: 0;
 }
 
 .sidebar ul {
@@ -359,7 +389,7 @@ button[type="submit"]:hover {
 
 .sidebar ul li {
   padding: 15px 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .sidebar ul li a {
@@ -371,12 +401,77 @@ button[type="submit"]:hover {
   gap: 10px;
 }
 
-.sidebar ul li a:hover {
-  background-color: #00337a;
-  border-radius: 5px;
+.container {
+  margin-top: 80px;
+  padding: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Quando o menu estiver ativo */
-.sidebar.active {
-  left: 0;
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.info input {
+  padding: 5px;
+  font-size: 16px;
+  width: 120px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.list li {
+  background: #f1f1f1;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+}
+
+.menu-cardapio {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.menu-cardapio h3 {
+  margin-bottom: 10px;
+}
+
+.menu-cardapio button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #004AAD;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.menu-cardapio button:hover {
+  background-color: #00337a;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.buttons button {
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
 }
