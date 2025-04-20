@@ -26,3 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
     botaoMenu.addEventListener('click', toggleMenu);
   }
 });
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js");
+  }
+self.addEventListener("install", function (event) {
+  console.log("Service Worker instalado");
+});
+
+self.addEventListener("fetch", function (event) {
+  // Estratégia de cache pode ser colocada aqui
+});
