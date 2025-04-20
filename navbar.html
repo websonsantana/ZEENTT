@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar</title>
+    <link rel="stylesheet" href="css/style.css">
+    <nav class="menu-global">
+    <ul>
+      <li><a href="menu.html">Início</a></li>
+      <li><a href="pedido.html">Pedidos</a></li>
+      <li><a href="cardapio.html">Cardápio</a></li>
+      <li><a href="relatorio.html">Relatório</a></li>
+      <li><a href="suporte.html">Suporte</a></li>
+      <li><a href="cozinha.html">Cozinha</a></li>
+      <li><a href="servico.html">Outros Serviços</a></li>
+      <li><a href="javascript:void(0)" onclick="fazerLogoff()">Sair</a></li>
+    </ul>
+  </nav>
+  
+  <style>
+  .menu-global {
+    background: #333;
+    padding: 10px;
+  }
+  .menu-global ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  .menu-global a {
+    color: #fff;
+    text-decoration: none;
+  }
+  </style>
+<script>
+    fetch("navbar.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("menu-container").innerHTML = data;
+      });
+  </script>  
+  </html>
