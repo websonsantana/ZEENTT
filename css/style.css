@@ -339,3 +339,44 @@ button[type="submit"]:hover {
   background-color: #003890;
   transform: scale(1.02);
 }
+.sidebar {
+  position: fixed;
+  top: 60px; /* abaixo do header */
+  left: -250px; /* escondido inicialmente */
+  width: 250px;
+  height: calc(100% - 60px);
+  background-color: #004AAD;
+  color: white;
+  transition: left 0.3s ease;
+  z-index: 999;
+  padding-top: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar ul li a:hover {
+  background-color: #00337a;
+  border-radius: 5px;
+}
+
+/* Quando o menu estiver ativo */
+.sidebar.active {
+  left: 0;
+}
