@@ -1,24 +1,76 @@
-/* === RESET E BASE === */
+/* === RESET E BASE PARA TODAS AS PAGINAS === */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
   
-  html, body {
+  html {
     height: 100%;
     font-family: Arial, sans-serif;
-    background-color: #fff;
+  }
+/* === POR PAGINA === */
+
+  body.pagina-menu {
     display: flex;
     flex-direction: column;
+    height: 100%;
+    background-color: #fff;
   }
-  
+  body.pagina-cadastro {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #fff;
+  }
+  body.pagina-relatorio {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #fff;
+  }
+  body.pagina-pedidos {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #fff;
+  }
+  body.pagina-cardapio {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #fff;
+  }
+  body.pagina-cozinha {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #fff;
+  }
+  body.pagina-informacoes {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #fff;
+  }
+  body.pagina-suporte {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #fff;
+  }
+  body.pagina-servicos {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #fff;
+  }
   /* === TÍTULOS === */
   h1 {
     color: #fff;
   }
   
-  /* === HEADER === */
+  /* === HEADER GERAL PARA TODAS AS PAGINAS === */
   .top-bar {
     background-color: #004AAD;
     color: white;
@@ -224,4 +276,66 @@
       font-size: 14px;
     }
   }
-  
+  /* === FORMULÁRIO DE CADASTRO === */
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.container h1 {
+  color: #004AAD;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select,
+input[type="file"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  width: 100%;
+}
+
+input[type="file"] {
+  background-color: #fff;
+  padding: 8px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+button[type="submit"] {
+  background-color: #004AAD;
+  color: white;
+  padding: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
+  max-width: 200px;
+}
+
+button[type="submit"]:hover {
+  background-color: #003890;
+  transform: scale(1.02);
+}
