@@ -228,15 +228,3 @@ document.addEventListener("DOMContentLoaded", function () {
     loadMenu();
     loadOrders();
 });
-
-
-function openFullscreen() {
-  const el = document.documentElement;
-  if (el.requestFullscreen) {
-    el.requestFullscreen();
-  } else if (el.webkitRequestFullscreen) { // Safari
-    el.webkitRequestFullscreen();
-  } else if (el.msRequestFullscreen) { // IE11
-    el.msRequestFullscreen();
-  }
-}
