@@ -36,3 +36,14 @@ self.addEventListener("install", function (event) {
 self.addEventListener("fetch", function (event) {
   // Estratégia de cache pode ser colocada aqui
 });
+
+function openFullscreen() {
+  const el = document.documentElement;
+  if (el.requestFullscreen) {
+    el.requestFullscreen();
+  } else if (el.webkitRequestFullscreen) { // Safari
+    el.webkitRequestFullscreen();
+  } else if (el.msRequestFullscreen) { // IE11
+    el.msRequestFullscreen();
+  }
+}
