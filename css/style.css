@@ -516,16 +516,16 @@ button[type="submit"]:hover {
   border-left: 3px solid #2f9e44;
 }
 
-/* === ESTILO EXCLUSIVO PARA A PÁGINA DE COZINHA === */
-body.pagina-cozinha .painel {
+/* === ESTILO EXCLUSIVO PARA A PÁGINA DE COZINHA === */body.pagina-cozinha .painel {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: flex-start;
-  gap: 40px;
-  flex-wrap: wrap;
+  gap: 20px;
+  flex-wrap: nowrap; /* Impede quebra */
+  overflow-x: auto; /* Adiciona rolagem horizontal no celular */
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 body.pagina-cozinha .coluna {
@@ -533,8 +533,8 @@ body.pagina-cozinha .coluna {
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   padding: 20px;
-  width: 100%;
-  max-width: 500px;
+  min-width: 300px; /* Evita ficar muito apertado no mobile */
+  flex-shrink: 0; /* Não deixa a coluna encolher demais */
 }
 
 body.pagina-cozinha .titulo {
