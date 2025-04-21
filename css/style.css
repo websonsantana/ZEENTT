@@ -518,7 +518,7 @@ button[type="submit"]:hover {
 
 /* === ESTILO EXCLUSIVO PARA A PÁGINA DE COZINHA === */body.pagina-cozinha .painel {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: flex-start;
   gap: 20px;
   flex-wrap: nowrap; /* Impede quebra */
