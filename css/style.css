@@ -72,7 +72,7 @@
   
   /* === HEADER GERAL PARA TODAS AS PAGINAS === */
   .top-bar {
-    background-color: #004AAD;
+    background-color: #00337a;
     color: white;
     height: 60px;
     display: flex;
@@ -103,7 +103,7 @@
   /* === MENU MOBILE === */
   .mobile-menu {
     display: none;
-    background-color: #004AAD;
+    background-color: #00337a;
     position: absolute;
     top: 60px;
     width: 100%;
@@ -175,7 +175,7 @@
     margin-top: 15px;
     font-weight: bold;
     font-size: 16px;
-    color: #004AAD;
+    color: #00337a;
     text-align: center;
     transition: color 0.3s;
   }
@@ -183,7 +183,7 @@
   /* === BOTÕES === */
   button,
   .super {
-    background-color: #004AAD;
+    background-color: #00337a;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -207,7 +207,7 @@
   
   /* === FOOTER === */
   footer {
-    background-color: #004AAD;
+    background-color: #00337a;
     color: white;
     text-align: center;
     padding: 10px 0;
@@ -287,7 +287,7 @@
 }
 
 .container h1 {
-  color: #004AAD;
+  color: #00337a;
   text-align: center;
   margin-bottom: 30px;
   font-size: 24px;
@@ -322,7 +322,7 @@ textarea {
 }
 
 button[type="submit"] {
-  background-color: #004AAD;
+  background-color: #00337a;
   color: white;
   padding: 12px;
   font-size: 18px;
@@ -340,7 +340,7 @@ button[type="submit"]:hover {
   transform: scale(1.02);
 }
 .top-bar {
-  background-color: #004AAD;
+  background-color: #00337a;;
   color: white;
   height: 60px;
   display: flex;
@@ -450,7 +450,7 @@ button[type="submit"]:hover {
 .menu-cardapio button {
   padding: 10px;
   font-size: 16px;
-  background-color: #004AAD;
+  background-color: #00337a;
   color: white;
   border: none;
   border-radius: 6px;

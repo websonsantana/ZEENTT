@@ -12,7 +12,7 @@
 }
 
 body {
-    background-color: #004AAD;
+    background-color: #00337a;
     height: 100vh;
     overflow: hidden;
     display: flex;
@@ -22,7 +22,7 @@ body {
 
 /* Container principal */
 .container {
-    background-color: #004AAD;
+    background-color: #00337a;
     color: white;
     width: 85%;
     max-width: 400px;
@@ -73,7 +73,7 @@ body {
     width: 80%;
     padding: 14px;
     background-color: #ffffff;
-    color: #004AAD;
+    color: #00337a;
     border: none;
     border-radius: 8px;
     font-size: 16px;

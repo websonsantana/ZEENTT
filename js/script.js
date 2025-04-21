@@ -164,7 +164,8 @@ function updateSummary() {
     if (totalItemsEl) totalItemsEl.textContent = totalItems;
 }
 
-// INICIALIZAÇÃO
+// INICIALIZAÇÃO// ... (todo o código anterior permanece igual até o final do DOMContentLoaded)
+
 document.addEventListener("DOMContentLoaded", function () {
     const formularioLogin = document.getElementById("loginForm");
     if (formularioLogin) formularioLogin.addEventListener("submit", fazerLogin);
@@ -223,9 +224,24 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (saveButton) saveButton.addEventListener("click", () => alert("Pedido salvo!"));
-    if (concludeButton) concludeButton.addEventListener("click", () => alert("Pedido concluído!"));
+    if (concludeButton) concludeButton.addEventListener("click", () => concluirPedido());
 
     loadMenu();
     loadOrders();
 });
 
+function concluirPedido() {
+    alert('Pedido concluído!');
+    const pedidoList = document.querySelector('.list');
+    if (pedidoList) pedidoList.innerHTML = '';
+
+    localStorage.removeItem("orders");
+    updateSummary();
+}
+
+function toggleMenu() {
+    const sidebar = document.getElementById('sidebar') || document.querySelector('.mobile-menu');
+    if (sidebar) {
+        sidebar.classList.toggle('active');
+    }
+}
