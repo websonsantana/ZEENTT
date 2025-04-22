@@ -352,6 +352,9 @@ button[type="submit"]:hover {
   width: 100%;
   z-index: 1000;
 }
+.logo{
+  text-align: center;  
+}
 
 .logo img {
   height: 40px;
@@ -518,7 +521,7 @@ button[type="submit"]:hover {
 
 /* === ESTILO EXCLUSIVO PARA A PÁGINA DE COZINHA === */body.pagina-cozinha .painel {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 20px;
   flex-wrap: nowrap; /* Impede quebra */

@@ -29,11 +29,9 @@
         <i class="fas fa-bars menu-icon"></i>
       </button>
     </div>
-      
         <div class="logo">
-          <img src="img/sualogo.png" alt="Logo Zeentt">
+          <div class="logo">ZEENTT</div>
         </div>
-      
         <div class="right-icons">
           <button onclick="fazerLogoff()" class="logout-button">
             <i class="fas fa-sign-out-alt logout-icon"></i>
@@ -42,11 +40,9 @@
             <i class="fas fa-home"></i>
           </button>
         </div>
-      </header>
-      
+      </header>  
   <div class="container">
     <h1>Cadastro de Itens do Cardápio</h1>
-    
     <form action="salvar_item.php" method="POST" enctype="multipart/form-data">
         <label for="codigo"></label>
         <input type="Number" id="number" name="codigo" placeholder="codigo do do Cardápio" required>
@@ -60,22 +56,19 @@
           <option value="Bebida">Bebida</option>
           <option value="Acompanhamento">Acompanhamento</option>
         </select>
-      
         <label for="descricao"></label>
         <textarea id="descricao" name="descricao" placeholder="Descreva o prato, ingredientes, etc." required></textarea>
-      
         <label for="valor"></label>
         <input type="number" id="valor" name="valor" step="0.01" placeholder="Ex: 29.90" required>
-      
         <label for="imagem"></label>
         <input type="file" id="imagem" name="imagem" accept="image/*" required>
-      <br>  <br>
+       <br> 
+       <br>
       <center>
         <button type="submit">Salvar</button>
         </center>
       </form>
-      
-  </div>
+      </div>
   <footer>
     <p>&copy; 2025 ZEENTT - Todos os direitos reservados</p>
   </footer>
