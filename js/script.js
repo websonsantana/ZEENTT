@@ -245,45 +245,74 @@ function toggleMenu() {
         sidebar.classList.toggle('active');
     }
 }
-
-const items = [
-    { title: "Combo dos Clássicos", price: 52.90, description: "2 Sanduíches + Batata + Bebida. Escolha entre Big Mac, Cheddar McMelt..." },
-    { title: "4 Pequenos Preços", price: 32.00, description: "Escolha 4 itens entre Cheeseburger, McFiesta, Chicken Jr..." },
-    { title: "McOferta Média + Nuggets/Cheeseburger/McFlurry", price: 43.90, description: "1 McOferta Média Clássica + acompanhamento (Nuggets, Cheeseburger ou McFlurry)." },
-    { title: "2 McOfertas Médias", price: 68.90, description: "2 McOfertas Médias Clássicas para compartilhar." },
-    { title: "2 Sanduíches com desconto", price: 30.90, description: "Leve 2 sanduíches com desconto entre várias opções." }
-  ];
-
-  let total = 0;
-
-  const menuList = document.getElementById('menuList');
-  const totalDisplay = document.getElementById('total');
-  const modal = document.getElementById('modal');
-  const modalDetails = document.getElementById('modalDetails');
-
-  function updateTotal(amount) {
-    total += amount;
-    totalDisplay.textContent = total.toFixed(2);
-  }
-
-  function showModal(item) {
-    modalDetails.innerHTML = `<h2>${item.title}</h2><p>${item.description}</p><p><strong>Preço:</strong> R$ ${item.price.toFixed(2)}</p><button class='btn-add' onclick='selectItem(${item.price})'>Selecionar</button>`;
-    modal.style.display = 'flex';
-  }
-
-  function closeModal() {
-    modal.style.display = 'none';
-  }
-
-  function selectItem(price) {
-    updateTotal(price);
-    closeModal();
-  }
-
-  items.forEach(item => {
-    const div = document.createElement('div');
-    div.className = 'item';
-    div.innerHTML = `<div class='item-title'>${item.title}</div><div class='item-price'>a partir de R$ ${item.price.toFixed(2)}</div>`;
-    div.onclick = () => showModal(item);
-    menuList.appendChild(div);
+document.addEventListener("DOMContentLoaded", function () {
+    if (window.location.pathname.includes("cardapio.html")) {
+      const menuList = document.getElementById('menuList');
+      const totalDisplay = document.getElementById('total');
+      const modal = document.getElementById('modal');
+      const modalDetails = document.getElementById('modalDetails');
+  
+      let selectedItems = {};
+      let total = 0;
+  
+      const items = [
+        { title: "Combo dos Clássicos", price: 52.90, description: "2 Sanduíches + Batata + Bebida. Escolha entre Big Mac, Cheddar McMelt..." },
+        { title: "4 Pequenos Preços", price: 32.00, description: "Escolha 4 itens entre Cheeseburger, McFiesta, Chicken Jr..." },
+        { title: "McOferta Média + Nuggets/Cheeseburger/McFlurry", price: 43.90, description: "1 McOferta Média Clássica + acompanhamento (Nuggets, Cheeseburger ou McFlurry)." },
+        { title: "2 McOfertas Médias", price: 68.90, description: "2 McOfertas Médias Clássicas para compartilhar." },
+        { title: "2 Sanduíches com desconto", price: 30.90, description: "Leve 2 sanduíches com desconto entre várias opções." }
+      ];
+  
+      function updateTotal() {
+        total = Object.values(selectedItems).reduce((sum, item) => item.selected ? sum + item.price : sum, 0);
+        totalDisplay.textContent = total.toFixed(2);
+      }
+  
+      window.toggleItem = function (index) {
+        const item = items[index];
+        if (!selectedItems[index]) selectedItems[index] = { ...item, selected: false };
+        selectedItems[index].selected = !selectedItems[index].selected;
+        document.getElementById(`checkbox-${index}`).checked = selectedItems[index].selected;
+        updateTotal();
+      };
+  
+      window.showModal = function (item) {
+        modalDetails.innerHTML = `<h2>${item.title}</h2><p>${item.description}</p><p><strong>Preço:</strong> R$ ${item.price.toFixed(2)}</p>`;
+        modal.style.display = 'flex';
+      };
+  
+      window.closeModal = function () {
+        modal.style.display = 'none';
+      };
+  
+      window.adicionarSelecionadosAoPedido = function () {
+        const pedidosAtuais = JSON.parse(localStorage.getItem("orders")) || [];
+        Object.values(selectedItems).forEach(item => {
+          if (item.selected) {
+            pedidosAtuais.push({ name: item.title, price: item.price, quantity: 1 });
+          }
+        });
+        localStorage.setItem("orders", JSON.stringify(pedidosAtuais));
+        alert("Itens adicionados ao pedido!");
+        selectedItems = {};
+        updateTotal();
+        document.querySelectorAll('input[type=\"checkbox\"]').forEach(cb => cb.checked = false);
+      };
+  
+      items.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'item';
+  
+        div.innerHTML = `
+          <div class='item-info' onclick='showModal(items[${index}])'>
+            <div class='item-title'>${item.title}</div>
+            <div class='item-price'>a partir de R$ ${item.price.toFixed(2)}</div>
+          </div>
+          <input type=\"checkbox\" id=\"checkbox-${index}\" onchange=\"toggleItem(${index})\">
+        `;
+  
+        menuList.appendChild(div);
+      });
+    }
   });
+  

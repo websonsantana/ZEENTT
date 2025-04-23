@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Zeentt - Cardapio</title>
+        <link rel="stylesheet" href="css/style.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+      </head>
+      
+<body class="pagina-cadastro">
+  <div id="sidebar" class="sidebar">
+    <ul>
+      <br>
+      <br>
+      <li><a href="menu.html"><i class="fas fa-home"></i> Início</a></li>
+      <li><a href="cadastro.html"><i class="fas fa-plus"></i> Cadastro</a></li>
+      <li><a href="cardapio.html"><i class="fas fa-utensils"></i> Cardápio</a></li>
+      <li><a href="pedido.html"><i class="fas fa-concierge-bell"></i> Pedidos</a></li>
+      <li><a href="cozinha.html"><i class="fas fa-blender"></i> Cozinha</a></li>
+      <li><a href="relatorio.html"><i class="fas fa-chart-bar"></i> Relatórios</a></li>
+      <li><a href="suporte.html"><i class="fas fa-headset"></i> Suporte</a></li>
+      <li><a href="informacoes.html"><i class="fas fa-info-circle"></i> Informações</a></li>
+      <li><a href="servico.html"><i class="fas fa-tools"></i> Serviços</a></li>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>    
+              <center>><h1>ZEENTT</h1></center>
+              <center><h6>BRIDGING TECHNOLOGY AND EXPERTISE</h6></center>
+             </ul>
+  </div>
+  <header class="top-bar">
+    <div class="left-icons">
+      <button onclick="toggleMenu()">
+        <i class="fas fa-bars menu-icon"></i>
+      </button>
+    </div>
+      
+        <div class="logo">
+          <div class="logo">ZEENTT</div>
+        </div>
+      
+        <div class="right-icons">
+          <button onclick="fazerLogoff()" class="logout-button">
+            <i class="fas fa-sign-out-alt logout-icon"></i>
+          </button>
+          <button onclick="window.location.href='menu.html'">
+            <i class="fas fa-home"></i>
+          </button>
+        </div>
+      </header>
+  <style>
+ 
+    .fixed-header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #fff;
+      padding: 10px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      font-size: 18px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      z-index: 1000;
+    }
+    .menu-list {
+      padding: 20px;
+    }
+    .item {
+      background: white;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      padding: 15px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .item-info {
+      cursor: pointer;
+    }
+    .item-info:hover {
+      text-decoration: underline;
+    }
+    .item-title {
+      font-weight: bold;
+    }
+    .item-price {
+      color: green;
+    }
+    .fixed-footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #fff;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    }
+    .btn-add {
+      background: #e4002b;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+    .modal-close {
+      margin-top: 15px;
+      background: #ccc;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="fixed-header">
+    Total Selecionado: R$ <span id="total">0.00</span>
+  </div>
+
+  <div class="menu-list" id="menuList"></div>
+
+  <div class="fixed-footer">
+    <button class="btn-add" onclick="adicionarSelecionadosAoPedido()">Adicionar ao Pedido</button>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <div id="modalDetails"></div>
+      <button class="modal-close" onclick="closeModal()">Fechar</button>
+    </div>
+  </div>
+
+  <script>
+    const items = [
+      { title: "Combo dos Clássicos", price: 52.90, description: "2 Sanduíches + Batata + Bebida. Escolha entre Big Mac, Cheddar McMelt..." },
+      { title: "4 Pequenos Preços", price: 32.00, description: "Escolha 4 itens entre Cheeseburger, McFiesta, Chicken Jr..." },
+      { title: "McOferta Média + Nuggets/Cheeseburger/McFlurry", price: 43.90, description: "1 McOferta Média Clássica + acompanhamento (Nuggets, Cheeseburger ou McFlurry)." },
+      { title: "2 McOfertas Médias", price: 68.90, description: "2 McOfertas Médias Clássicas para compartilhar." },
+      { title: "2 Sanduíches com desconto", price: 30.90, description: "Leve 2 sanduíches com desconto entre várias opções." }
+    ];
+
+    let selectedItems = {};
+    let total = 0;
+
+    const menuList = document.getElementById('menuList');
+    const totalDisplay = document.getElementById('total');
+    const modal = document.getElementById('modal');
+    const modalDetails = document.getElementById('modalDetails');
+
+    function updateTotal() {
+      total = Object.values(selectedItems).reduce((sum, item) => item.selected ? sum + item.price : sum, 0);
+      totalDisplay.textContent = total.toFixed(2);
+    }
+
+    function toggleItem(index) {
+      const item = items[index];
+      if (!selectedItems[index]) selectedItems[index] = { ...item, selected: false };
+      selectedItems[index].selected = !selectedItems[index].selected;
+      document.getElementById(`checkbox-${index}`).checked = selectedItems[index].selected;
+      updateTotal();
+    }
+
+    function showModal(item) {
+      modalDetails.innerHTML = `<h2>${item.title}</h2><p>${item.description}</p><p><strong>Preço:</strong> R$ ${item.price.toFixed(2)}</p>`;
+      modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+
+    function adicionarSelecionadosAoPedido() {
+      const pedidosAtuais = JSON.parse(localStorage.getItem("orders")) || [];
+      Object.values(selectedItems).forEach(item => {
+        if (item.selected) {
+          pedidosAtuais.push({ name: item.title, price: item.price, quantity: 1 });
+        }
+      });
+      localStorage.setItem("orders", JSON.stringify(pedidosAtuais));
+      alert("Itens adicionados ao pedido!");
+      selectedItems = {};
+      updateTotal();
+      document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+    }
+
+    items.forEach((item, index) => {
+      const div = document.createElement('div');
+      div.className = 'item';
+
+      div.innerHTML = `
+        <div class='item-info' onclick='showModal(items[${index}])'>
+          <div class='item-title'>${item.title}</div>
+          <div class='item-price'>a partir de R$ ${item.price.toFixed(2)}</div>
+        </div>
+        <input type="checkbox" id="checkbox-${index}" onchange="toggleItem(${index})">
+      `;
+
+      menuList.appendChild(div);
+    });
+  </script>
+</body>
+</html>
