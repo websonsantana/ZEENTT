@@ -156,8 +156,8 @@
   
   .item {
     background-color: #fff;
-    width: 150px;
-    height: 150px;
+    width: auto;
+    height: auto;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -243,8 +243,8 @@
     }
   
     .item {
-      width: 100px;
-      height: 100px;
+      width: auto;
+      height: auto;
     }
   
     .item-text {
@@ -268,8 +268,8 @@
     }
   
     .item {
-      width: 130px;
-      height: 130px;
+      width: auto;
+      height: auto;
     }
   
     .item-text {
@@ -590,6 +590,8 @@ h1 {
   gap: 20px;
 }
 .item {
+  width: auto;
+  height: auto;
   background: white;
   border-radius: 10px;
   padding: 20px;
@@ -629,7 +631,7 @@ h1 {
   box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
 }
 .btn-add {
-  background:#00337a;
+  background: #00337a;
   color: white;
   padding: 12px 25px;
   border: none;
