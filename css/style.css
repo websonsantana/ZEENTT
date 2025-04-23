@@ -584,30 +584,41 @@ h1 {
   z-index: 1000;
 }
 .menu-list {
-  padding: 90px 20px 80px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-}
-.item {
-  width: auto;
-  height: auto;
-  background: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
   gap: 10px;
 }
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
 .item-info {
-  width: 100%;
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  
+}
+
+.item-info img {
+  max-width: 80px;
+  margin-top: 10px;
+}
+
+.item-checkbox {
+  margin-left: 10px;
+  width: 20px;
+  height: 20px;
 }
 .item-info:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 .item-title {
   font-weight: bold;
@@ -615,7 +626,7 @@ h1 {
   margin-bottom: 5px;
 }
 .item-price {
-  color: green;
+  color:  #00337a;
 }
 .item input[type="checkbox"] {
   align-self: flex-end;

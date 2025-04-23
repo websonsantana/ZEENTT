@@ -1,228 +1,135 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Zeentt - Cardapio</title>
-        <link rel="stylesheet" href="css/style.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-      </head>
-      
-<body class="pagina-cadastro">
-  <div id="sidebar" class="sidebar">
-    <ul>
-      <br>
-      <br>
-      <li><a href="menu.html"><i class="fas fa-home"></i> Início</a></li>
-      <li><a href="cadastro.html"><i class="fas fa-plus"></i> Cadastro</a></li>
-      <li><a href="cardapio.html"><i class="fas fa-utensils"></i> Cardápio</a></li>
-      <li><a href="pedido.html"><i class="fas fa-concierge-bell"></i> Pedidos</a></li>
-      <li><a href="cozinha.html"><i class="fas fa-blender"></i> Cozinha</a></li>
-      <li><a href="relatorio.html"><i class="fas fa-chart-bar"></i> Relatórios</a></li>
-      <li><a href="suporte.html"><i class="fas fa-headset"></i> Suporte</a></li>
-      <li><a href="informacoes.html"><i class="fas fa-info-circle"></i> Informações</a></li>
-      <li><a href="servico.html"><i class="fas fa-tools"></i> Serviços</a></li>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>    
-              <center>><h1>ZEENTT</h1></center>
-              <center><h6>BRIDGING TECHNOLOGY AND EXPERTISE</h6></center>
-             </ul>
-  </div>
-  <header class="top-bar">
-    <div class="left-icons">
-      <button onclick="toggleMenu()">
-        <i class="fas fa-bars menu-icon"></i>
-      </button>
-    </div>
-      
-        <div class="logo">
-          <div class="logo">ZEENTT</div>
-        </div>
-      
-        <div class="right-icons">
-          <button onclick="fazerLogoff()" class="logout-button">
-            <i class="fas fa-sign-out-alt logout-icon"></i>
-          </button>
-          <button onclick="window.location.href='menu.html'">
-            <i class="fas fa-home"></i>
-          </button>
-        </div>
-      </header>
-  <style>
- 
-    .fixed-header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: #fff;
-      padding: 10px 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      font-size: 18px;
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-      z-index: 1000;
-    }
-    .menu-list {
-      padding: 20px;
-    }
-    .item {
-      background: white;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      padding: 15px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .item-info {
-      cursor: pointer;
-    }
-    .item-info:hover {
-      text-decoration: underline;
-    }
-    .item-title {
-      font-weight: bold;
-    }
-    .item-price {
-      color: green;
-    }
-    .fixed-footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background: #fff;
-      padding: 15px;
-      text-align: center;
-      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-    }
-    .btn-add {
-      background: #e4002b;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    .modal {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
-    }
-    .modal-content {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 400px;
-      width: 90%;
-      text-align: center;
-    }
-    .modal-close {
-      margin-top: 15px;
-      background: #ccc;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  </style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controle de OS</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="fixed-header">
-    Total Selecionado: R$ <span id="total">0.00</span>
+  <div class="container">
+    <h1>Controle de OS</h1>
+    <form id="osForm">
+      <input type="text" id="numeroOS" placeholder="Número da OS" required>
+      <input type="text" id="responsavel" placeholder="Responsável" required>
+      <input type="text" id="bloco" placeholder="Bloco" required>
+      <input type="text" id="apartamento" placeholder="Apartamento" required>
+      <input type="text" id="detalhamento" placeholder="Detalhamento" required>
+      <button type="submit">Adicionar OS</button>
+    </form>
+
+    <input type="text" id="searchInput" placeholder="Buscar por número da OS">
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nº OS</th>
+          <th>Responsável</th>
+          <th>Bloco</th>
+          <th>Apartamento</th>
+          <th>Detalhamento</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="osList"></tbody>
+    </table>
   </div>
-
-  <div class="menu-list" id="menuList"></div>
-
-  <div class="fixed-footer">
-    <button class="btn-add" onclick="adicionarSelecionadosAoPedido()">Adicionar ao Pedido</button>
-  </div>
-
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <div id="modalDetails"></div>
-      <button class="modal-close" onclick="closeModal()">Fechar</button>
-    </div>
-  </div>
-
-  <script>
-    const items = [
-      { title: "Combo dos Clássicos", price: 52.90, description: "2 Sanduíches + Batata + Bebida. Escolha entre Big Mac, Cheddar McMelt..." },
-      { title: "4 Pequenos Preços", price: 32.00, description: "Escolha 4 itens entre Cheeseburger, McFiesta, Chicken Jr..." },
-      { title: "McOferta Média + Nuggets/Cheeseburger/McFlurry", price: 43.90, description: "1 McOferta Média Clássica + acompanhamento (Nuggets, Cheeseburger ou McFlurry)." },
-      { title: "2 McOfertas Médias", price: 68.90, description: "2 McOfertas Médias Clássicas para compartilhar." },
-      { title: "2 Sanduíches com desconto", price: 30.90, description: "Leve 2 sanduíches com desconto entre várias opções." }
-    ];
-
-    let selectedItems = {};
-    let total = 0;
-
-    const menuList = document.getElementById('menuList');
-    const totalDisplay = document.getElementById('total');
-    const modal = document.getElementById('modal');
-    const modalDetails = document.getElementById('modalDetails');
-
-    function updateTotal() {
-      total = Object.values(selectedItems).reduce((sum, item) => item.selected ? sum + item.price : sum, 0);
-      totalDisplay.textContent = total.toFixed(2);
-    }
-
-    function toggleItem(index) {
-      const item = items[index];
-      if (!selectedItems[index]) selectedItems[index] = { ...item, selected: false };
-      selectedItems[index].selected = !selectedItems[index].selected;
-      document.getElementById(`checkbox-${index}`).checked = selectedItems[index].selected;
-      updateTotal();
-    }
-
-    function showModal(item) {
-      modalDetails.innerHTML = `<h2>${item.title}</h2><p>${item.description}</p><p><strong>Preço:</strong> R$ ${item.price.toFixed(2)}</p>`;
-      modal.style.display = 'flex';
-    }
-
-    function closeModal() {
-      modal.style.display = 'none';
-    }
-
-    function adicionarSelecionadosAoPedido() {
-      const pedidosAtuais = JSON.parse(localStorage.getItem("orders")) || [];
-      Object.values(selectedItems).forEach(item => {
-        if (item.selected) {
-          pedidosAtuais.push({ name: item.title, price: item.price, quantity: 1 });
-        }
-      });
-      localStorage.setItem("orders", JSON.stringify(pedidosAtuais));
-      alert("Itens adicionados ao pedido!");
-      selectedItems = {};
-      updateTotal();
-      document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
-    }
-
-    items.forEach((item, index) => {
-      const div = document.createElement('div');
-      div.className = 'item';
-
-      div.innerHTML = `
-        <div class='item-info' onclick='showModal(items[${index}])'>
-          <div class='item-title'>${item.title}</div>
-          <div class='item-price'>a partir de R$ ${item.price.toFixed(2)}</div>
-        </div>
-        <input type="checkbox" id="checkbox-${index}" onchange="toggleItem(${index})">
-      `;
-
-      menuList.appendChild(div);
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const osForm = document.getElementById('osForm');
+  const osList = document.getElementById('osList');
+  const searchInput = document.getElementById('searchInput');
+
+  let osArray = JSON.parse(localStorage.getItem('osArray')) || [];
+
+  function saveToLocalStorage() {
+    localStorage.setItem('osArray', JSON.stringify(osArray));
+  }
+
+  function renderOSList() {
+    osList.innerHTML = '';
+    osArray.forEach((os, index) => {
+      const row = document.createElement('tr');
+
+      row.innerHTML = `
+        <td>${os.numero}</td>
+        <td>${os.responsavel}</td>
+        <td>${os.bloco}</td>
+        <td>${os.apartamento}</td>
+        <td>${os.detalhamento}</td>
+        <td>${os.status}</td>
+        <td>
+          <button class="acao finalizar" onclick="updateStatus(${index}, 'Finalizada')">Finalizar</button>
+          <button class="acao pendente" onclick="updateStatus(${index}, 'Pendente')">Pendente</button>
+          <button class="acao excluir" onclick="deleteOS(${index})">Excluir</button>
+        </td>
+      `;
+
+      osList.appendChild(row);
+    });
+  }
+
+  window.updateStatus = (index, status) => {
+    osArray[index].status = status;
+    saveToLocalStorage();
+    renderOSList();
+  };
+
+  window.deleteOS = (index) => {
+    if (confirm('Deseja excluir esta OS?')) {
+      osArray.splice(index, 1);
+      saveToLocalStorage();
+      renderOSList();
+    }
+  };
+
+  osForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const numeroOS = document.getElementById('numeroOS').value.trim();
+    const responsavel = document.getElementById('responsavel').value.trim();
+    const bloco = document.getElementById('bloco').value.trim();
+    const apartamento = document.getElementById('apartamento').value.trim();
+    const detalhamento = document.getElementById('detalhamento').value.trim();
+
+    const duplicado = osArray.some(os => os.numero === numeroOS);
+
+    if (duplicado) {
+      alert('Já existe uma OS com esse número.');
+      return;
+    }
+
+    const novaOS = {
+      numero: numeroOS,
+      responsavel,
+      bloco,
+      apartamento,
+      detalhamento,
+      status: 'Pendente'
+    };
+
+    osArray.push(novaOS);
+    saveToLocalStorage();
+    osForm.reset();
+    renderOSList();
+  });
+
+  searchInput.addEventListener('input', () => {
+    const termo = searchInput.value.trim().toLowerCase();
+    const linhas = osList.getElementsByTagName('tr');
+    Array.from(linhas).forEach(linha => {
+      const texto = linha.textContent.toLowerCase();
+      linha.style.display = texto.includes(termo) ? '' : 'none';
+    });
+  });
+
+  renderOSList();
+});
+</script>
