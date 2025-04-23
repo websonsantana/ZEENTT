@@ -222,3 +222,10 @@ window.adicionarSelecionadosAoPedido = function () {
   alert("Itens adicionados ao pedido!");
   updateTotal();
 };
+
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("loginForm");
+    if (form) {
+        form.addEventListener("submit", fazerLogin);
+    }
+});
