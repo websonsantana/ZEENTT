@@ -165,154 +165,60 @@ function updateSummary() {
 }
 
 // INICIALIZAÇÃO// ... (todo o código anterior permanece igual até o final do DOMContentLoaded)
+const itemElements = document.querySelectorAll("#menuList .item");
+let selectedItems = {};
+let total = 0;
 
-document.addEventListener("DOMContentLoaded", function () {
-    const formularioLogin = document.getElementById("loginForm");
-    if (formularioLogin) formularioLogin.addEventListener("submit", fazerLogin);
-
-    verificarSessao();
-
-    if (window.location.pathname.includes("login.html")) {
-        const sessao = JSON.parse(localStorage.getItem("sessaoUsuario"));
-        if (sessao?.ativo) window.location.href = "menu.html";
-    }
-
-    document.addEventListener("click", atualizarUltimoAcesso);
-    document.addEventListener("keydown", atualizarUltimoAcesso);
-
-    const addButton = document.querySelector(".add");
-    const saveButton = document.querySelector(".save");
-    const concludeButton = document.querySelector(".conclude");
-
-    if (addButton) {
-        addButton.addEventListener("click", () => {
-            const menuItems = JSON.parse(localStorage.getItem("menu")) || [];
-            if (menuItems.length === 0) {
-                alert("Nenhum item no cardápio cadastrado!");
-                return;
-            }
-
-            const itemName = prompt("Digite o nome do item (deve estar no cardápio):");
-            const menuItem = menuItems.find(item => item.name.toLowerCase() === itemName?.toLowerCase());
-
-            if (!menuItem) {
-                alert("Item não encontrado no cardápio!");
-                return;
-            }
-
-            const quantity = parseInt(prompt("Quantidade:")) || 1;
-            const newItem = { quantity, name: menuItem.name, price: menuItem.price };
-
-            const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
-            savedOrders.push(newItem);
-            localStorage.setItem("orders", JSON.stringify(savedOrders));
-            loadOrders();
-        });
-    }
-
-    const list = document.querySelector(".list");
-    if (list) {
-        list.addEventListener("click", function (event) {
-            if (event.target.classList.contains("delete")) {
-                const index = event.target.getAttribute("data-index");
-                const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
-                savedOrders.splice(index, 1);
-                localStorage.setItem("orders", JSON.stringify(savedOrders));
-                loadOrders();
-            }
-        });
-    }
-
-    if (saveButton) saveButton.addEventListener("click", () => alert("Pedido salvo!"));
-    if (concludeButton) concludeButton.addEventListener("click", () => concluirPedido());
-
-    loadMenu();
-    loadOrders();
-});
-
-function concluirPedido() {
-    alert('Pedido concluído!');
-    const pedidoList = document.querySelector('.list');
-    if (pedidoList) pedidoList.innerHTML = '';
-
-    localStorage.removeItem("orders");
-    updateSummary();
-}
-
-function toggleMenu() {
-    const sidebar = document.getElementById('sidebar') || document.querySelector('.mobile-menu');
-    if (sidebar) {
-        sidebar.classList.toggle('active');
-    }
-}
-document.addEventListener("DOMContentLoaded", function () {
-    if (window.location.pathname.includes("cardapio.html")) {
-      const menuList = document.getElementById('menuList');
-      const totalDisplay = document.getElementById('total');
-      const modal = document.getElementById('modal');
-      const modalDetails = document.getElementById('modalDetails');
-  
-      let selectedItems = {};
-      let total = 0;
-  
-      const items = [
-        { title: "Combo dos Clássicos", price: 52.90, description: "2 Sanduíches + Batata + Bebida. Escolha entre Big Mac, Cheddar McMelt..." },
-        { title: "4 Pequenos Preços", price: 32.00, description: "Escolha 4 itens entre Cheeseburger, McFiesta, Chicken Jr..." },
-        { title: "McOferta Média + Nuggets/Cheeseburger/McFlurry", price: 43.90, description: "1 McOferta Média Clássica + acompanhamento (Nuggets, Cheeseburger ou McFlurry)." },
-        { title: "2 McOfertas Médias", price: 68.90, description: "2 McOfertas Médias Clássicas para compartilhar." },
-        { title: "2 Sanduíches com desconto", price: 30.90, description: "Leve 2 sanduíches com desconto entre várias opções." }
-      ];
-  
-      function updateTotal() {
-        total = Object.values(selectedItems).reduce((sum, item) => item.selected ? sum + item.price : sum, 0);
-        totalDisplay.textContent = total.toFixed(2);
-      }
-  
-      window.toggleItem = function (index) {
-        const item = items[index];
-        if (!selectedItems[index]) selectedItems[index] = { ...item, selected: false };
-        selectedItems[index].selected = !selectedItems[index].selected;
-        document.getElementById(`checkbox-${index}`).checked = selectedItems[index].selected;
-        updateTotal();
-      };
-  
-      window.showModal = function (item) {
-        modalDetails.innerHTML = `<h2>${item.title}</h2><p>${item.description}</p><p><strong>Preço:</strong> R$ ${item.price.toFixed(2)}</p>`;
-        modal.style.display = 'flex';
-      };
-  
-      window.closeModal = function () {
-        modal.style.display = 'none';
-      };
-  
-      window.adicionarSelecionadosAoPedido = function () {
-        const pedidosAtuais = JSON.parse(localStorage.getItem("orders")) || [];
-        Object.values(selectedItems).forEach(item => {
-          if (item.selected) {
-            pedidosAtuais.push({ name: item.title, price: item.price, quantity: 1 });
-          }
-        });
-        localStorage.setItem("orders", JSON.stringify(pedidosAtuais));
-        alert("Itens adicionados ao pedido!");
-        selectedItems = {};
-        updateTotal();
-        document.querySelectorAll('input[type=\"checkbox\"]').forEach(cb => cb.checked = false);
-      };
-  
-      items.forEach((item, index) => {
-        const div = document.createElement('div');
-        div.className = 'item';
-  
-        div.innerHTML = `
-          <div class='item-info' onclick='showModal(items[${index}])'>
-            <div class='item-title'>${item.title}</div>
-            <div class='item-price'>a partir de R$ ${item.price.toFixed(2)}</div>
-          </div>
-          <input type=\"checkbox\" id=\"checkbox-${index}\" onchange=\"toggleItem(${index})\">
-        `;
-  
-        menuList.appendChild(div);
-      });
+function updateTotal() {
+  total = 0;
+  itemElements.forEach((itemEl, index) => {
+    const checkbox = itemEl.querySelector("input");
+    if (checkbox.checked) {
+      const price = parseFloat(itemEl.getAttribute("data-price"));
+      total += price;
     }
   });
-  
+  document.getElementById("total").textContent = total.toFixed(2);
+}
+
+itemElements.forEach((itemEl, index) => {
+  const checkbox = itemEl.querySelector("input");
+  checkbox.addEventListener("change", updateTotal);
+});
+
+window.showModal = function (element) {
+  const title = element.closest(".item").getAttribute("data-title");
+  const desc = element.closest(".item").getAttribute("data-description");
+  const price = parseFloat(element.closest(".item").getAttribute("data-price")).toFixed(2);
+
+  document.getElementById("modalDetails").innerHTML = `
+    <h2>${title}</h2>
+    <p>${desc}</p>
+    <p><strong>Preço:</strong> R$ ${price}</p>
+  `;
+  document.getElementById("modal").style.display = "flex";
+};
+
+window.closeModal = function () {
+  document.getElementById("modal").style.display = "none";
+};
+
+window.adicionarSelecionadosAoPedido = function () {
+  const pedidosAtuais = JSON.parse(localStorage.getItem("orders")) || [];
+
+  itemElements.forEach((itemEl) => {
+    const checkbox = itemEl.querySelector("input");
+    if (checkbox.checked) {
+      pedidosAtuais.push({
+        name: itemEl.getAttribute("data-title"),
+        price: parseFloat(itemEl.getAttribute("data-price")),
+        quantity: 1
+      });
+      checkbox.checked = false;
+    }
+  });
+
+  localStorage.setItem("orders", JSON.stringify(pedidosAtuais));
+  alert("Itens adicionados ao pedido!");
+  updateTotal();
+};
