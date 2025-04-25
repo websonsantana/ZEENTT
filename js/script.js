@@ -187,17 +187,22 @@ itemElements.forEach((itemEl, index) => {
 });
 
 window.showModal = function (element) {
-  const title = element.closest(".item").getAttribute("data-title");
-  const desc = element.closest(".item").getAttribute("data-description");
-  const price = parseFloat(element.closest(".item").getAttribute("data-price")).toFixed(2);
-
-  document.getElementById("modalDetails").innerHTML = `
-    <h2>${title}</h2>
-    <p>${desc}</p>
-    <p><strong>Preço:</strong> R$ ${price}</p>
-  `;
-  document.getElementById("modal").style.display = "flex";
-};
+    const item = element.closest(".item");
+    const title = item.getAttribute("data-title");
+    const desc = item.getAttribute("data-description");
+    const price = parseFloat(item.getAttribute("data-price")).toFixed(2);
+    const img = item.getAttribute("data-img");
+  
+    document.getElementById("modalDetails").innerHTML = `
+      <h2>${title}</h2>
+      <img src="${img}" alt="${title}" style="width: 100%; max-height: 300px; object-fit: cover; margin: 10px 0;">
+      <p>${desc}</p>
+      <p><strong>Preço:</strong> R$ ${price}</p>
+    `;
+  
+    document.getElementById("modal").style.display = "flex";
+  };
+  
 
 window.closeModal = function () {
   document.getElementById("modal").style.display = "none";
@@ -222,3 +227,17 @@ window.adicionarSelecionadosAoPedido = function () {
   alert("Itens adicionados ao pedido!");
   updateTotal();
 };
+
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("loginForm");
+    if (form) {
+        form.addEventListener("submit", fazerLogin);
+    }
+});
+
+document.getElementById("modal").addEventListener("click", function (e) {
+    if (e.target.id === "modal") {
+      closeModal();
+    }
+  });
+  
