@@ -2,7 +2,7 @@ const usuarios = [
     { usuario: "admin", senha: "admin123", nome: "Administrador" },
     { usuario: "usuario", senha: "user123", nome: "Usuário Padrão" },
     { usuario: "zeentt", senha: "zeentt2023", nome: "Zeentt Team" },
-    { usuario: "silva", senha: "0000", nome: "Administrador" },
+    { usuario: "msilva", senha: "1234", nome: "Administrador" },
     { usuario: "wsantana", senha: "654321", nome: "Administrador" }
 ];
 
@@ -92,7 +92,8 @@ function exibirMensagem(texto, tipo) {
     setTimeout(() => mensagemEl.remove(), 3000);
 }
 
-// MENU
+////////////////////////////////////// MENU
+
 function loadMenu() {
     const menu = JSON.parse(localStorage.getItem("menu")) || [];
     const menuList = document.getElementById("menuList");
@@ -132,13 +133,12 @@ function selecionarItem(item) {
 }
 
 function toggleMenu() {
-    const menu = document.querySelector('.mobile-menu');
+    const menu = document.querySelector('.sidebar');
     menu?.classList.toggle("active");
-    const menuButton = document.querySelector('.mobile-menu-button');
-menuButton.addEventListener('click', toggleMenu);
-}
+  }
+  
 
-// PEDIDOS
+// ////////////////////////////////////////PEDIDOS
 function loadOrders() {
     const list = document.querySelector(".list");
     if (!list) return;
@@ -242,6 +242,4 @@ document.getElementById("modal").addEventListener("click", function (e) {
       closeModal();
     }
   });
-
-
   
