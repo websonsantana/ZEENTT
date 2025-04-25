@@ -240,4 +240,7 @@ document.getElementById("modal").addEventListener("click", function (e) {
       closeModal();
     }
   });
+
+const menuButton = document.querySelector('.mobile-menu-button');
+menuButton.addEventListener('click', toggleMenu);
   
