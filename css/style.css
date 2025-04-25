@@ -406,11 +406,10 @@ button[type="submit"]:hover {
 
 .container {
   margin-top: 110px;
-  padding: 20px;
+  padding: 20px 0 100px;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-
 }
 
 .info {
