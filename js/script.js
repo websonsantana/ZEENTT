@@ -134,6 +134,8 @@ function selecionarItem(item) {
 function toggleMenu() {
     const menu = document.querySelector('.mobile-menu');
     menu?.classList.toggle("active");
+    const menuButton = document.querySelector('.mobile-menu-button');
+menuButton.addEventListener('click', toggleMenu);
 }
 
 // PEDIDOS
@@ -241,6 +243,5 @@ document.getElementById("modal").addEventListener("click", function (e) {
     }
   });
 
-const menuButton = document.querySelector('.mobile-menu-button');
-menuButton.addEventListener('click', toggleMenu);
+
   
