@@ -42,10 +42,10 @@
       </button>
     </div>
   </header>
-  <main class="container">
     <div class="fixed-header">
     Total Selecionado: R$ <span id="total">0.00</span>
     </div>
+    
     <div class="menu-list" id="menuList">
       <div class="item" data-img="img/test/combo.jpg" data-title="Combo dos Clássicos" data-price="52.90" data-description="2 Sanduíches + Batata + Bebida. Escolha entre Big Mac, Cheddar McMelt...">
         <div class='item-info' onclick='showModal(this)'>
@@ -91,20 +91,16 @@
         </div>
         <input type="checkbox" class="item-checkbox">
       </div>
-    </div>
-
+    </div> 
     <div class="fixed-footer">
       <button class="btn-add" onclick="adicionarSelecionadosAoPedido()">Adicionar ao Pedido</button>
-    </div>
+    
 
     <div class="modal" id="modal">
       <div class="modal-content">
         <div id="modalDetails"></div>
         <button class="modal-close" onclick="closeModal()">Fechar</button>
-      </div>
-    </div>
-  </div>
-  </div>
+    
   <script src="js/script.js"></script>
 </body>
 </html>
