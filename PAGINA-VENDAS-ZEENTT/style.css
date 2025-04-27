@@ -22,7 +22,7 @@
       z-index: 1000;
     }
 
-    .logo { font-weight: bold; font-size: 24px; color: #0077cc; }
+    .logo { font-weight: bold; font-size: 34px; color: #0077cc; }
 
     nav ul { list-style: none; display: flex; gap: 20px; }
 
