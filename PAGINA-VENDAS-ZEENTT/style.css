@@ -1,0 +1,100 @@
+  
+    * { margin: 0; padding: 0; box-sizing: border-box;text-align: left; }
+
+    body { font-family: 'Inter', sans-serif; line-height: 1.6; color: #333; }
+
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px 0;
+        display: flex;    
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+    }
+    header {
+      background: #fff;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo { font-weight: bold; font-size: 24px; color: #0077cc; }
+
+    nav ul { list-style: none; display: flex; gap: 20px; }
+
+    nav a { text-decoration: none; color: #333; font-weight: 500; }
+
+    .btn-whatsapp {
+      background: #25D366;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .hero { padding: 60px 0; }
+
+    .hero .container { flex-direction: row; }
+
+    .hero-text { flex: 1; padding-right: 20px; }
+
+    .hero-text h1 { font-size: 32px; margin-bottom: 20px; }
+
+    .buttons a {
+      display: inline-block;
+      margin: 10px 5px 0 0;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .btn-primary {
+         background: #0077cc; 
+         color: #fff;
+         font-size: 12px;
+         margin-right: 10px; ;    
+     }
+
+    .btn-primary:hover { background: #005fa3; }
+
+    .btn-secondary { background: #f0f0f0; color: #333; font-size: 12px}
+    .btn-secondary:hover { background: #ddd; }
+
+    .hero-image { flex: 1; text-align: right; }
+
+    .hero-image img {
+      max-width: 200px;
+      width: 100%; 
+      margin-right: 150px;
+    }
+   
+    section.sobre { background: #f9f9f9; padding: 60px 0; text-align: center; flex-direction: column; }
+
+    section.sobre h2 { margin-bottom: 20px; font-size: 28px; }
+
+    section.sobre p { margin-bottom: 20px; font-size: 18px; }
+
+    section.sobre ul { list-style: none; }
+
+    section.sobre li { margin: 10px 0; font-size: 16px; }
+
+    section.contato { padding: 60px 0; text-align: center; flex-direction: column; }
+
+    section.contato h2 { margin-bottom: 20px; font-size: 28px; }
+
+    @media (max-width: 768px) {
+      .container { flex-direction: column; text-align: center; }
+      .hero-text { padding-right: 0; }
+      .hero-image { margin-top: 20px; }
+      .hero-text h1 { font-size: 15px; margin-bottom: 20px; }
+      .hero-image img { max-width: 130px; width: 100%; margin-right: 0; }
+      }
+    
+ 
