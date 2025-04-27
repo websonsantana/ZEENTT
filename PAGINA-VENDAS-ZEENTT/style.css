@@ -27,7 +27,7 @@ body {
 header {
   background: #fff;
   padding: 15px 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #00337a
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -36,7 +36,7 @@ header {
 .logo {
   font-weight: bold; 
   font-size: 36px; 
-  color: #0077cc;
+  color: #fff;
 }
 
 nav ul { 
