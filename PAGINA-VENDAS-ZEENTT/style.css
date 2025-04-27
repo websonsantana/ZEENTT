@@ -172,6 +172,91 @@ section.sobre li {
   font-size: 18px;
 }
 
+/* FUNCIONALIDADES */
+section.funcionalidades {
+  background: #ffffff;
+  padding: 80px 0;
+  text-align: center;
+}
+
+section.funcionalidades h2 {
+  margin-bottom: 20px;
+  font-size: 32px;
+}
+
+section.funcionalidades .cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+section.funcionalidades .card {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  width: 280px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* DEPOIMENTOS */
+section.depoimentos {
+  background: #e6f7ff;
+  padding: 80px 0;
+  text-align: center;
+}
+
+section.depoimentos h2 {
+  margin-bottom: 20px;
+  font-size: 32px;
+}
+
+section.depoimentos .depoimento {
+  margin: 20px auto;
+  max-width: 600px;
+  font-style: italic;
+}
+
+/* PLANOS */
+section.planos {
+  background: #f0f8ff;
+  padding: 80px 0;
+  text-align: center;
+}
+
+section.planos h2 {
+  margin-bottom: 20px;
+  font-size: 32px;
+}
+
+section.planos .plano {
+  background: #fff;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: inline-block;
+  width: 280px;
+}
+
+/* FAQ */
+section.faq {
+  background: #f1f6fd;
+  padding: 80px 0;
+  text-align: center;
+}
+
+section.faq h2 {
+  margin-bottom: 20px;
+  font-size: 32px;
+}
+
+section.faq .pergunta {
+  margin: 20px auto;
+  max-width: 700px;
+  text-align: left;
+}
+
 /* CONTATO */
 section.contato {
   padding: 80px 0;
@@ -214,5 +299,9 @@ footer p {
 
   .hero-image img {
     max-width: 200px;
+  }
+
+  section.funcionalidades .cards, section.planos {
+    flex-direction: column;
   }
 }
