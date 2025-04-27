@@ -83,6 +83,22 @@ nav a:hover::after {
 .btn-whatsapp:hover {
   background: #1ebe57;
 }
+.btn-assinante {
+  background: #0077cc;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.3s;
+}
+
+.btn-assinante:hover {
+  background: #000e56;
+}
 
 /* HERO */
 .hero {
@@ -122,8 +138,8 @@ nav a:hover::after {
 }
 
 .btn-secondary {
-  background: #f0f0f0;
-  color: #333;
+  background: #0077cc; 
+  color: #fdfcfc;
 }
 
 .btn-secondary:hover {
@@ -280,6 +296,18 @@ footer p {
   margin: 0;
   font-size: 14px;
 }
+
+.aparecer {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.aparecer.mostrar {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
 /* RESPONSIVIDADE */
 @media (max-width: 768px) {
