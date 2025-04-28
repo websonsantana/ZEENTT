@@ -20,10 +20,3 @@ document.addEventListener('scroll', function() {
   }
   digitar();
     const menuToggle = document.querySelector('.menu-toggle');    
-
-const menuToggle = document.getElementById('menu-toggle');
-const nav = document.getElementById('nav');
-
-menuToggle.addEventListener('click', () => {
-  nav.classList.toggle('active');
-});
