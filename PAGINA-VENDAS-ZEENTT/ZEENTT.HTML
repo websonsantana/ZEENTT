@@ -2,57 +2,56 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ZEENTT | FOOD</title>
-  <!-- Fonte Moderna -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<Head>
-<!-- Cabeçalho --><header>
-  <div class="container">
+
+<!-- Cabeçalho -->
+<header>
+  <div class="container header-container">
     <div class="logo">ZEENTT</div>
 
-    <!-- Botão do menu hambúrguer -->
+    <!-- Ícone de Menu Hambúrguer -->
     <div class="menu-toggle" id="menu-toggle">
-      <span></span>
-      <span></span>
-      <span></span>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
     </div>
 
+    <!-- Navegação -->
     <nav id="nav">
       <ul>
         <li><a href="#funcionalidades">Funcionalidades</a></li>
         <li><a href="#contato">Contato</a></li>
         <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#FAQ">FAQ</a></li>
+        <li><a href="#faq">FAQ</a></li>
       </ul>
     </nav>
 
-    <a href="https://websonsantana.github.io/ZEENTT/login.html" target="_blank" class="btn-assinante"> 🔐 Área do Assinante</a>
+    <a href="https://websonsantana.github.io/ZEENTT/login.html" target="_blank" class="btn-assinante">🔐 Área do Assinante</a>
   </div>
 </header>
 
-<!-- Seção Principal -->
+<!-- Seções (Hero, Sobre, Funcionalidades, etc) -->
 <section class="hero" id="funcionalidades">
-  <div class="container">
+  <div class="container hero-container">
     <div class="hero-text">
-      <h1>Precisou, fala com a ZEENTT,<br> tudo para seu restaurante em um só lugar!</h1>
+      <h1>Precisou, fala com a ZEENTT,<br>tudo para seu restaurante em um só lugar!</h1>
       <div class="buttons">
         <a href="#" class="btn-primary">Vendas Delivery</a>
         <a href="#" class="btn-secondary">Atendimento Salão</a>
         <a href="#" class="btn-secondary">Gestão do Estabelecimento</a>
       </div>
     </div>
-    <br>
     <div class="hero-image">
       <img src="1.gif" alt="Sistema ZEENTT">
     </div>
   </div>
 </section>
 
-<!-- Seção Sobre -->
 <section class="sobre" id="sobre">
   <div class="container">
     <h2>Gerencie e organize seu restaurante</h2>
@@ -66,7 +65,6 @@
   </div>
 </section>
 
-<!-- Seção Funcionalidades -->
 <section class="funcionalidades" id="funcionalidades">
   <div class="container">
     <h2>Funcionalidades</h2>
@@ -91,53 +89,15 @@
   </div>
 </section>
 
-<!-- Seção Depoimentos -->
-<section class="depoimentos" id="depoimentos">
-  <div class="container">
-    <h2>O que dizem nossos clientes</h2>
-    <div class="depoimento">
-      <p>"A ZEENTT mudou completamente a gestão do meu restaurante! Recomendo muito."</p>
-      <strong>– João Silva, Restaurante Sabor Caseiro</strong>
-    </div>
-    <div class="depoimento">
-      <p>"Com o sistema da ZEENTT, meu delivery aumentou 50% em apenas 3 meses."</p>
-      <strong>– Maria Oliveira, Pizzaria Bella Massa</strong>
-    </div>
-  </div>
-</section>
-
-<!-- Seção Planos -->
-<section class="planos" id="planos">
-  <div class="container">
-    <h2>Nossos Planos</h2>
-    <div class="plano">
-      <h3>Essencial</h3>
-      <p>Ideal para pequenos negócios.<br><strong>R$ 49,90/mês</strong></p>
-    </div>
-    <div class="plano">
-      <h3>Profissional</h3>
-      <p>Para quem busca crescimento.<br><strong>R$ 89,90/mês</strong></p>
-    </div>
-    <div class="plano">
-      <h3>Premium</h3>
-      <p>Todos os recursos liberados.<br><strong>R$ 129,90/mês</strong></p>
-    </div>
-  </div>
-</section>
-<!-- Seção Contato -->
 <section class="contato" id="contato">
   <div class="container">
     <h2>Entre em contato</h2>
     <p>Estamos aqui para ajudar você a transformar seu restaurante em um sucesso!</p>
-    <br>
-    <h2>Fale agora com um de nossos consultores</h2>
     <img src="consultores.png" width="300" alt="Consultores ZEENTT">
-    <br><br>
     <a href="https://chat.whatsapp.com/DlFn7SR0cwc43gBTosfTcc" target="_blank" class="btn-whatsapp">☕ Chamar no WhatsApp</a>
   </div>
 </section>
 
-<!-- Seção FAQ -->
 <section class="faq" id="faq">
   <div class="container">
     <h2>Perguntas Frequentes</h2>
@@ -156,11 +116,19 @@
   </div>
 </section>
 
-
 <!-- Rodapé -->
 <footer>
-    <p>ZEENTT &copy; 2025 - Todos os direitos reservados.</p>
+  <p>ZEENTT &copy; 2025 - Todos os direitos reservados.</p>
 </footer>
-<script src="script.js"></script>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const nav = document.getElementById('nav');
+
+  toggle.addEventListener('click', () => {
+    nav.classList.toggle('active');
+  });
+</script>
+
 </body>
 </html>
