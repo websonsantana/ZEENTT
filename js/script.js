@@ -243,3 +243,96 @@ document.getElementById("modal").addEventListener("click", function (e) {
     }
   });
   
+  // Removed duplicate declaration of 'carrinho'
+
+function toggleCarrinho() {
+  const carrinhoLateral = document.getElementById('carrinho-lateral');
+  const overlay = document.getElementById('carrinho-overlay');
+  carrinhoLateral.classList.toggle('open');
+  overlay.classList.toggle('show');
+  atualizarCarrinhoVisual();
+}
+
+function adicionarSelecionadosAoPedido() {
+  const checkboxes = document.querySelectorAll('.item-checkbox');
+  checkboxes.forEach((checkbox, index) => {
+    if (checkbox.checked) {
+      const item = checkbox.closest('.item');
+      const title = item.getAttribute('data-title');
+      const price = parseFloat(item.getAttribute('data-price'));
+      carrinho.push({ title, price });
+      checkbox.checked = false;
+    }
+  });
+  atualizarCarrinhoVisual();
+}
+
+function atualizarCarrinhoVisual() {
+  const lista = document.getElementById('carrinho-itens');
+  const totalSpan = document.getElementById('carrinho-total');
+  const countSpan = document.getElementById('cart-count');
+
+  lista.innerHTML = '';
+  let total = 0;
+
+  carrinho.forEach((item, index) => {
+    const li = document.createElement('li');
+    li.innerText = `${item.title} - R$ ${item.price.toFixed(2)}`;
+    lista.appendChild(li);
+    total += item.price;
+  });
+
+  totalSpan.innerText = total.toFixed(2);
+  countSpan.innerText = carrinho.length;
+}
+// Carrinho de compras
+let carrinho = []; // Retained the original declaration
+
+// Função para alternar a exibição do carrinho lateral
+function toggleCarrinho() {
+  const carrinhoLateral = document.getElementById('carrinho-lateral');
+  const overlay = document.getElementById('carrinho-overlay');
+  carrinhoLateral.classList.toggle('open');
+  overlay.classList.toggle('show');
+  atualizarCarrinhoVisual();
+}
+
+// Função para adicionar itens selecionados ao carrinho
+function adicionarSelecionadosAoPedido() {
+  const checkboxes = document.querySelectorAll('.item-checkbox');
+  checkboxes.forEach((checkbox) => {
+    if (checkbox.checked) {
+      const item = checkbox.closest('.item');
+      const title = item.getAttribute('data-title');
+      const price = parseFloat(item.getAttribute('data-price'));
+      carrinho.push({ title, price });
+      checkbox.checked = false;
+    }
+  });
+  atualizarCarrinhoVisual();
+}
+
+// Função para atualizar a visualização do carrinho
+function atualizarCarrinhoVisual() {
+  const lista = document.getElementById('carrinho-itens');
+  const totalSpan = document.getElementById('carrinho-total');
+  const countSpan = document.getElementById('cart-count');
+
+  lista.innerHTML = '';
+  let total = 0;
+
+  carrinho.forEach((item) => {
+    const li = document.createElement('li');
+    li.innerText = `${item.title} - R$ ${item.price.toFixed(2)}`;
+    lista.appendChild(li);
+    total += item.price;
+  });
+
+  totalSpan.innerText = total.toFixed(2);
+  countSpan.innerText = carrinho.length;
+}
+
+// Event listener para fechar o carrinho ao clicar fora dele
+document.getElementById('carrinho-overlay').addEventListener('click', () => {
+  toggleCarrinho();
+});

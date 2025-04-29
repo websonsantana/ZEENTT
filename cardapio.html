@@ -40,6 +40,11 @@
       <button onclick="window.location.href='menu.html'">
         <i class="fas fa-home"></i>
       </button>
+      <button onclick="toggleCarrinho()" class="cart-button">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-count">0</span>
+      </button>
+      
     </div>
   </header>
     <div class="fixed-header">
@@ -102,5 +107,17 @@
         <button class="modal-close" onclick="closeModal()">Fechar</button>
     
   <script src="js/script.js"></script>
+  <div id="carrinho-lateral" class="carrinho-lateral">
+    <div class="carrinho-header">
+      <h2>Seu Carrinho</h2>
+      <button onclick="toggleCarrinho()">✖</button>
+    </div>
+    <ul id="carrinho-itens"></ul>
+    <div class="carrinho-footer">
+      <strong>Total: R$ <span id="carrinho-total">0.00</span></strong>
+    </div>
+  </div>
+  <div id="carrinho-overlay" onclick="toggleCarrinho()"></div>
+  
 </body>
 </html>
