@@ -313,7 +313,7 @@ footer p {
   .menu-toggle .bar {
     width: 25px;
     height: 3px;
-    background-color: #333;
+    background-color:#00337a;
     border-radius: 2px;
   }
 
@@ -334,7 +334,7 @@ footer p {
   }
 
   nav ul li {
-    margin: 10px 0;
+    margin: 5px 0;
   }
 
   .btn-assinante {
@@ -371,6 +371,6 @@ footer p {
   }
 
   nav ul li {
-    margin: 10px 0;
+    margin: 0px 0;
   }
 }
