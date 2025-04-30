@@ -1,145 +1,511 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta property="og:image" content="img/ZEENTT-ICO" />
-  <meta property="og:image:secure_url" content="" />
-  <meta property="og:image:width" content="2404" />
-  <meta property="og:image:height" content="1252" />
-  <meta property="og:image:alt" content="ZEENT | FOOD" />
-  <title>ZEENTT | FOOD</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZEENTT - Sistemas para Comércio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        zeentt: '#00337a',
+                        zeenttLight: '#1a4a8a',
+                        zeenttLighter: '#336199',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #00337a 0%, #1a4a8a 50%, #336199 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 51, 122, 0.2);
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: white;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
 </head>
-<body>
+<body class="font-sans bg-gray-50">
+    <!-- Header/Navigation -->
+    <header class="bg-zeentt text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="mr-2">
+                        <i class="fas fa-laptop-code text-2xl text-white"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold">ZEENTT</h1>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#inicio" class="nav-link">Início</a>
+                    <a href="#servicos" class="nav-link">Serviços</a>
+                    <a href="#sobre" class="nav-link">Sobre Nós</a>
+                    <a href="#clientes" class="nav-link">Clientes</a>
+                    <a href="#contato" class="nav-link">Contato</a>
+                </nav>
+                
+                <button class="md:hidden text-white focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
 
-<!-- Cabeçalho -->
-<header>
-  <div class="container header-container">
-    <div class="logo">ZEENTT</div>
+    <!-- Hero Section -->
+    <section id="inicio" class="hero-gradient text-white py-20">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Soluções Inteligentes para o Seu Comércio</h2>
+                <p class="text-xl mb-8">Desenvolvemos sistemas personalizados que impulsionam suas vendas, otimizam processos e aumentam sua produtividade.</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#contato" class="bg-white text-zeentt font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition duration-300 text-center">Fale Conosco</a>
+                    <a href="#servicos" class="border-2 border-white text-white font-bold py-3 px-6 rounded-lg hover:bg-white hover:text-zeentt transition duration-300 text-center">Nossos Serviços</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <img src="https://cdn-icons-png.flaticon.com/512/3271/3271166.png" alt="Sistema de Comércio" class="w-full max-w-md">
+            </div>
+        </div>
+    </section>
 
-    <!-- Ícone de Menu Hambúrguer -->
-    <div class="menu-toggle" id="menu-toggle">
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-      
-    </div>
+    <!-- Services Section -->
+    <section id="servicos" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-zeentt mb-4">Nossos Serviços</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Soluções completas para transformar a gestão do seu comércio</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="bg-zeentt p-4">
+                        <i class="fas fa-cash-register text-white text-4xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-zeentt mb-3">Sistema PDV</h3>
+                        <p class="text-gray-600 mb-4">Sistema de ponto de venda completo com emissão de NFC-e, controle de estoque e relatórios gerenciais.</p>
+                        <ul class="text-gray-600 space-y-2">
+                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Integração com SAT fiscal</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Multi-formas de pagamento</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Controle de comandas</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="bg-zeentt p-4">
+                        <i class="fas fa-warehouse text-white text-4xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-zeentt mb-3">Gestão de Estoque</h3>
+                        <p class="text-gray-600 mb-4">Controle completo do seu estoque com alertas de reposição, inventário e rastreabilidade de produtos.</p>
+                        <ul class="text-gray-600 space-y-2">
+                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Código de barras e QR Code</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Lote e validade</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Múltiplos armazéns</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="bg-zeentt p-4">
+                        <i class="fas fa-chart-line text-white text-4xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-zeentt mb-3">Business Intelligence</h3>
+                        <p class="text-gray-600 mb-4">Dashboard completo com análises de vendas, desempenho de produtos e projeções financeiras.</p>
+                        <ul class="text-gray-600 space-y-2">
+                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Relatórios personalizados</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Indicadores de desempenho</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Exportação para Excel/PDF</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="bg-zeentt p-4">
+                        <i class="fas fa-mobile-alt text-white text-4xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-zeentt mb-3">App para Clientes</h3>
+                        <p class="text-gray-600 mb-4">Aplicativo personalizado para seus clientes com catálogo de produtos, pedidos e fidelidade.</p>
+                        <ul class="text-gray-600 space-y-2">
+                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> iOS e Android</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Push notifications</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Integração com PDV</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Service 5 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="bg-zeentt p-4">
+                        <i class="fas fa-truck text-white text-4xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-zeentt mb-3">Gestão de Entregas</h3>
+                        <p class="text-gray-600 mb-4">Controle completo de entregas com roteirização, acompanhamento em tempo real e comprovantes.</p>
+                        <ul class="text-gray-600 space-y-2">
+                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Integração com Google Maps</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Notificação ao cliente</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Relatório de entregas</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Service 6 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="bg-zeentt p-4">
+                        <i class="fas fa-cogs text-white text-4xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-zeentt mb-3">Sistemas Personalizados</h3>
+                        <p class="text-gray-600 mb-4">Desenvolvemos soluções sob medida para atender necessidades específicas do seu negócio.</p>
+                        <ul class="text-gray-600 space-y-2">
+                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Análise de processos</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Desenvolvimento exclusivo</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Treinamento personalizado</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Navegação -->
-    <nav id="nav">
-      <ul>
-<hr>
-        <li><a href="#funcionalidades">Funcionalidades</a></li>
-        <li><a href="#contato">Contato</a></li>
-        <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#equipe">Equipe</a></li>
-        <a href="https://websonsantana.github.io/ZEENTT/login.html" target="_blank" class="btn-assinante">🔐 Área do Assinante</a>
-      </ul>
-    </nav>
+    <!-- About Section -->
+    <section id="sobre" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-10 lg:mb-0 lg:pr-10">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3565/3565418.png" alt="Sobre a ZEENTT" class="w-full rounded-lg shadow-lg">
+                </div>
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl font-bold text-zeentt mb-6">Sobre a ZEENTT</h2>
+                    <p class="text-gray-600 mb-4">Fundada em 2010, a ZEENTT é especializada no desenvolvimento de sistemas para comércio, com foco em soluções que realmente fazem diferença no dia a dia dos nossos clientes.</p>
+                    <p class="text-gray-600 mb-6">Nossa equipe é formada por profissionais experientes em desenvolvimento de software, design de interfaces e consultoria em processos comerciais, garantindo que nossas soluções sejam não apenas tecnologicamente avançadas, mas também práticas e eficientes.</p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <div class="text-zeentt text-3xl mb-2">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3 class="font-bold text-lg">+500</h3>
+                            <p class="text-gray-600 text-sm">Clientes atendidos</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <div class="text-zeentt text-3xl mb-2">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <h3 class="font-bold text-lg">+50</h3>
+                            <p class="text-gray-600 text-sm">Sistemas implementados</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <div class="text-zeentt text-3xl mb-2">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h3 class="font-bold text-lg">15</h3>
+                            <p class="text-gray-600 text-sm">Estados atendidos</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <div class="text-zeentt text-3xl mb-2">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <h3 class="font-bold text-lg">8</h3>
+                            <p class="text-gray-600 text-sm">Prêmios de excelência</p>
+                        </div>
+                    </div>
+                    
+                    <a href="#contato" class="bg-zeentt text-white font-bold py-3 px-6 rounded-lg hover:bg-zeenttLight transition duration-300 inline-block">Conheça nosso time</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    
-  </div>
-</header>
+    <!-- Clients Section -->
+    <section id="clientes" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-zeentt mb-4">Nossos Clientes</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Empresas que confiam em nossas soluções para impulsionar seus negócios</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
+                <div class="flex justify-center">
+                    <img src="https://via.placeholder.com/150x80?text=Supermercado" alt="Supermercado" class="h-16 grayscale hover:grayscale-0 transition duration-300">
+                </div>
+                <div class="flex justify-center">
+                    <img src="https://via.placeholder.com/150x80?text=Restaurante" alt="Restaurante" class="h-16 grayscale hover:grayscale-0 transition duration-300">
+                </div>
+                <div class="flex justify-center">
+                    <img src="https://via.placeholder.com/150x80?text=Loja+de+Roupas" alt="Loja de Roupas" class="h-16 grayscale hover:grayscale-0 transition duration-300">
+                </div>
+                <div class="flex justify-center">
+                    <img src="https://via.placeholder.com/150x80?text=Padaria" alt="Padaria" class="h-16 grayscale hover:grayscale-0 transition duration-300">
+                </div>
+                <div class="flex justify-center">
+                    <img src="https://via.placeholder.com/150x80?text=Pet+Shop" alt="Pet Shop" class="h-16 grayscale hover:grayscale-0 transition duration-300">
+                </div>
+                <div class="flex justify-center">
+                    <img src="https://via.placeholder.com/150x80?text=Farmácia" alt="Farmácia" class="h-16 grayscale hover:grayscale-0 transition duration-300">
+                </div>
+                <div class="flex justify-center">
+                    <img src="https://via.placeholder.com/150x80?text=Loja+de+Eletro" alt="Loja de Eletro" class="h-16 grayscale hover:grayscale-0 transition duration-300">
+                </div>
+                <div class="flex justify-center">
+                    <img src="https://via.placeholder.com/150x80?text=Distribuidora" alt="Distribuidora" class="h-16 grayscale hover:grayscale-0 transition duration-300">
+                </div>
+            </div>
+            
+            <div class="mt-16 bg-gray-100 rounded-xl p-8">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-bold text-zeentt">Depoimentos</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-zeentt text-white flex items-center justify-center mr-4">
+                                <span class="text-xl font-bold">J</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">João Silva</h4>
+                                <p class="text-gray-600 text-sm">Supermercado Bom Preço</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700">"O sistema da ZEENTT revolucionou nosso controle de estoque. Reduzimos perdas em 30% e melhoramos muito nosso fluxo de caixa. O atendimento da equipe é excelente!"</p>
+                        <div class="mt-4 text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-zeentt text-white flex items-center justify-center mr-4">
+                                <span class="text-xl font-bold">M</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Maria Souza</h4>
+                                <p class="text-gray-600 text-sm">Restaurante Sabor Caseiro</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700">"Depois que implementamos o sistema PDV da ZEENTT, nossa produtividade aumentou em 40%. O aplicativo para clientes foi um sucesso e aumentou nossas vendas em 25%."</p>
+                        <div class="mt-4 text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- Seções (Hero, Sobre, Funcionalidades, etc) -->
-<section class="hero" id="funcionalidades">
-  <div class="container hero-container">
-    <div class="hero-text">
-      <h1>Precisou, fala com a ZEENTT,<br>tudo para seu restaurante em um só lugar!</h1>
-      <div class="buttons">
-        <a href="#" class="btn-primary">Vendas Delivery</a>
-        <a href="#" class="btn-secondary">Atendimento Salão</a>
-        <a href="#" class="btn-secondary">Gestão do Estabelecimento</a>
-      </div>
-    </div>
-    <div class="hero-image">
-      <img src="1.gif" alt="Sistema ZEENTT">
-    </div>
-  </div>
-</section>
+    <!-- Contact Section -->
+    <section id="contato" class="py-16 bg-zeentt text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Entre em Contato</h2>
+                <p class="max-w-2xl mx-auto">Estamos prontos para transformar a gestão do seu comércio. Fale com nossos especialistas.</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row">
+                <div class="lg:w-1/2 mb-10 lg:mb-0 lg:pr-10">
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="nome" class="block mb-2">Nome</label>
+                                <input type="text" id="nome" class="w-full px-4 py-3 rounded-lg bg-zeenttLight border border-zeenttLighter focus:outline-none focus:ring-2 focus:ring-white">
+                            </div>
+                            <div>
+                                <label for="empresa" class="block mb-2">Empresa</label>
+                                <input type="text" id="empresa" class="w-full px-4 py-3 rounded-lg bg-zeenttLight border border-zeenttLighter focus:outline-none focus:ring-2 focus:ring-white">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="email" class="block mb-2">E-mail</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 rounded-lg bg-zeenttLight border border-zeenttLighter focus:outline-none focus:ring-2 focus:ring-white">
+                            </div>
+                            <div>
+                                <label for="telefone" class="block mb-2">Telefone</label>
+                                <input type="tel" id="telefone" class="w-full px-4 py-3 rounded-lg bg-zeenttLight border border-zeenttLighter focus:outline-none focus:ring-2 focus:ring-white">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="servico" class="block mb-2">Serviço de interesse</label>
+                            <select id="servico" class="w-full px-4 py-3 rounded-lg bg-zeenttLight border border-zeenttLighter focus:outline-none focus:ring-2 focus:ring-white">
+                                <option value="">Selecione um serviço</option>
+                                <option value="pdv">Sistema PDV</option>
+                                <option value="estoque">Gestão de Estoque</option>
+                                <option value="bi">Business Intelligence</option>
+                                <option value="app">App para Clientes</option>
+                                <option value="entregas">Gestão de Entregas</option>
+                                <option value="personalizado">Sistema Personalizado</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="mensagem" class="block mb-2">Mensagem</label>
+                            <textarea id="mensagem" rows="4" class="w-full px-4 py-3 rounded-lg bg-zeenttLight border border-zeenttLighter focus:outline-none focus:ring-2 focus:ring-white"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="w-full bg-white text-zeentt font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition duration-300">Enviar Mensagem</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="lg:w-1/2 lg:pl-10">
+                    <div class="bg-zeenttLight rounded-xl p-8 h-full">
+                        <h3 class="text-2xl font-bold mb-6">Nossos Canais</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="text-2xl mr-4 mt-1">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Endereço</h4>
+                                    <p>Av. Paulista, 1000 - 10º andar<br>São Paulo - SP, 01310-100</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="text-2xl mr-4 mt-1">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Telefone</h4>
+                                    <p>(11) 1234-5678<br>(11) 98765-4321 (WhatsApp)</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="text-2xl mr-4 mt-1">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">E-mail</h4>
+                                    <p>contato@zeentt.com.br<br>comercial@zeentt.com.br</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="text-2xl mr-4 mt-1">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Horário de Atendimento</h4>
+                                    <p>Segunda a Sexta: 8h às 18h<br>Sábado: 8h às 12h</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-bold mb-4">Siga-nos</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-zeentt flex items-center justify-center hover:bg-white hover:text-zeentt transition duration-300">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-zeentt flex items-center justify-center hover:bg-white hover:text-zeentt transition duration-300">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-zeentt flex items-center justify-center hover:bg-white hover:text-zeentt transition duration-300">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-zeentt flex items-center justify-center hover:bg-white hover:text-zeentt transition duration-300">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section class="sobre" id="sobre">
-  <div class="container">
-    <h2>Gerencie e organize seu restaurante</h2>
-    <p>A ZEENTT oferece soluções para melhorar a eficiência do seu negócio.</p>
-    <ul>
-      <li>✅ Pedidos inteligentes</li>
-      <li>✅ Cardápio digital</li>
-      <li>✅ Gestão de estoque</li>
-      <li>✅ Gestão de vendas</li>
-    </ul>
-  </div>
-</section>
+    <!-- Footer -->
+    <footer class="bg-zeenttLight text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center">
+                        <div class="mr-2">
+                            <i class="fas fa-laptop-code text-2xl"></i>
+                        </div>
+                        <h2 class="text-xl font-bold">ZEENTT</h2>
+                    </div>
+                    <p class="text-sm mt-2">Soluções em sistemas para comércio</p>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p class="text-sm">&copy; 2023 ZEENTT Sistemas. Todos os direitos reservados.</p>
+                    <div class="flex justify-center md:justify-end space-x-4 mt-2">
+                        <a href="#" class="text-sm hover:underline">Termos de Uso</a>
+                        <a href="#" class="text-sm hover:underline">Política de Privacidade</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-<section class="funcionalidades" id="funcionalidades">
-  <div class="container">
-    <h2>Funcionalidades</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Pedidos Delivery</h3>
-        <p>Gerencie pedidos de forma rápida e eficiente para seu delivery.</p>
-      </div>
-      <div class="card">
-        <h3>Atendimento Salão</h3>
-        <p>Organize mesas e atendimentos no salão com agilidade.</p>
-      </div>
-      <div class="card">
-        <h3>Gestão de Estoque</h3>
-        <p>Controle seu estoque em tempo real, evitando desperdícios.</p>
-      </div>
-      <div class="card">
-        <h3>Relatórios Inteligentes</h3>
-        <p>Receba relatórios de vendas, produtos mais vendidos e muito mais.</p>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-6 right-6 w-12 h-12 bg-zeentt text-white rounded-full shadow-lg hidden">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
-<section class="contato" id="contato">
-  <div class="container">
-    <h2>Fale com um de nossos consultores</h2>
-
-    <p>Estamos aqui para ajudar você a transformar seu restaurante em um sucesso!</p>
-    <img src="consultores.png" width="300" alt="Consultores ZEENTT">
-  <br>
-    <a href="https://chat.whatsapp.com/DlFn7SR0cwc43gBTosfTcc" target="_blank" class="btn-whatsapp">Chamar no WhatsApp</a>
-  </div>
-</section>
-
-<section class="faq" id="faq">
-  <div class="container">
-    <h2>Perguntas Frequentes</h2>
-    <div class="pergunta">
-      <h4>Como funciona o suporte técnico?</h4>
-      <p>Nosso suporte é 100% online via WhatsApp, com atendimento em horário comercial.</p>
-    </div>
-    <div class="pergunta">
-      <h4>Posso testar o sistema antes de assinar?</h4>
-      <p>Sim! Oferecemos 7 dias de teste gratuito sem compromisso.</p>
-    </div>
-    <div class="pergunta">
-      <h4>O sistema é compatível com celular?</h4>
-      <p>Sim, todo o sistema ZEENTT é responsivo e funciona em smartphones e tablets.</p>
-    </div>
-  </div>
-</section>
-
-<!-- Rodapé -->
-<footer>
-  <p>ZEENTT &copy; 2025 - Todos os direitos reservados.</p>
-</footer>
-
-<script>
-  const toggle = document.getElementById('menu-toggle');
-  const nav = document.getElementById('nav');
-
-  toggle.addEventListener('click', () => {
-    nav.classList.toggle('active');
-  });
-</script>
-
+    <script>
+        // Back to Top Button
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('hidden');
+            } else {
+                backToTopButton.classList.add('hidden');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Mobile Menu Toggle (would need implementation)
+        // Form Submission (would need backend integration)
+    </script>
 </body>
 </html>
