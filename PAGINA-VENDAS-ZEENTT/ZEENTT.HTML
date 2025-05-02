@@ -129,17 +129,29 @@
                     <h1 class="text-2xl font-bold tracking-tight">ZEENTT</h1>
                 </div>
                 
-                <nav class="hidden lg:flex space-x-8">
-                    <a href="#inicio" class="nav-link font-medium">Início</a>
-                    <a href="#servicos" class="nav-link font-medium">Serviços</a>
-                    <a href="#sobre" class="nav-link font-medium">Sobre Nós</a>
-                    <a href="#diferenciais" class="nav-link font-medium">Diferenciais</a>
-                    <a href="#contato" class="nav-link font-medium">Contato</a>
-                </nav>
+               <!-- Menu Mobile Deslizante -->
+<div id="mobileMenu" class="fixed top-0 right-0 h-full w-64 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50 lg:hidden">
+  <div class="flex justify-between items-center px-4 py-4 border-b border-gray-200">
+      <h2 class="text-lg font-bold text-zeentt">Menu</h2>
+      <button id="closeMenu" class="text-gray-600 text-xl hover:text-zeentt">
+          <i class="fas fa-times"></i>
+      </button>
+  </div>
+  <nav class="flex flex-col px-4 py-4 space-y-4">
+      <a href="#inicio" class="text-gray-800 font-medium">Início</a>
+      <a href="#servicos" class="text-gray-800 font-medium">Serviços</a>
+      <a href="#sobre" class="text-gray-800 font-medium">Sobre Nós</a>
+      <a href="#diferenciais" class="text-gray-800 font-medium">Diferenciais</a>
+      <a href="#contato" class="text-gray-800 font-medium">Contato</a>
+  </nav>
+</div>
+
+              
                 
-                <button class="lg:hidden text-white focus:outline-none">
-                    <i class="fas fa-bars text-2xl"></i>
-                </button>
+              <button id="menuToggle" class="lg:hidden text-white focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+            
             </div>
         </div>
     </header>
@@ -991,6 +1003,22 @@
                 }, 500);
             });
         });
+        // Menu Hamburguer
+        const menuToggle = document.getElementById('menuToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+const closeMenu = document.getElementById('closeMenu');
+
+menuToggle.addEventListener('click', () => {
+    mobileMenu.classList.remove('translate-x-full');
+    mobileMenu.classList.add('translate-x-0');
+});
+
+closeMenu.addEventListener('click', () => {
+    mobileMenu.classList.remove('translate-x-0');
+    mobileMenu.classList.add('translate-x-full');
+});
+
+
     </script>
 </body>
 </html>
