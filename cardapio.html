@@ -46,7 +46,7 @@
 
 <body class="bg-gray-100 font-sans">
   <!-- Sidebar -->
-  <div id="sidebar" class="sidebar fixed top-0 left-0 h-full w-64 bg-blue-800 text-white z-40 shadow-lg">
+  <div id="sidebar" class="sidebar fixed top-0 left-0 h-full w-64 bg-[#00337a] text-white z-40 shadow-lg">
     <div class="p-4 text-center border-b border-blue-700">
       <h1 class="text-2xl font-bold">ZEENTT</h1>
       <p class="text-blue-200 text-sm">Sistema de Gestão</p>
@@ -68,32 +68,33 @@
   <div id="sidebar-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-30" onclick="toggleMenu()"></div>
 
   <!-- Top Bar -->
-  <header class="fixed top-0 left-0 right-0 bg-white shadow-md z-30 flex items-center justify-between px-4 py-3">
+  <header class="fixed top-0 left-0 right-0 bg-[#00337a] shadow-md z-30 flex items-center justify-between px-4 py-3">
     <div class="flex items-center">
-      <button onclick="toggleMenu()" class="mr-4 text-gray-700 hover:text-blue-600">
+      <button onclick="toggleMenu()" class="mr-4 text-white hover:text-white">
         <i class="fas fa-bars text-xl"></i>
       </button>
-      <h1 class="text-xl font-bold text-blue-800">ZEENTT</h1>
+      <h1 class="text-xl font-bold text-white">ZEENTT</h1>
     </div>
-    
+  
     <div class="flex items-center space-x-4">
-      <button onclick="window.location.href='menu.html'" class="text-gray-700 hover:text-blue-600">
+      <button onclick="window.location.href='menu.html'" class="text-white hover:text-white">
         <i class="fas fa-home text-xl"></i>
       </button>
-      <button onclick="fazerLogoff()" class="text-gray-700 hover:text-blue-600">
+      <button onclick="fazerLogoff()" class="text-white hover:text-white">
         <i class="fas fa-sign-out-alt text-xl"></i>
       </button>
       <div class="relative">
-        <button onclick="toggleCarrinho()" class="text-gray-700 hover:text-blue-600 relative">
+        <button onclick="toggleCarrinho()" class="text-white hover:text-white relative">
           <i class="fas fa-shopping-cart text-xl"></i>
           <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
         </button>
       </div>
     </div>
   </header>
+  
 
   <!-- Fixed Header with Total -->
-  <div class="fixed top-16 left-0 right-0 bg-blue-600 text-white px-4 py-2 shadow-md z-20 flex justify-between items-center">
+  <div class="fixed top-16 left-0 right-0 bg-[#00337a] text-white px-4 py-2 shadow-md z-20 flex justify-between items-center">
     <span class="font-medium">Total Selecionado:</span>
     <span id="total" class="font-bold">R$ 0.00</span>
   </div>
@@ -109,7 +110,7 @@
           <div class="p-4">
             <h3 class="item-title font-bold text-lg mb-1">Combo dos Clássicos</h3>
             <p class="text-gray-600 text-sm mb-2">2 Sanduíches + Batata + Bebida. Escolha entre Big Mac, Cheddar McMelt...</p>
-            <p class="item-price text-blue-600 font-bold">a partir de R$ 52,90</p>
+            <p class="item-price text-[#00337a] font-bold">a partir de R$ 52,90</p>
           </div>
         </div>
       </div>
@@ -122,7 +123,7 @@
           <div class="p-4">
             <h3 class="item-title font-bold text-lg mb-1">4 Pequenos Preços</h3>
             <p class="text-gray-600 text-sm mb-2">Escolha 4 itens entre Cheeseburger, McFiesta, Chicken Jr...</p>
-            <p class="item-price text-blue-600 font-bold">a partir de R$ 32,00</p>
+            <p class="item-price text-[#00337a] font-bold">a partir de R$ 32,00</p>
           </div>
         </div>
       </div>
@@ -135,7 +136,7 @@
           <div class="p-4">
             <h3 class="item-title font-bold text-lg mb-1">Oferta Nuggets</h3>
             <p class="text-gray-600 text-sm mb-2">1 McOferta Média Clássica + acompanhamento (Nuggets, Cheeseburger ou McFlurry).</p>
-            <p class="item-price text-blue-600 font-bold">a partir de R$ 43,90</p>
+            <p class="item-price text-[#00337a] font-bold">a partir de R$ 43,90</p>
           </div>
         </div>
       </div>
@@ -148,7 +149,7 @@
           <div class="p-4">
             <h3 class="item-title font-bold text-lg mb-1">Ofertas Médias</h3>
             <p class="text-gray-600 text-sm mb-2">2 McOfertas Médias Clássicas para compartilhar.</p>
-            <p class="item-price text-blue-600 font-bold">a partir de R$ 68,90</p>
+            <p class="item-price text-[#00337a] font-bold">a partir de R$ 68,90</p>
           </div>
         </div>
       </div>
@@ -161,7 +162,7 @@
           <div class="p-4">
             <h3 class="item-title font-bold text-lg mb-1">2 Sanduíches com desconto</h3>
             <p class="text-gray-600 text-sm mb-2">Leve 2 sanduíches com desconto entre várias opções.</p>
-            <p class="item-price text-blue-600 font-bold">a partir de R$ 30,90</p>
+            <p class="item-price text-[#00337a] font-bold">a partir de R$ 30,90</p>
           </div>
         </div>
       </div>
@@ -170,7 +171,7 @@
 
   <!-- Fixed Footer with Add Button -->
   <div class="fixed bottom-0 left-0 right-0 bg-white shadow-lg px-4 py-3 z-20">
-    <button onclick="adicionarSelecionadosAoPedido()" class="btn-add w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition">
+    <button onclick="adicionarSelecionadosAoPedido()" class="btn-add w-full bg-[#00337a] hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition">
       Adicionar ao Pedido
     </button>
   </div>
@@ -185,7 +186,7 @@
         <button onclick="closeModal()" class="modal-close bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded">
           Fechar
         </button>
-        <button onclick="adicionarModalAoPedido()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <button onclick="adicionarModalAoPedido()" class="bg-[#00337a] hover:bg-[#00337a] text-white font-bold py-2 px-4 rounded">
           Adicionar ao Pedido
         </button>
       </div>
@@ -194,7 +195,7 @@
 
   <!-- Shopping Cart Sidebar -->
   <div id="carrinho-lateral" class="carrinho-lateral fixed top-0 right-0 h-full w-full sm:w-96 bg-white shadow-lg z-50 overflow-y-auto">
-    <div class="carrinho-header bg-blue-600 text-white p-4 flex justify-between items-center">
+    <div class="carrinho-header bg-[#00337a] text-white p-4 flex justify-between items-center">
       <h2 class="text-xl font-bold">Seu Carrinho</h2>
       <button onclick="toggleCarrinho()" class="text-white hover:text-gray-200 text-xl">✖</button>
     </div>
@@ -258,7 +259,7 @@
         <img src="${imgSrc}" alt="${title}" class="w-full h-48 object-cover rounded mb-4">
         <h3 class="text-xl font-bold mb-2">${title}</h3>
         <p class="text-gray-700 mb-4">${description}</p>
-        <p class="text-blue-600 font-bold text-lg">${price}</p>
+        <p class="text--[#00337a] font-bold text-lg">${price}</p>
       `;
       
       modal.classList.remove('hidden');
@@ -325,7 +326,7 @@
           <div class="flex-1">
             <h3 class="font-medium">${item.title}</h3>
             <p class="text-gray-600 text-sm">${item.description.substring(0, 50)}...</p>
-            <p class="text-blue-600 font-bold">R$ ${item.price.toFixed(2).replace('.', ',')}</p>
+            <p class="text-[#00337a] font-bold">R$ ${item.price.toFixed(2).replace('.', ',')}</p>
           </div>
           <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700">
             <i class="fas fa-trash"></i>
