@@ -1,124 +1,127 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Zeentt - Menu</title>
-        <link rel="stylesheet" href="css/style.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-      </head>
-<body class="pagina-cadastro">
-  <div id="sidebar" class="sidebar">
-    <ul>
-      <br>
-      <br>
-      <li><a href="menu.html"><i class="fas fa-home"></i> Início</a></li>
-      <li><a href="cadastro.html"><i class="fas fa-plus"></i> Cadastro</a></li>
-      <li><a href="cardapio.html"><i class="fas fa-utensils"></i> Cardápio</a></li>
-      <li><a href="pedido.html"><i class="fas fa-concierge-bell"></i> Pedidos</a></li>
-      <li><a href="cozinha.html"><i class="fas fa-blender"></i> Cozinha</a></li>
-      <li><a href="relatorio.html"><i class="fas fa-chart-bar"></i> Relatórios</a></li>
-      <li><a href="suporte.html"><i class="fas fa-headset"></i> Suporte</a></li>
-      <li><a href="informacoes.html"><i class="fas fa-info-circle"></i> Informações</a></li>
-      <li><a href="servico.html"><i class="fas fa-tools"></i> Serviços</a></li>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zeentt - Menu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .sidebar { transition: all 0.3s ease; transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); }
+    .carrinho-lateral { transition: all 0.3s ease; transform: translateX(100%); }
+    .carrinho-lateral.open { transform: translateX(0); }
+    .modal { transition: opacity 0.3s ease; }
+    .item:hover .item-info { transform: translateY(-5px); }
+    .item-info { transition: all 0.2s ease; }
+    .btn-add:hover { transform: translateY(-2px); }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      padding: 6rem 2rem 2rem;
+    }
+    .menu-item {
+      text-align: center;
+    }
+    .menu-item img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin: 0 auto;
+    }
+    .item-text {
+      margin-top: 0.5rem;
+      font-weight: 600;
+      color: #00337a;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #f1f1f1;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar fixed top-0 left-0 h-full w-64 bg-[#00337a] text-white z-40 shadow-lg">
+    <div class="p-4 text-center border-b border-blue-700">
+      <h1 class="text-2xl font-bold">ZEENTT</h1>
+      <p class="text-blue-200 text-sm">Sistema de Gestão</p>
+    </div>
+    <ul class="py-4">
+      <li class="px-4 py-3 hover:bg-blue-700 transition"><a href="menu.html"><i class="fas fa-home mr-3"></i> Início</a></li>
+      <li class="px-4 py-3 hover:bg-blue-700 transition"><a href="cadastro.html"><i class="fas fa-plus mr-3"></i> Cadastro</a></li>
+      <li class="px-4 py-3 bg-blue-900"><a href="cardapio.html"><i class="fas fa-utensils mr-3"></i> Cardápio</a></li>
+      <li class="px-4 py-3 hover:bg-blue-700 transition"><a href="pedido.html"><i class="fas fa-concierge-bell mr-3"></i> Pedidos</a></li>
+      <li class="px-4 py-3 hover:bg-blue-700 transition"><a href="cozinha.html"><i class="fas fa-blender mr-3"></i> Cozinha</a></li>
+      <li class="px-4 py-3 hover:bg-blue-700 transition"><a href="relatorio.html"><i class="fas fa-chart-bar mr-3"></i> Relatórios</a></li>
+      <li class="px-4 py-3 hover:bg-blue-700 transition"><a href="suporte.html"><i class="fas fa-headset mr-3"></i> Suporte</a></li>
+      <li class="px-4 py-3 hover:bg-blue-700 transition"><a href="informacoes.html"><i class="fas fa-info-circle mr-3"></i> Informações</a></li>
+      <li class="px-4 py-3 hover:bg-blue-700 transition"><a href="servico.html"><i class="fas fa-tools mr-3"></i> Serviços</a></li>
     </ul>
   </div>
-  <header class="top-bar">
-    <div class="left-icons">
-      <button onclick="toggleMenu()">
-        <i class="fas fa-bars menu-icon"></i>
-      </button>
+
+  <!-- Sidebar Overlay -->
+  <div id="sidebar-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-30" onclick="toggleMenu()"></div>
+
+  <!-- Top Bar -->
+  <header class="fixed top-0 left-0 right-0 bg-[#00337a] z-30 flex items-center justify-between px-4 py-3 shadow">
+    <div class="flex items-center">
+      <button onclick="toggleMenu()" class="mr-4 text-white"><i class="fas fa-bars text-xl"></i></button>
+      <h1 class="text-xl font-bold text-white">ZEENTT</h1>
     </div>
-      
-        <div class="logo">
-        <div class="logo"></div>ZEENTT</div>
-        </div>
-      
-        <div class="right-icons">
-          <button onclick="fazerLogoff()" class="logout-button">
-            <i class="fas fa-sign-out-alt logout-icon"></i>
-          </button>
-          <button onclick="window.location.href='menu.html'">
-            <i class="fas fa-home"></i>
-          </button>
-        </div>
-      </header>
+    <div class="flex items-center gap-4">
+      <button onclick="window.location.href='menu.html'" class="text-white"><i class="fas fa-home text-xl"></i></button>
+      <button onclick="fazerLogoff()" class="text-white"><i class="fas fa-sign-out-alt text-xl"></i></button>
+      <div class="relative">
+        <button onclick="toggleCarrinho()" class="text-white">
+          <i class="fas fa-shopping-cart text-xl"></i>
+          <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Conteúdo principal -->
   <main>
-      <div class="menu-grid">
-      <div class="menu-item">
-        <div class="item">
-          <a href="cadastro.html">
-          <img src="img/cadastro.png" alt="Cadastro">
-        </a>
-        </div>
-        <p class="item-text">Cadastro</p>
-      </div>
-
-      <div class="menu-item">
-        <div class="item">
-          <a href="relatorio.html">
-          <img src="img/relatorio.png" alt="Relatório">
-          </a>
-        </div>
-        <p class="item-text">Relatório</p>
-      </div>
-
-      <div class="menu-item">
-        <div class="item">
-          <a href="pedido.html">
-          <img src="img/pedidos.png" alt="Pedidos">
-          </a>
-        </div>
-        <p class="item-text">Pedidos</p>
-      </div>
-
-      <div class="menu-item">
-        <div class="item">
-          <a href="cardapio.html">
-          <img src="img/cardapio.png" alt="Cardápio">
-          </a>
-        </div>
-        <p class="item-text">Cardápio</p>
-      </div>
-      <div class="menu-item">
-        <div class="item">
-          <a href="cozinha.html">
-          <img src="img/cozinha.png" alt="Cozinha">
-          </a>
-        </div>
-        <p class="item-text">Cozinha</p>
-      </div>
-      <div class="menu-item">
-        <div class="item">
-          <a href="informacoes.html">
-          <img src="img/informacoes.png" alt="informações">
-          </a>
-        </div>
-        <p class="item-text">informações</p>
-      </div>
-      <div class="menu-item">
-        <div class="item">
-          <a href="suporte.html">
-          <img src="img/suporte.png" alt="Suporte">
-          </a>
-        </div>
-        <p class="item-text">Suporte</p>
-      </div>
-      <div class="menu-item">
-        <div class="item">
-          <a href="servico.html">
-          <img src="img/servico.png" alt="Servico">
-          </a>
-        </div>
-        <p class="item-text">Outro serviços</p>
-      </div>
+    <div class="menu-grid">
+      <div class="menu-item"><a href="cadastro.html"><img src="img/cadastro.png" alt="Cadastro" /></a><p class="item-text">Cadastro</p></div>
+      <div class="menu-item"><a href="relatorio.html"><img src="img/relatorio.png" alt="Relatório" /></a><p class="item-text">Relatório</p></div>
+      <div class="menu-item"><a href="pedido.html"><img src="img/pedidos.png" alt="Pedidos" /></a><p class="item-text">Pedidos</p></div>
+      <div class="menu-item"><a href="cardapio.html"><img src="img/cardapio.png" alt="Cardápio" /></a><p class="item-text">Cardápio</p></div>
+      <div class="menu-item"><a href="cozinha.html"><img src="img/cozinha.png" alt="Cozinha" /></a><p class="item-text">Cozinha</p></div>
+      <div class="menu-item"><a href="informacoes.html"><img src="img/informacoes.png" alt="Informações" /></a><p class="item-text">Informações</p></div>
+      <div class="menu-item"><a href="suporte.html"><img src="img/suporte.png" alt="Suporte" /></a><p class="item-text">Suporte</p></div>
+      <div class="menu-item"><a href="servico.html"><img src="img/servico.png" alt="Serviço" /></a><p class="item-text">Outros Serviços</p></div>
     </div>
-    </main>
-     <footer>
+  </main>
+
+  <footer>
     <p>&copy; 2025 ZEENTT - Todos os direitos reservados</p>
   </footer>
-  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+  <!-- Scripts -->
   <script src="js/script.js"></script>
-  <script src="js/service-worker.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    function toggleMenu() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebar-overlay').classList.toggle('hidden');
+    }
+
+    function toggleCarrinho() {
+      alert("Funcionalidade do carrinho ainda não está implementada.");
+    }
+
+    function fazerLogoff() {
+  window.location.href = "login.html"; // ou o caminho real para sua página de login
+}
+
+  </script>
+  
 </body>
 </html>
