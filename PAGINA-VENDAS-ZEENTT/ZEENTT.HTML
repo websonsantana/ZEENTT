@@ -120,42 +120,63 @@
 <body class="font-sans bg-gray-50 antialiased">
     <!-- Header/Navigation -->
     <header class="bg-zeentt text-white shadow-lg sticky top-0 z-50 tech-pattern">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center space-x-2">
-                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                        <i class="fas fa-laptop-code text-zeentt text-xl"></i>
-                    </div>
-                    <h1 class="text-2xl font-bold tracking-tight">ZEENTT</h1>
-                </div>
-                
-               <!-- Menu Mobile Deslizante -->
-<div id="mobileMenu" class="fixed top-0 right-0 h-full w-64 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50 lg:hidden">
-  <div class="flex justify-between items-center px-4 py-4 border-b border-gray-200">
-      <h2 class="text-lg font-bold text-zeentt">Menu</h2>
-      <button id="closeMenu" class="text-gray-600 text-xl hover:text-zeentt">
-          <i class="fas fa-times"></i>
-      </button>
-  </div>
-  <nav class="flex flex-col px-4 py-4 space-y-4">
-      <a href="#inicio" class="text-gray-800 font-medium">Início</a>
-      <a href="#servicos" class="text-gray-800 font-medium">Serviços</a>
-      <a href="#sobre" class="text-gray-800 font-medium">Sobre Nós</a>
-      <a href="#diferenciais" class="text-gray-800 font-medium">Diferenciais</a>
-      <a href="#contato" class="text-gray-800 font-medium">Contato</a>
-      <a href="https://websonsantana.github.io/ZEENTT/login.html" class="bg-white text-zeentt font-bold py-4 px-8 rounded-lg hover:bg-opacity-90 transition duration-300 text-center shadow-lg glow">Área de Membros</a>
-  </nav>
-</div>
-
-              
-                
-              <button id="menuToggle" class="lg:hidden text-white focus:outline-none">
-                <i class="fas fa-bars text-2xl"></i>
-            </button>
-            
+      <div class="container mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+          <!-- Logo + Nome -->
+          <div class="flex items-center space-x-2">
+            <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+              <img src="logo.png" alt="Logo ZEENTT" class="w-6 h-6 object-contain">
             </div>
+            <h1 class="text-2xl font-bold tracking-tight">ZEENTT</h1>
+          </div>
+    
+          <!-- Menu Desktop -->
+          <nav class="hidden lg:flex space-x-8">
+            <a href="#inicio" class="nav-link font-medium">Início</a>
+            <a href="#servicos" class="nav-link font-medium">Serviços</a>
+            <a href="#sobre" class="nav-link font-medium">Sobre Nós</a>
+            <a href="#diferenciais" class="nav-link font-medium">Diferenciais</a>
+            <a href="#contato" class="nav-link font-medium">Contato</a>
+            <a href="#equipe" class="nav-link font-medium">Equipe</a>
+            <a href="#FAQ" class="nav-link font-medium">FAQ</a>
+            <a href="https://websonsantana.github.io/ZEENTT/login.html"
+               class="bg-white text-zeentt font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 transition duration-300 shadow-lg glow">
+              Área de Membros
+            </a>
+          </nav>
+    
+          <!-- Botão Menu Mobile -->
+          <button id="menuToggle" class="lg:hidden text-white focus:outline-none">
+            <i class="fas fa-bars text-2xl"></i>
+          </button>
         </div>
+      </div>
+    
+      <!-- Menu Mobile Deslizante -->
+      <div id="mobileMenu"
+           class="fixed top-0 right-0 h-full w-64 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50 lg:hidden">
+        <div class="flex justify-between items-center px-4 py-4 border-b border-gray-200">
+          <h2 class="text-lg font-bold text-zeentt">Menu</h2>
+          <button id="closeMenu" class="text-gray-600 text-xl hover:text-zeentt">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <nav class="flex flex-col px-4 py-4 space-y-4">
+          <a href="#inicio" class="text-gray-800 font-medium">Início</a>
+          <a href="#servicos" class="text-gray-800 font-medium">Serviços</a>
+          <a href="#sobre" class="text-gray-800 font-medium">Sobre Nós</a>
+          <a href="#diferenciais" class="text-gray-800 font-medium">Diferenciais</a>
+          <a href="#contato" class="text-gray-800 font-medium">Contato</a>
+          <a href="#equipe" class="text-gray-800 font-medium">Equipe</a>
+          <a href="#FAQ" class="text-gray-800 font-medium">FAQ</a>
+          <a href="https://websonsantana.github.io/ZEENTT/login.html"
+             class="bg-white text-zeentt font-bold py-4 px-8 rounded-lg hover:bg-opacity-90 transition duration-300 text-center shadow-lg glow">
+            Área de Membros
+          </a>
+        </nav>
+      </div>
     </header>
+    
 
     <!-- Hero Section -->
     <section id="inicio" class="hero-gradient text-white py-24 relative overflow-hidden">
