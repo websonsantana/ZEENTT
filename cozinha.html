@@ -1,97 +1,480 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Zeentt - Cozinha</title>
-        <link rel="stylesheet" href="css/style.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-      </head>
-<body class="pagina-cozinha">
-  <div id="sidebar" class="sidebar">
-    <ul>
-      <br>
-      <br>
-      <li><a href="menu.html"><i class="fas fa-home"></i> Início</a></li>
-      <li><a href="cadastro.html"><i class="fas fa-plus"></i> Cadastro</a></li>
-      <li><a href="cardapio.html"><i class="fas fa-utensils"></i> Cardápio</a></li>
-      <li><a href="pedido.html"><i class="fas fa-concierge-bell"></i> Pedidos</a></li>
-      <li><a href="cozinha.html"><i class="fas fa-blender"></i> Cozinha</a></li>
-      <li><a href="relatorio.html"><i class="fas fa-chart-bar"></i> Relatórios</a></li>
-      <li><a href="suporte.html"><i class="fas fa-headset"></i> Suporte</a></li>
-      <li><a href="informacoes.html"><i class="fas fa-info-circle"></i> Informações</a></li>
-      <li><a href="servico.html"><i class="fas fa-tools"></i> Serviços</a></li>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zeentt - Cozinha</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Custom styles */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8fafc;
+    }
+    
+    .sidebar {
+      background: linear-gradient(180deg, #00337a 0%, #00337a 100%);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+    
+    .sidebar.open {
+      transform: translateX(0);
+    }
+    
+    .sidebar li:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .top-bar {
+      background: linear-gradient(135deg, #00337a 0%, #00337a 100%);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .pedido-card {
+      transition: all 0.3s ease;
+      border-left: 4px solid;
+    }
+    
+    .pedido-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .pedido-em-preparo {
+      border-left-color: #f59e0b;
+      background-color: #fffbeb;
+    }
+    
+    .pedido-finalizado {
+      border-left-color: #10b981;
+      background-color: #ecfdf5;
+    }
+    
+    .pedido-urgente {
+      animation: pulse 2s infinite;
+      border-left-color: #ef4444;
+      background-color: #fee2e2;
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+      }
+    }
+    
+    .badge-status {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 9999px;
+    }
+    
+    .badge-preparo {
+      background-color: #f59e0b;
+      color: white;
+    }
+    
+    .badge-finalizado {
+      background-color: #10b981;
+      color: white;
+    }
+    
+    .badge-urgente {
+      background-color: #ef4444;
+      color: white;
+    }
+    
+    /* Overlay for sidebar */
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 30;
+    }
+    
+    .sidebar-overlay.active {
+      display: block;
+    }
+    
+    /* Tabs styling */
+    .tab-active {
+      border-bottom: 3px solid #00337a;
+      color: #00337a;
+      font-weight: 600;
+    }
+    
+    /* Time indicator */
+    .time-indicator {
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+    
+    /* Item list styling */
+    .item-list {
+      border-left: 2px solid #e5e7eb;
+      padding-left: 0.75rem;
+    }
+    
+    .item-quantity {
+      font-weight: 600;
+      color: #00337a;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar fixed top-0 left-0 h-full w-64 bg-[#00337a] text-white z-40 shadow-lg">
+    <div class="p-4 text-center border-b border-blue-700">
+      <h1 class="text-2xl font-bold">ZEENTT</h1>
+      <p class="text-blue-200 text-sm">Sistema de Gestão</p>
+    </div>
+    <ul class="py-4">
+      <li class="px-4 py-3 hover:bg-opacity-10 hover:bg-white transition"><a href="menu.html" class="flex items-center"><i class="fas fa-home mr-3"></i> Início</a></li>
+      <li class="px-4 py-3 hover:bg-opacity-10 hover:bg-white transition"><a href="cadastro.html" class="flex items-center"><i class="fas fa-plus mr-3"></i> Cadastro</a></li>
+      <li class="px-4 py-3 hover:bg-opacity-10 hover:bg-white transition"><a href="cardapio.html" class="flex items-center"><i class="fas fa-utensils mr-3"></i> Cardápio</a></li>
+      <li class="px-4 py-3 hover:bg-opacity-10 hover:bg-white transition"><a href="pedido.html" class="flex items-center"><i class="fas fa-concierge-bell mr-3"></i> Pedidos</a></li>
+      <li class="px-4 py-3 bg-blue-900"><a href="cozinha.html" class="flex items-center"><i class="fas fa-blender mr-3"></i> Cozinha</a></li>
+      <li class="px-4 py-3 hover:bg-opacity-10 hover:bg-white transition"><a href="relatorio.html" class="flex items-center"><i class="fas fa-chart-bar mr-3"></i> Relatórios</a></li>
+      <li class="px-4 py-3 hover:bg-opacity-10 hover:bg-white transition"><a href="suporte.html" class="flex items-center"><i class="fas fa-headset mr-3"></i> Suporte</a></li>
+      <li class="px-4 py-3 hover:bg-opacity-10 hover:bg-white transition"><a href="informacoes.html" class="flex items-center"><i class="fas fa-info-circle mr-3"></i> Informações</a></li>
+      <li class="px-4 py-3 hover:bg-opacity-10 hover:bg-white transition"><a href="servico.html" class="flex items-center"><i class="fas fa-tools mr-3"></i> Serviços</a></li>
     </ul>
   </div>
-  <header class="top-bar">
+
+  <!-- Sidebar Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleMenu()"></div>
+
+  <!-- Top Bar -->
+  <header class="top-bar fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-4 py-3 text-white shadow-md">
     <div class="left-icons">
-      <button onclick="toggleMenu()">
-        <i class="fas fa-bars menu-icon"></i>
+      <button onclick="toggleMenu()" class="p-2 rounded-full hover:bg-white/10 transition">
+        <i class="fas fa-bars text-xl"></i>
       </button>
     </div>
+    <div class="logo">
+      <span class="text-xl font-bold">ZEENTT - Cozinha</span>
+    </div>
+    <div class="right-icons flex items-center space-x-3">
+      <button onclick="window.location.href='menu.html'" class="p-2 rounded-full hover:bg-white/10 transition">
+        <i class="fas fa-home text-xl"></i>
+      </button>
+      <button onclick="fazerLogoff()" class="p-2 rounded-full hover:bg-white/10 transition">
+        <i class="fas fa-sign-out-alt text-xl"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-20 pb-16 px-4">
+    <div class="max-w-6xl mx-auto">
+      <!-- Tabs Navigation -->
+      <div class="flex border-b border-gray-200 mb-6">
+        <button id="tab-preparo" class="tab-active py-2 px-4 mr-2 focus:outline-none">
+          Em Preparação <span id="count-preparo" class="badge-status badge-preparo ml-1">5</span>
+        </button>
+        <button id="tab-finalizados" class="py-2 px-4 focus:outline-none text-gray-500">
+          Finalizados <span id="count-finalizados" class="badge-status badge-finalizado ml-1">3</span>
+        </button>
+      </div>
       
-        <div class="logo">
-          <div class="logo">ZEENTT</div>
+      <!-- Search and Filter -->
+      <div class="mb-6 flex flex-col sm:flex-row gap-3">
+        <div class="relative flex-grow">
+          <input type="text" placeholder="Buscar pedido..." class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
         </div>
+        <select class="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="">Filtrar por...</option>
+          <option value="urgente">Urgentes</option>
+          <option value="normal">Normais</option>
+          <option value="mesa">Por mesa</option>
+          <option value="garcom">Por garçom</option>
+        </select>
+      </div>
       
-        <div class="right-icons">
-          <button onclick="fazerLogoff()" class="logout-button">
-            <i class="fas fa-sign-out-alt logout-icon"></i>
-          </button>
-          <button onclick="window.location.href='menu.html'">
-            <i class="fas fa-home"></i>
-          </button>
-        </div>
-      </header>
-      <main>
-        <body>
-          <div class="painel">
-            <div class="coluna preparando">
-              <div class="titulo">Preparando</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
+      <!-- Pedidos em Preparação -->
+      <div id="pedidos-preparo" class="space-y-4">
+        <!-- Pedido 1 (Urgente) -->
+        <div class="pedido-card pedido-urgente rounded-lg p-4 shadow">
+          <div class="flex justify-between items-start mb-2">
+            <div>
+              <h3 class="font-bold text-lg">Pedido #1245</h3>
+              <p class="text-sm text-gray-600">Mesa 12 • Garçom: João</p>
             </div>
-            <div class="coluna finalizado">
-              <div class="titulo">Finalizado</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>
-              <div class="linha">12567</div>             
+            <div class="flex items-center">
+              <span class="badge-status badge-urgente mr-2">URGENTE</span>
+              <span class="badge-status badge-preparo">EM PREPARO</span>
             </div>
           </div>
-      </main>
-   <footer>
-    <p>&copy; 2025 ZEENTT - Todos os direitos reservados</p>
+          
+          <div class="item-list mt-3 space-y-2">
+            <div class="flex justify-between">
+              <div>
+                <span class="item-quantity">2x</span> Pizza Calabresa Grande
+                <p class="text-xs text-gray-500 pl-4">Sem cebola, borda recheada</p>
+              </div>
+              <button class="text-green-600 hover:text-green-800" onclick="marcarItemPronto(this)">
+                <i class="fas fa-check-circle"></i> Pronto
+              </button>
+            </div>
+            <div class="flex justify-between">
+              <div>
+                <span class="item-quantity">1x</span> Refrigerante 2L
+                <p class="text-xs text-gray-500 pl-4">Coca-Cola</p>
+              </div>
+              <button class="text-green-600 hover:text-green-800" onclick="marcarItemPronto(this)">
+                <i class="fas fa-check-circle"></i> Pronto
+              </button>
+            </div>
+          </div>
+          
+          <div class="flex justify-between items-center mt-3 pt-2 border-t border-gray-200">
+            <div class="time-indicator">
+              <i class="fas fa-clock"></i> Há 15 minutos
+            </div>
+            <div>
+              <button class="bg-blue-600 text-white px-3 py-1 rounded-md text-sm mr-2 hover:bg-blue-700" onclick="marcarPedidoPronto('1245')">
+                <i class="fas fa-check mr-1"></i> Finalizar Pedido
+              </button>
+              <button class="bg-gray-200 text-gray-700 px-3 py-1 rounded-md text-sm hover:bg-gray-300">
+                <i class="fas fa-print mr-1"></i> Imprimir
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Pedido 2 -->
+        <div class="pedido-card pedido-em-preparo rounded-lg p-4 shadow">
+          <div class="flex justify-between items-start mb-2">
+            <div>
+              <h3 class="font-bold text-lg">Pedido #1243</h3>
+              <p class="text-sm text-gray-600">Mesa 8 • Garçom: Maria</p>
+            </div>
+            <div>
+              <span class="badge-status badge-preparo">EM PREPARO</span>
+            </div>
+          </div>
+          
+          <div class="item-list mt-3 space-y-2">
+            <div class="flex justify-between">
+              <div>
+                <span class="item-quantity">1x</span> Filé Mignon
+                <p class="text-xs text-gray-500 pl-4">Ao ponto, com arroz e batata</p>
+              </div>
+              <button class="text-green-600 hover:text-green-800" onclick="marcarItemPronto(this)">
+                <i class="fas fa-check-circle"></i> Pronto
+              </button>
+            </div>
+            <div class="flex justify-between">
+              <div>
+                <span class="item-quantity">1x</span> Salada Caesar
+              </div>
+              <button class="text-green-600 hover:text-green-800" onclick="marcarItemPronto(this)">
+                <i class="fas fa-check-circle"></i> Pronto
+              </button>
+            </div>
+            <div class="flex justify-between">
+              <div>
+                <span class="item-quantity">2x</span> Cerveja Artesanal
+                <p class="text-xs text-gray-500 pl-4">IPA</p>
+              </div>
+              <button class="text-green-600 hover:text-green-800" onclick="marcarItemPronto(this)">
+                <i class="fas fa-check-circle"></i> Pronto
+              </button>
+            </div>
+          </div>
+          
+          <div class="flex justify-between items-center mt-3 pt-2 border-t border-gray-200">
+            <div class="time-indicator">
+              <i class="fas fa-clock"></i> Há 8 minutos
+            </div>
+            <div>
+              <button class="bg-blue-600 text-white px-3 py-1 rounded-md text-sm mr-2 hover:bg-blue-700" onclick="marcarPedidoPronto('1243')">
+                <i class="fas fa-check mr-1"></i> Finalizar Pedido
+              </button>
+              <button class="bg-gray-200 text-gray-700 px-3 py-1 rounded-md text-sm hover:bg-gray-300">
+                <i class="fas fa-print mr-1"></i> Imprimir
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Pedidos Finalizados (hidden by default) -->
+      <div id="pedidos-finalizados" class="space-y-4 hidden">
+        <!-- Pedido Finalizado 1 -->
+        <div class="pedido-card pedido-finalizado rounded-lg p-4 shadow">
+          <div class="flex justify-between items-start mb-2">
+            <div>
+              <h3 class="font-bold text-lg">Pedido #1240</h3>
+              <p class="text-sm text-gray-600">Mesa 5 • Garçom: Carlos</p>
+            </div>
+            <div>
+              <span class="badge-status badge-finalizado">FINALIZADO</span>
+            </div>
+          </div>
+          
+          <div class="item-list mt-3 space-y-2">
+            <div>
+              <span class="item-quantity">1x</span> Lasanha à Bolonhesa
+            </div>
+            <div>
+              <span class="item-quantity">2x</span> Água Mineral
+            </div>
+            <div>
+              <span class="item-quantity">1x</span> Sorvete de Chocolate
+            </div>
+          </div>
+          
+          <div class="flex justify-between items-center mt-3 pt-2 border-t border-gray-200">
+            <div class="time-indicator">
+              <i class="fas fa-clock"></i> Finalizado há 25 minutos
+            </div>
+            <div>
+              <button class="bg-gray-200 text-gray-700 px-3 py-1 rounded-md text-sm hover:bg-gray-300">
+                <i class="fas fa-print mr-1"></i> Reimprimir
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="fixed bottom-0 left-0 right-0 bg-white py-3 shadow-inner z-20">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <p class="text-sm text-gray-600">&copy; 2025 ZEENTT - Todos os direitos reservados</p>
+      <div class="flex items-center space-x-2">
+        <span class="text-sm text-gray-600">Atualizado em:</span>
+        <span id="current-time" class="font-medium">00:00:00</span>
+        <button onclick="atualizarPedidos()" class="bg-blue-600 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-700">
+          <i class="fas fa-sync-alt mr-1"></i> Atualizar
+        </button>
+      </div>
+    </div>
   </footer>
-    <script src="js/script.js"></script>
+
+  <script>
+    // Toggle sidebar
+    function toggleMenu() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebar-overlay');
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('active');
+      
+      // Disable scroll when sidebar is open
+      if (sidebar.classList.contains('open')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    // Logoff function with confirmation
+    function fazerLogoff() {
+      if (confirm('Tem certeza que deseja sair do sistema?')) {
+        // Implement logoff logic here
+        window.location.href = 'login.html';
+      }
+    }
+    
+    // Tab switching
+    document.getElementById('tab-preparo').addEventListener('click', function() {
+      this.classList.add('tab-active');
+      this.classList.remove('text-gray-500');
+      document.getElementById('tab-finalizados').classList.remove('tab-active');
+      document.getElementById('tab-finalizados').classList.add('text-gray-500');
+      document.getElementById('pedidos-preparo').classList.remove('hidden');
+      document.getElementById('pedidos-finalizados').classList.add('hidden');
+    });
+    
+    document.getElementById('tab-finalizados').addEventListener('click', function() {
+      this.classList.add('tab-active');
+      this.classList.remove('text-gray-500');
+      document.getElementById('tab-preparo').classList.remove('tab-active');
+      document.getElementById('tab-preparo').classList.add('text-gray-500');
+      document.getElementById('pedidos-finalizados').classList.remove('hidden');
+      document.getElementById('pedidos-preparo').classList.add('hidden');
+    });
+    
+    // Mark item as ready
+    function marcarItemPronto(button) {
+      const itemDiv = button.closest('.flex.justify-between');
+      itemDiv.style.opacity = '0.6';
+      button.innerHTML = '<i class="fas fa-check mr-1"></i> Pronto';
+      button.classList.remove('text-green-600');
+      button.classList.add('text-gray-500');
+      button.onclick = null;
+    }
+    
+    // Mark entire order as ready
+    function marcarPedidoPronto(pedidoId) {
+      if (confirm(`Marcar pedido #${pedidoId} como finalizado?`)) {
+        // In a real app, you would send this to the server
+        const pedidoCard = document.querySelector(`.pedido-card h3:contains("#${pedidoId}")`).closest('.pedido-card');
+        pedidoCard.classList.remove('pedido-em-preparo', 'pedido-urgente');
+        pedidoCard.classList.add('pedido-finalizado');
+        
+        // Update status badge
+        const badge = pedidoCard.querySelector('.badge-status');
+        badge.classList.remove('badge-preparo', 'badge-urgente');
+        badge.classList.add('badge-finalizado');
+        badge.textContent = 'FINALIZADO';
+        
+        // Update buttons
+        const buttonsDiv = pedidoCard.querySelectorAll('button');
+        buttonsDiv[0].style.display = 'none'; // Hide "Finalizar Pedido" button
+        buttonsDiv[1].textContent = ' Reimprimir';
+        
+        // Update counters
+        const countPreparo = document.getElementById('count-preparo');
+        const countFinalizados = document.getElementById('count-finalizados');
+        countPreparo.textContent = parseInt(countPreparo.textContent) - 1;
+        countFinalizados.textContent = parseInt(countFinalizados.textContent) + 1;
+        
+        alert(`Pedido #${pedidoId} marcado como finalizado!`);
+      }
+    }
+    
+    // Update current time
+    function updateClock() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString();
+      document.getElementById('current-time').textContent = timeString;
+    }
+    
+    // Simulate order updates
+    function atualizarPedidos() {
+      // In a real app, this would fetch new orders from the server
+      alert('Pedidos atualizados com sucesso!');
+      updateClock();
+    }
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      updateClock();
+      setInterval(updateClock, 1000);
+      
+      // Simulate new order notification (for demo purposes)
+      setTimeout(() => {
+        const notificationSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3');
+        notificationSound.play().catch(e => console.log('Autoplay prevented'));
+        
+        alert('Novo pedido recebido na cozinha!');
+      }, 10000);
+    });
+  </script>
 </body>
 </html>
-
-    
-
