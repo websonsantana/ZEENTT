@@ -1,517 +1,594 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zeentt - Menu Principal</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zeentt - Cardápio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
+          screens: {
+            'xs': '480px',
+          },
           colors: {
-            primary: '#00337a',
-            secondary: '#0056b3',
-            accent: '#ff6b00',
-          }
+            primary: '#d8315b',
+            secondary: '#00337a',
+            accent: '#1e3a8a',
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
         }
       }
     }
   </script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    :root {
+      --primary-color: #d8315b;
+      --secondary-color: #00337a;
+      --accent-color: #1e3a8a;
+    }
     
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #f8fafc;
     }
     
+    /* Loader e animação de digitação */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s;
+    }
+    
+    #loader.fade-out {
+      opacity: 0;
+    }
+    
+    .loader-icon {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .loader-spinner {
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 4px solid #fff;
+      width: 100%;
+      height: 100%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .typing-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 1em;
+      background-color: currentColor;
+      margin-left: 2px;
+      animation: blink 1s infinite;
+      vertical-align: middle;
+    }
+    
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    
+    /* Logo icon */
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      position: relative;
+      margin-right: 8px;
+    }
+    
+    .logo-icon-inner {
+      width: 100%;
+      height: 100%;
+      background-color: var(--primary-color);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(216, 49, 91, 0.6);
+      animation: pulse-shadow 2s infinite;
+    }
+    
+    .logo-icon-inner:before {
+      content: 'Z';
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    }
+    
+    .logo-icon-inner:after {
+      content: '';
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 120%;
+      height: 120%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transform: rotate(25deg);
+      animation: shine 3s infinite;
+    }
+    
+    .logo-particles .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+    }
+    
+    .logo-particles .particle:nth-child(1) {
+      top: 20%;
+      left: 20%;
+      animation: float 3s infinite;
+    }
+    
+    .logo-particles .particle:nth-child(2) {
+      top: 20%;
+      right: 20%;
+      animation: float 2.5s infinite 0.3s;
+    }
+    
+    .logo-particles .particle:nth-child(3) {
+      bottom: 20%;
+      left: 20%;
+      animation: float 3.5s infinite 0.5s;
+    }
+    
+    .logo-particles .particle:nth-child(4) {
+      bottom: 20%;
+      right: 20%;
+      animation: float 3s infinite 0.7s;
+    }
+    
+    @keyframes pulse-shadow {
+      0%, 100% {
+        box-shadow: 0 0 10px rgba(216, 49, 91, 0.6);
+      }
+      50% {
+        box-shadow: 0 0 20px rgba(216, 49, 91, 0.9);
+      }
+    }
+    
+    @keyframes shine {
+      0% {
+        left: -100%;
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.1;
+      }
+      100% {
+        left: 100%;
+        opacity: 0;
+      }
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.7;
+      }
+      50% {
+        transform: translateY(-5px) scale(1.2);
+        opacity: 1;
+      }
+    }
+    
+    /* Sidebar e navegação */
     .sidebar {
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.3s ease;
       transform: translateX(-100%);
-      box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+      background: linear-gradient(180deg, var(--secondary-color), var(--accent-color));
     }
     
     .sidebar.open {
       transform: translateX(0);
     }
     
-    .sidebar-overlay {
-      transition: opacity 0.3s ease;
-      background-color: rgba(0, 0, 0, 0.5);
+    .top-bar {
+      background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
     }
     
-    .menu-item {
+    /* Cards e elementos de UI */
+    .item {
       transition: all 0.3s ease;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0, 51, 122, 0.1);
     }
     
-    .menu-item:hover {
+    .item:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 15px rgba(0, 51, 122, 0.2);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
     }
     
-    .menu-item-icon {
+    .item-info {
+      transition: all 0.2s ease;
+    }
+    
+    .btn-icon {
+      transition: all 0.2s ease;
+    }
+    
+    .btn-icon:hover {
+      transform: translateY(-2px);
+    }
+    
+    /* Carrinho lateral */
+    .carrinho-lateral {
+      transition: all 0.3s ease;
+      transform: translateX(100%);
+    }
+    
+    .carrinho-lateral.open {
+      transform: translateX(0);
+    }
+    
+    /* Modal */
+    .modal {
+      transition: opacity 0.3s ease;
+    }
+    
+    /* Checkbox personalizado */
+    .item-checkbox:checked + .item-info {
+      box-shadow: 0 0 0 3px var(--primary-color);
+    }
+    
+    .item-checkbox {
+      position: absolute;
+      opacity: 0;
+    }
+    
+    /* Botão de adicionar */
+    .btn-add {
+      background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
       transition: all 0.3s ease;
     }
     
-    .menu-item:hover .menu-item-icon {
-      transform: scale(1.1);
-    }
-    
-    .badge-pulse {
-      animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-      0% {
-        box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
-      }
-      70% {
-        box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
-      }
-      100% {
-        box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
-      }
-    }
-    
-    .notification-bell {
-      position: relative;
-    }
-    
-    .notification-bell::after {
-      content: '';
-      position: absolute;
-      top: -2px;
-      right: -2px;
-      width: 10px;
-      height: 10px;
-      background-color: #ef4444;
-      border-radius: 50%;
-      border: 2px solid #00337a;
+    .btn-add:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 51, 122, 0.3);
     }
   </style>
 </head>
-<body class="bg-gray-50">
+
+<body class="bg-gray-100 font-sans">
+  <!-- Tela de carregamento -->
+  <div id="loader" class="fixed inset-0 flex flex-col items-center justify-center z-50 bg-gradient-to-br from-[var(--secondary-color)] to-[var(--accent-color)]">
+    <div class="loader-icon">
+      <div class="loader-spinner"></div>
+    </div>
+    <h2 class="text-white text-2xl font-bold mt-4 mb-2">Carregando</h2>
+    <p class="text-blue-200 text-sm">Aguarde um momento...</p>
+  </div>
   <!-- Sidebar -->
-  <div id="sidebar" class="sidebar fixed top-0 left-0 h-full w-64 bg-primary text-white z-40">
-    <div class="p-5 text-center border-b border-blue-700 bg-primary-dark">
-      <h1 class="text-2xl font-bold tracking-wide">ZEENTT</h1>
-      <p class="text-blue-200 text-sm mt-1">Sistema de Gestão Completo</p>
-    </div>
-    
-    <div class="p-4 flex items-center space-x-3 border-b border-blue-700 bg-primary-dark">
-      <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
-        <i class="fas fa-user text-white"></i>
+  <div id="sidebar" class="sidebar fixed top-0 left-0 h-full w-64 text-white z-40 shadow-lg">
+    <div class="p-4 flex flex-col items-center border-b border-blue-700/50">
+      <div class="flex items-center mb-2">
+        <div class="logo-icon">
+          <div class="logo-icon-inner">
+            <div class="logo-particles">
+              <div class="particle"></div>
+              <div class="particle"></div>
+              <div class="particle"></div>
+              <div class="particle"></div>
+            </div>
+          </div>
+        </div>
+        <h1 class="text-2xl font-bold ml-2">ZEENTT</h1>
       </div>
-      <div>
-        <p class="font-medium">Usuário Admin</p>
-        <p class="text-xs text-blue-200">Administrador</p>
-      </div>
+      <p class="text-blue-200 text-sm">Sistema de Gestão</p>
     </div>
-    
-    <ul class="py-2">
-      <li class="px-4 py-3 hover:bg-blue-700 transition flex items-center rounded-md mx-2">
-        <a href="menu.html" class="flex items-center w-full">
-          <i class="fas fa-home mr-3 text-blue-300"></i>
+    <ul class="py-4">
+      <li class="px-4 py-2 hover:bg-white/10 transition duration-300 rounded-lg mx-2 my-1">
+        <a href="menu.html" class="flex items-center">
+          <i class="fas fa-home mr-3 text-blue-200"></i> 
           <span>Início</span>
         </a>
       </li>
-      <li class="px-4 py-3 hover:bg-blue-700 transition flex items-center rounded-md mx-2">
-        <a href="cadastro.html" class="flex items-center w-full">
-          <i class="fas fa-plus mr-3 text-blue-300"></i>
+      <li class="px-4 py-2 hover:bg-white/10 transition duration-300 rounded-lg mx-2 my-1">
+        <a href="cadastro.html" class="flex items-center">
+          <i class="fas fa-plus-circle mr-3 text-blue-200"></i> 
           <span>Cadastro</span>
         </a>
       </li>
-      <li class="px-4 py-3 bg-blue-900 rounded-md mx-2 flex items-center">
-        <a href="cardapio.html" class="flex items-center w-full">
-          <i class="fas fa-utensils mr-3 text-accent"></i>
-          <span class="font-medium">Cardápio</span>
+      <li class="px-4 py-2 bg-white/20 hover:bg-white/30 transition duration-300 rounded-lg mx-2 my-1">
+        <a href="cardapio.html" class="flex items-center">
+          <i class="fas fa-utensils mr-3 text-[var(--primary-color)]"></i> 
+          <span>Cardápio</span>
         </a>
       </li>
-      <li class="px-4 py-3 hover:bg-blue-700 transition flex items-center rounded-md mx-2">
-        <a href="pedido.html" class="flex items-center w-full">
-          <i class="fas fa-concierge-bell mr-3 text-blue-300"></i>
+      <li class="px-4 py-2 hover:bg-white/10 transition duration-300 rounded-lg mx-2 my-1">
+        <a href="pedido.html" class="flex items-center">
+          <i class="fas fa-concierge-bell mr-3 text-blue-200"></i> 
           <span>Pedidos</span>
-          <span class="ml-auto bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">3</span>
         </a>
       </li>
-      <li class="px-4 py-3 hover:bg-blue-700 transition flex items-center rounded-md mx-2">
-        <a href="cozinha.html" class="flex items-center w-full">
-          <i class="fas fa-blender mr-3 text-blue-300"></i>
+      <li class="px-4 py-2 hover:bg-white/10 transition duration-300 rounded-lg mx-2 my-1">
+        <a href="cozinha.html" class="flex items-center">
+          <i class="fas fa-blender mr-3 text-blue-200"></i> 
           <span>Cozinha</span>
-          <span class="ml-auto bg-yellow-500 text-white text-xs px-2 py-0.5 rounded-full">2</span>
         </a>
       </li>
-      <li class="px-4 py-3 hover:bg-blue-700 transition flex items-center rounded-md mx-2">
-        <a href="relatorio.html" class="flex items-center w-full">
-          <i class="fas fa-chart-bar mr-3 text-blue-300"></i>
+      <li class="px-4 py-2 hover:bg-white/10 transition duration-300 rounded-lg mx-2 my-1">
+        <a href="relatorio.html" class="flex items-center">
+          <i class="fas fa-chart-bar mr-3 text-blue-200"></i> 
           <span>Relatórios</span>
         </a>
       </li>
-      <li class="px-4 py-3 hover:bg-blue-700 transition flex items-center rounded-md mx-2">
-        <a href="suporte.html" class="flex items-center w-full">
-          <i class="fas fa-headset mr-3 text-blue-300"></i>
+      <li class="px-4 py-2 hover:bg-white/10 transition duration-300 rounded-lg mx-2 my-1">
+        <a href="suporte.html" class="flex items-center">
+          <i class="fas fa-headset mr-3 text-blue-200"></i> 
           <span>Suporte</span>
         </a>
       </li>
-      <li class="px-4 py-3 hover:bg-blue-700 transition flex items-center rounded-md mx-2">
-        <a href="informacoes.html" class="flex items-center w-full">
-          <i class="fas fa-info-circle mr-3 text-blue-300"></i>
+      <li class="px-4 py-2 hover:bg-white/10 transition duration-300 rounded-lg mx-2 my-1">
+        <a href="informacoes.html" class="flex items-center">
+          <i class="fas fa-info-circle mr-3 text-blue-200"></i> 
           <span>Informações</span>
         </a>
       </li>
-      <li class="px-4 py-3 hover:bg-blue-700 transition flex items-center rounded-md mx-2">
-        <a href="servico.html" class="flex items-center w-full">
-          <i class="fas fa-tools mr-3 text-blue-300"></i>
+      <li class="px-4 py-2 hover:bg-white/10 transition duration-300 rounded-lg mx-2 my-1">
+        <a href="servico.html" class="flex items-center">
+          <i class="fas fa-tools mr-3 text-blue-200"></i> 
           <span>Serviços</span>
         </a>
       </li>
     </ul>
-    
-    <div class="absolute bottom-0 w-full p-4 border-t border-blue-700">
-      <button onclick="fazerLogoff()" class="w-full flex items-center justify-center py-2 px-4 bg-red-600 hover:bg-red-700 rounded-md transition">
-        <i class="fas fa-sign-out-alt mr-2"></i>
-        Sair do Sistema
-      </button>
-    </div>
   </div>
-  
-  <!-- Sidebar Overlay -->
+
+  <!-- Overlay for sidebar -->
   <div id="sidebar-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-30" onclick="toggleMenu()"></div>
-  
+
   <!-- Top Bar -->
-  <header class="fixed top-0 left-0 right-0 bg-primary z-30 flex items-center justify-between px-6 py-3 shadow-lg">
-    <div class="flex items-center space-x-4">
-      <button onclick="toggleMenu()" class="text-white hover:text-blue-200 transition">
-        <i class="fas fa-bars text-xl"></i>
+  <header class="top-bar fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-3 sm:px-6 py-3 sm:py-4 text-white shadow-lg">
+    <div class="left-icons lg:hidden">
+      <button onclick="toggleMenu()" class="btn-icon p-2 rounded-full hover:bg-white/15 transition-all">
+        <i class="fas fa-bars text-lg sm:text-xl"></i>
       </button>
-      <h1 class="text-xl font-bold text-white tracking-wide">ZEENTT - Cardápio</h1>
+    </div>
+    <div class="logo flex items-center">
+      <div class="logo-icon hidden xs:block">
+        <div class="logo-icon-inner">
+          <div class="logo-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+          </div>
+        </div>
+      </div>
+      <span id="zeentt-text" class="text-xl sm:text-2xl font-bold ml-0 sm:ml-2">ZEENTT</span>
     </div>
     
-    <div class="flex items-center space-x-5">
-      <button class="text-white hover:text-blue-200 transition relative notification-bell">
-        <i class="fas fa-bell text-xl"></i>
-      </button>
-      
-      <div class="relative">
-        <button onclick="toggleCarrinho()" class="text-white hover:text-blue-200 transition">
-          <i class="fas fa-shopping-cart text-xl"></i>
-          <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center badge-pulse">0</span>
+    <!-- Menu horizontal para telas grandes -->
+    <nav class="hidden lg:flex items-center space-x-6 ml-10">
+      <a href="menu.html" class="text-white hover:text-blue-200 transition-colors duration-300 flex items-center">
+        <i class="fas fa-home mr-2"></i> Início
+      </a>
+      <a href="cadastro.html" class="text-white hover:text-blue-200 transition-colors duration-300 flex items-center">
+        <i class="fas fa-plus-circle mr-2"></i> Cadastro
+      </a>
+      <a href="cardapio.html" class="text-white hover:text-blue-200 transition-colors duration-300 flex items-center text-blue-200">
+        <i class="fas fa-utensils mr-2"></i> Cardápio
+      </a>
+      <a href="pedido.html" class="text-white hover:text-blue-200 transition-colors duration-300 flex items-center">
+        <i class="fas fa-concierge-bell mr-2"></i> Pedidos
+      </a>
+      <a href="relatorio.html" class="text-white hover:text-blue-200 transition-colors duration-300 flex items-center">
+        <i class="fas fa-chart-bar mr-2"></i> Relatórios
+      </a>
+    </nav>
+    
+    <div class="right-icons flex items-center space-x-2 sm:space-x-4">
+      <div class="hidden sm:block lg:hidden">
+        <button onclick="window.location.href='menu.html'" class="btn-icon p-2 rounded-full hover:bg-white/15 transition-all">
+          <i class="fas fa-home text-lg sm:text-xl"></i>
         </button>
       </div>
-      
-      <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center cursor-pointer" onclick="abrirPerfil()">
-        <i class="fas fa-user text-white"></i>
+      <button onclick="fazerLogoff()" class="btn-icon p-2 rounded-full hover:bg-white/15 transition-all">
+        <i class="fas fa-sign-out-alt text-lg sm:text-xl"></i>
+      </button>
+      <div class="relative">
+        <button onclick="toggleCarrinho()" class="btn-icon p-2 rounded-full hover:bg-white/15 transition-all relative">
+          <i class="fas fa-shopping-cart text-lg sm:text-xl"></i>
+          <span id="cart-count" class="absolute -top-2 -right-2 bg-[var(--primary-color)] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate__animated animate__pulse animate__infinite">0</span>
+        </button>
       </div>
     </div>
   </header>
   
-  <!-- Conteúdo principal -->
-  <main class="pt-20 pb-16 px-4 md:px-8">
-    <div class="max-w-6xl mx-auto">
-      <!-- Barra de pesquisa e filtros -->
-      <div class="mb-8 bg-white rounded-xl shadow-sm p-4">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div class="relative flex-1">
-            <input type="text" placeholder="Pesquisar item no cardápio..." 
-                   class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition">
-            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-          </div>
-          
-          <div class="flex items-center space-x-2">
-            <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition">
-              <option>Todas as categorias</option>
-              <option>Pratos principais</option>
-              <option>Bebidas</option>
-              <option>Sobremesas</option>
-              <option>Acompanhamentos</option>
-            </select>
-            
-            <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition flex items-center">
-              <i class="fas fa-filter mr-2"></i>
-              Filtrar
-            </button>
+
+  <!-- Fixed Header with Total -->
+  <div class="fixed top-16 left-0 right-0 bg-gradient-to-r from-[var(--secondary-color)] to-[var(--accent-color)] text-white px-4 py-2 shadow-md z-20 flex justify-between items-center">
+    <div class="flex items-center">
+      <i class="fas fa-shopping-basket mr-2 text-[var(--primary-color)]"></i>
+      <span class="font-medium">Total Selecionado:</span>
+    </div>
+    <span id="total" class="font-bold text-lg">R$ 0.00</span>
+  </div>
+
+  <!-- Main Content -->
+  <main class="mt-28 mb-24 px-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Item 1 -->
+      <div class="item relative bg-white rounded-lg overflow-hidden shadow-md">
+        <input type="checkbox" class="item-checkbox absolute top-2 right-2 h-6 w-6">
+        <div class="item-info cursor-pointer" onclick="showModal(this.parentElement)">
+          <img src="img/test/combo.jpg" alt="Combo dos Clássicos" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="item-title font-bold text-lg mb-1">Combo dos Clássicos</h3>
+            <p class="text-gray-600 text-sm mb-2">2 Sanduíches + Batata + Bebida. Escolha entre Big Mac, Cheddar McMelt...</p>
+            <p class="item-price text-[#00337a] font-bold">a partir de R$ 52,90</p>
           </div>
         </div>
       </div>
-      
-      <!-- Cards do menu -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <!-- Item 1 -->
-        <div class="menu-item bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition">
-          <div class="relative">
-            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
-                 alt="Prato 1" class="w-full h-40 object-cover">
-            <span class="absolute top-2 right-2 bg-primary text-white text-xs px-2 py-1 rounded-full">Mais vendido</span>
-          </div>
+
+      <!-- Item 2 -->
+      <div class="item relative bg-white rounded-lg overflow-hidden shadow-md">
+        <input type="checkbox" class="item-checkbox absolute top-2 right-2 h-6 w-6">
+        <div class="item-info cursor-pointer" onclick="showModal(this.parentElement)">
+          <img src="img/test/4lanches.jpg" alt="4 Pequenos Preços" class="w-full h-48 object-cover">
           <div class="p-4">
-            <h3 class="font-bold text-lg text-gray-800">Frango Grelhado</h3>
-            <p class="text-gray-600 text-sm mt-1">Peito de frango grelhado com legumes frescos</p>
-            <div class="flex items-center justify-between mt-3">
-              <span class="font-bold text-primary">R$ 32,90</span>
-              <button class="bg-primary text-white p-2 rounded-full hover:bg-secondary transition">
-                <i class="fas fa-plus"></i>
-              </button>
-            </div>
+            <h3 class="item-title font-bold text-lg mb-1">4 Pequenos Preços</h3>
+            <p class="text-gray-600 text-sm mb-2">Escolha 4 itens entre Cheeseburger, McFiesta, Chicken Jr...</p>
+            <p class="item-price text-[#00337a] font-bold">a partir de R$ 32,00</p>
           </div>
         </div>
-        
-        <!-- Item 2 -->
-        <div class="menu-item bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition">
-          <div class="relative">
-            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
-                 alt="Prato 2" class="w-full h-40 object-cover">
-          </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="item relative bg-white rounded-lg overflow-hidden shadow-md">
+        <input type="checkbox" class="item-checkbox absolute top-2 right-2 h-6 w-6">
+        <div class="item-info cursor-pointer" onclick="showModal(this.parentElement)">
+          <img src="img/test/nuggets.jpg" alt="Oferta Nuggets" class="w-full h-48 object-cover">
           <div class="p-4">
-            <h3 class="font-bold text-lg text-gray-800">Pizza Margherita</h3>
-            <p class="text-gray-600 text-sm mt-1">Massa fina com molho de tomate e mussarela</p>
-            <div class="flex items-center justify-between mt-3">
-              <span class="font-bold text-primary">R$ 45,90</span>
-              <button class="bg-primary text-white p-2 rounded-full hover:bg-secondary transition">
-                <i class="fas fa-plus"></i>
-              </button>
-            </div>
+            <h3 class="item-title font-bold text-lg mb-1">Oferta Nuggets</h3>
+            <p class="text-gray-600 text-sm mb-2">1 McOferta Média Clássica + acompanhamento (Nuggets, Cheeseburger ou McFlurry).</p>
+            <p class="item-price text-[#00337a] font-bold">a partir de R$ 43,90</p>
           </div>
         </div>
-        
-        <!-- Item 3 -->
-        <div class="menu-item bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition">
-          <div class="relative">
-            <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
-                 alt="Prato 3" class="w-full h-40 object-cover">
-            <span class="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">Novidade</span>
-          </div>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="item relative bg-white rounded-lg overflow-hidden shadow-md">
+        <input type="checkbox" class="item-checkbox absolute top-2 right-2 h-6 w-6">
+        <div class="item-info cursor-pointer" onclick="showModal(this.parentElement)">
+          <img src="img/test/media.jpg" alt="Ofertas Médias" class="w-full h-48 object-cover">
           <div class="p-4">
-            <h3 class="font-bold text-lg text-gray-800">Salada Caesar</h3>
-            <p class="text-gray-600 text-sm mt-1">Salada fresca com molho Caesar e croutons</p>
-            <div class="flex items-center justify-between mt-3">
-              <span class="font-bold text-primary">R$ 28,50</span>
-              <button class="bg-primary text-white p-2 rounded-full hover:bg-secondary transition">
-                <i class="fas fa-plus"></i>
-              </button>
-            </div>
+            <h3 class="item-title font-bold text-lg mb-1">Ofertas Médias</h3>
+            <p class="text-gray-600 text-sm mb-2">2 McOfertas Médias Clássicas para compartilhar.</p>
+            <p class="item-price text-[#00337a] font-bold">a partir de R$ 68,90</p>
           </div>
         </div>
-        
-        <!-- Item 4 -->
-        <div class="menu-item bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition">
-          <div class="relative">
-            <img src="https://images.unsplash.com/photo-1560717843-7a51d6b2b0f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
-                 alt="Prato 4" class="w-full h-40 object-cover">
-          </div>
+      </div>
+
+      <!-- Item 5 -->
+      <div class="item relative bg-white rounded-lg overflow-hidden shadow-md">
+        <input type="checkbox" class="item-checkbox absolute top-2 right-2 h-6 w-6">
+        <div class="item-info cursor-pointer" onclick="showModal(this.parentElement)">
+          <img src="img/test/2sanduiche.jpg" alt="2 Sanduíches com desconto" class="w-full h-48 object-cover">
           <div class="p-4">
-            <h3 class="font-bold text-lg text-gray-800">Sopa de Legumes</h3>
-            <p class="text-gray-600 text-sm mt-1">Sopa cremosa com legumes da estação</p>
-            <div class="flex items-center justify-between mt-3">
-              <span class="font-bold text-primary">R$ 22,90</span>
-              <button class="bg-primary text-white p-2 rounded-full hover:bg-secondary transition">
-                <i class="fas fa-plus"></i>
-              </button>
-            </div>
+            <h3 class="item-title font-bold text-lg mb-1">2 Sanduíches com desconto</h3>
+            <p class="text-gray-600 text-sm mb-2">Leve 2 sanduíches com desconto entre várias opções.</p>
+            <p class="item-price text-[#00337a] font-bold">a partir de R$ 30,90</p>
           </div>
-        </div>
-        
-        <!-- Item 5 -->
-        <div class="menu-item bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition">
-          <div class="relative">
-            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
-                 alt="Prato 5" class="w-full h-40 object-cover">
-          </div>
-          <div class="p-4">
-            <h3 class="font-bold text-lg text-gray-800">Hambúrguer Artesanal</h3>
-            <p class="text-gray-600 text-sm mt-1">Pão brioche, carne 180g e queijo cheddar</p>
-            <div class="flex items-center justify-between mt-3">
-              <span class="font-bold text-primary">R$ 29,90</span>
-              <button class="bg-primary text-white p-2 rounded-full hover:bg-secondary transition">
-                <i class="fas fa-plus"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Item 6 -->
-        <div class="menu-item bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition">
-          <div class="relative">
-            <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
-                 alt="Prato 6" class="w-full h-40 object-cover">
-          </div>
-          <div class="p-4">
-            <h3 class="font-bold text-lg text-gray-800">Smoothie de Frutas</h3>
-            <p class="text-gray-600 text-sm mt-1">Mix de frutas vermelhas com iogurte natural</p>
-            <div class="flex items-center justify-between mt-3">
-              <span class="font-bold text-primary">R$ 18,50</span>
-              <button class="bg-primary text-white p-2 rounded-full hover:bg-secondary transition">
-                <i class="fas fa-plus"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Botão para adicionar novo item -->
-        <div class="menu-item bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition border-2 border-dashed border-gray-300 flex items-center justify-center">
-          <button class="text-center p-6 w-full h-full flex flex-col items-center justify-center text-primary hover:text-secondary transition">
-            <i class="fas fa-plus-circle text-4xl mb-2"></i>
-            <span class="font-medium">Adicionar novo item</span>
-          </button>
         </div>
       </div>
     </div>
   </main>
+
+  <!-- Fixed Footer with Add Button -->
+  <div class="fixed bottom-0 left-0 right-0 bg-white shadow-lg px-4 py-3 z-20">
+    <button onclick="adicionarSelecionadosAoPedido()" class="btn-add w-full text-white font-bold py-3 px-4 rounded-lg transition-all transform hover:-translate-y-1 animate__animated animate__fadeIn">
+      <i class="fas fa-cart-plus mr-2"></i> Adicionar ao Pedido
+    </button>
+  </div>
   
   <!-- Footer -->
-  <footer class="bg-gray-100 py-4 border-t border-gray-200">
-    <div class="max-w-6xl mx-auto px-4 text-center">
-      <p class="text-gray-600 text-sm">&copy; 2025 ZEENTT - Sistema de Gestão para Restaurantes. Todos os direitos reservados.</p>
-      <div class="flex justify-center space-x-4 mt-2">
-        <a href="#" class="text-gray-500 hover:text-primary transition"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" class="text-gray-500 hover:text-primary transition"><i class="fab fa-instagram"></i></a>
-        <a href="#" class="text-gray-500 hover:text-primary transition"><i class="fab fa-linkedin-in"></i></a>
-        <a href="#" class="text-gray-500 hover:text-primary transition"><i class="fab fa-youtube"></i></a>
+  <footer class="fixed bottom-12 left-0 right-0 bg-white py-2 md:py-3 shadow-inner z-10">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center justify-center md:justify-between text-center md:text-left">
+        <p class="text-xs sm:text-sm text-gray-600">&copy; 2025 ZEENTT - Todos os direitos reservados</p>
+        <div class="hidden md:flex items-center mt-2 md:mt-0 space-x-4">
+          <a href="#" class="text-gray-500 hover:text-[var(--primary-color)] transition-colors duration-300">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="text-gray-500 hover:text-[var(--primary-color)] transition-colors duration-300">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="text-gray-500 hover:text-[var(--primary-color)] transition-colors duration-300">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
       </div>
     </div>
   </footer>
-  
-  <!-- Modal de Perfil -->
-  <div id="profile-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
-    <div class="bg-white rounded-xl p-6 w-full max-w-md">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="text-xl font-bold text-gray-800">Perfil do Usuário</h3>
-        <button onclick="fecharPerfil()" class="text-gray-500 hover:text-gray-700">
+
+  <!-- Modal -->
+  <div id="modal" class="modal hidden fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm z-50 flex items-center justify-center">
+    <div class="modal-content bg-white rounded-xl shadow-2xl max-w-md w-full mx-4 overflow-hidden border border-gray-100">
+      <div class="bg-gradient-to-r from-[var(--secondary-color)] to-[var(--accent-color)] py-2 px-4 flex justify-between items-center text-white">
+        <h3 class="font-bold">Detalhes do Item</h3>
+        <button onclick="closeModal()" class="text-white hover:text-red-200 transition-colors">
           <i class="fas fa-times"></i>
         </button>
       </div>
-      
-      <div class="flex items-center space-x-4 mb-6">
-        <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-white text-2xl">
-          <i class="fas fa-user"></i>
-        </div>
-        <div>
-          <h4 class="font-bold text-gray-800">Usuário Admin</h4>
-          <p class="text-sm text-gray-500">Administrador do Sistema</p>
-        </div>
+      <div id="modalDetails" class="p-6">
+        <!-- Modal content will be inserted here -->
       </div>
-      
-      <div class="space-y-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-          <p class="text-gray-800">admin@zeentt.com.br</p>
-        </div>
-        
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Último acesso</label>
-          <p class="text-gray-800">Hoje, 14:30</p>
-        </div>
-        
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-            <i class="fas fa-circle text-green-500 mr-1" style="font-size: 0.5rem;"></i>
-            Ativo
-          </span>
-        </div>
-      </div>
-      
-      <div class="mt-6 flex justify-end space-x-3">
-        <button onclick="fecharPerfil()" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition">
-          Fechar
+      <div class="px-6 pb-6 flex justify-between">
+        <button onclick="closeModal()" class="modal-close bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg transition-all transform hover:-translate-y-1 flex items-center">
+          <i class="fas fa-arrow-left mr-2"></i> Voltar
         </button>
-        <button class="px-4 py-2 bg-primary text-white rounded-md hover:bg-secondary transition">
-          Editar Perfil
+        <button onclick="adicionarModalAoPedido()" class="bg-gradient-to-r from-[var(--secondary-color)] to-[var(--accent-color)] hover:from-[var(--accent-color)] hover:to-[var(--secondary-color)] text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all transform hover:-translate-y-1 flex items-center">
+          <i class="fas fa-cart-plus mr-2"></i> Adicionar
         </button>
       </div>
     </div>
   </div>
-  
-  <!-- Scripts -->
-  <script>
-    // Função para alternar o menu lateral
-    function toggleMenu() {
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('sidebar-overlay');
-      
-      sidebar.classList.toggle('open');
-      overlay.classList.toggle('hidden');
-      
-      // Bloquear/desbloquear scroll do body
-      document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : 'auto';
-    }
-    
-    // Função para alternar o carrinho
-    function toggleCarrinho() {
-      // Simulação de itens no carrinho
-      const cartCount = document.getElementById('cart-count');
-      const currentCount = parseInt(cartCount.textContent);
-      const newCount = currentCount === 0 ? 3 : 0;
-      cartCount.textContent = newCount;
-      
-      // Mostrar alerta simulando abertura do carrinho
-      if(newCount > 0) {
-        alert(`Você tem ${newCount} itens no carrinho.`);
-      } else {
-        alert("Seu carrinho está vazio.");
-      }
-    }
-    
-    // Função para fazer logoff
-    function fazerLogoff() {
-      if(confirm("Tem certeza que deseja sair do sistema?")) {
-        // Simulação de redirecionamento
-        alert("Sessão encerrada com sucesso. Redirecionando para a página de login...");
-        // window.location.href = "login.html";
-      }
-    }
-    
-    // Funções para o modal de perfil
-    function abrirPerfil() {
-      document.getElementById('profile-modal').classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-    
-    function fecharPerfil() {
-      document.getElementById('profile-modal').classList.add('hidden');
-      document.body.style.overflow = 'auto';
-    }
-    
-    // Adicionar evento de clique nos botões de adicionar ao carrinho
-    document.querySelectorAll('.menu-item button').forEach(button => {
-      button.addEventListener('click', function(e) {
-        e.stopPropagation();
-        
-        // Animação de confirmação
-        this.innerHTML = '<i class="fas fa-check"></i>';
-        this.classList.remove('bg-primary');
-        this.classList.add('bg-green-500');
-        
-        // Atualizar contador do carrinho
-        const cartCount = document.getElementById('cart-count');
-        cartCount.textContent = parseInt(cartCount.textContent) + 1;
-        
-        // Resetar botão após 1.5 segundos
-        setTimeout(() => {
-          this.innerHTML = '<i class="fas fa-plus"></i>';
-          this.classList.remove('bg-green-500');
-          this.classList.add('bg-primary');
-        }, 1500);
-      });
-    });
-    
-    // Adicionar evento de clique nos cards do menu
-    document.querySelectorAll('.menu-item').forEach(item => {
-      item.addEventListener('click', function() {
-        // Simulação de abertura de detalhes do item
-        const title = this.querySelector('h3')?.textContent || 'Item do Cardápio';
-        alert(`Abrindo detalhes do item: ${title}`);
-      });
-    });
-  </script>
 
-</html>
-  <script src="https://cdn.tailwindcss.com"></script>
-  
+  <!-- Shopping Cart Sidebar -->
+  <div id="carrinho-lateral" class="carrinho-lateral fixed top-0 right-0 h-full w-full sm:w-96 bg-white shadow-lg z-50 overflow-y-auto">
+    <div class="carrinho-header bg-gradient-to-r from-[var(--secondary-color)] to-[var(--accent-color)] text-white p-4 flex justify-between items-center shadow-md">
+      <div class="flex items-center">
+        <div class="mr-3 text-[var(--primary-color)] bg-white/10 p-2 rounded-full">
+          <i class="fas fa-shopping-cart"></i>
+        </div>
+        <h2 class="text-xl font-bold">Seu Carrinho</h2>
+      </div>
+      <button onclick="toggleCarrinho()" class="btn-icon p-2 rounded-full hover:bg-white/15 transition-all">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <ul id="carrinho-itens" class="divide-y divide-gray-200">
+      <!-- Cart items will be inserted here -->
+    </ul>
+    <div class="carrinho-footer bg-gray-50 p-4 border-t border-gray-200 shadow-inner">
+      <div class="flex justify-between items-center bg-gradient-to-r from-[var(--secondary-color)] to-[var(--accent-color)] text-white p-3 rounded-lg shadow-md mb-3">
+        <strong class="text-lg flex items-center">
+          <i class="fas fa-receipt mr-2 text-[var(--primary-color)]"></i> Total:
+        </strong>
+        <strong class="text-lg">R$ <span id="carrinho-total" class="text-white">0.00</span></strong>
+      </div>
+      <button onclick="finalizarPedido()" class="w-full mt-4 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-4 rounded-lg shadow-md transition-all transform hover:-translate-y-1 animate__animated animate__pulse animate__infinite animate__slower">
+        <i class="fas fa-check-circle mr-2"></i> Finalizar Pedido
+      </button>
+    </div>
+  </div>
+
+  <!-- Overlay for cart -->
+  <div id="carrinho-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40" onclick="toggleCarrinho()"></div>
+
   <script>
     // Global variables
     let cartItems = [];
@@ -523,7 +600,67 @@
       const sidebar = document.getElementById('sidebar');
       const overlay = document.getElementById('sidebar-overlay');
       sidebar.classList.toggle('open');
-      overlay.classList.toggle('hidden');
+      
+      // Mostrar/ocultar overlay
+      if (sidebar.classList.contains('open')) {
+        overlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      } else {
+        overlay.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }
+    }
+    
+    // Tela de carregamento e animação de digitação
+    window.addEventListener('load', function() {
+      // Ocultar a tela de carregamento após 2 segundos
+      setTimeout(() => {
+        const loader = document.getElementById('loader');
+        loader.classList.add('fade-out');
+        
+        setTimeout(() => {
+          loader.style.display = 'none';
+          // Iniciar animação de digitação após a tela de carregamento
+          const zeenttText = document.getElementById('zeentt-text');
+          typeEffect(zeenttText, 'ZEENTT', 150);
+          
+          // Animar os itens do cardápio com fade-in
+          const items = document.querySelectorAll('.item');
+          items.forEach((item, index) => {
+            setTimeout(() => {
+              item.classList.add('animate__animated', 'animate__fadeInUp');
+            }, index * 100);
+          });
+        }, 500);
+      }, 1500);
+    });
+    
+    // Animação de digitação do texto ZEENTT
+    function typeEffect(element, text, speed) {
+      let i = 0;
+      element.textContent = '';
+      
+      // Criar um elemento de cursor piscante
+      const cursor = document.createElement('span');
+      cursor.className = 'typing-cursor';
+      cursor.textContent = '|';
+      element.appendChild(cursor);
+      
+      const timer = setInterval(function() {
+        if (i < text.length) {
+          // Inserir o texto antes do cursor
+          element.insertBefore(document.createTextNode(text.charAt(i)), cursor);
+          i++;
+        } else {
+          clearInterval(timer);
+          // Remover o cursor após a animação
+          setTimeout(() => {
+            cursor.remove();
+            // Adicionar classe de animação após a digitação
+            element.classList.add('animate__animated', 'animate__pulse');
+          }, 500);
+        }
+      }, speed);
     }
 
     // Toggle shopping cart
@@ -531,13 +668,31 @@
       const carrinho = document.getElementById('carrinho-lateral');
       const overlay = document.getElementById('carrinho-overlay');
       carrinho.classList.toggle('open');
-      overlay.classList.toggle('hidden');
+      
+      // Mostrar/ocultar overlay com animação
+      if (carrinho.classList.contains('open')) {
+        overlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        
+        // Animar itens do carrinho
+        setTimeout(() => {
+          const items = document.querySelectorAll('#carrinho-itens li');
+          items.forEach((item, index) => {
+            item.classList.add('animate__animated', 'animate__fadeInRight');
+            item.style.animationDelay = `${index * 100}ms`;
+          });
+        }, 100);
+      } else {
+        overlay.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }
     }
 
     // Show modal with item details
     function showModal(itemElement) {
       const modal = document.getElementById('modal');
       const modalDetails = document.getElementById('modalDetails');
+      const modalContent = modal.querySelector('.modal-content');
       
       const imgSrc = itemElement.querySelector('img').src;
       const title = itemElement.querySelector('.item-title').textContent;
@@ -552,18 +707,37 @@
       };
       
       modalDetails.innerHTML = `
-        <img src="${imgSrc}" alt="${title}" class="w-full h-48 object-cover rounded mb-4">
-        <h3 class="text-xl font-bold mb-2">${title}</h3>
-        <p class="text-gray-700 mb-4">${description}</p>
-        <p class="text--[#00337a] font-bold text-lg">${price}</p>
+        <img src="${imgSrc}" alt="${title}" class="w-full h-48 object-cover rounded-lg mb-4 shadow-md animate__animated animate__fadeIn">
+        <h3 class="text-xl font-bold mb-2 text-[var(--secondary-color)] animate__animated animate__fadeInUp animate__delay-1s">${title}</h3>
+        <p class="text-gray-700 mb-4 animate__animated animate__fadeInUp animate__delay-2s">${description}</p>
+        <div class="bg-gradient-to-r from-[var(--secondary-color)] to-[var(--accent-color)] p-3 rounded-lg text-white font-bold text-lg shadow-md animate__animated animate__fadeInUp animate__delay-3s">
+          ${price}
+        </div>
       `;
       
       modal.classList.remove('hidden');
+      // Adicionar animação ao modal
+      modalContent.classList.add('animate__animated', 'animate__zoomIn');
+      
+      // Adicionar efeito de blur ao fundo
+      document.body.style.overflow = 'hidden';
     }
 
     // Close modal
     function closeModal() {
-      document.getElementById('modal').classList.add('hidden');
+      const modal = document.getElementById('modal');
+      const modalContent = modal.querySelector('.modal-content');
+      
+      // Adicionar animação de saída
+      modalContent.classList.remove('animate__zoomIn');
+      modalContent.classList.add('animate__zoomOut');
+      
+      // Aguardar a animação terminar antes de esconder o modal
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        modalContent.classList.remove('animate__zoomOut');
+        document.body.style.overflow = 'auto';
+      }, 300);
     }
 
     // Add item from modal to cart
@@ -612,24 +786,59 @@
       carrinhoItens.innerHTML = '';
       let total = 0;
       
-      cartItems.forEach((item, index) => {
-        total += item.price;
-        
-        const li = document.createElement('li');
-        li.className = 'p-4 flex items-start';
-        li.innerHTML = `
-          <img src="${item.img}" alt="${item.title}" class="w-16 h-16 object-cover rounded mr-3">
-          <div class="flex-1">
-            <h3 class="font-medium">${item.title}</h3>
-            <p class="text-gray-600 text-sm">${item.description.substring(0, 50)}...</p>
-            <p class="text-[#00337a] font-bold">R$ ${item.price.toFixed(2).replace('.', ',')}</p>
-          </div>
-          <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700">
-            <i class="fas fa-trash"></i>
-          </button>
+      // Animação do contador do carrinho
+      cartCount.classList.add('animate__animated', 'animate__rubberBand');
+      setTimeout(() => {
+        cartCount.classList.remove('animate__rubberBand');
+      }, 1000);
+      
+      if (cartItems.length === 0) {
+        // Mostrar mensagem de carrinho vazio
+        const emptyMessage = document.createElement('div');
+        emptyMessage.className = 'p-8 text-center text-gray-500 animate__animated animate__fadeIn';
+        emptyMessage.innerHTML = `
+          <i class="fas fa-shopping-cart text-4xl mb-4 text-gray-300"></i>
+          <p>Seu carrinho está vazio</p>
+          <p class="text-sm mt-2">Adicione itens do cardápio para continuar</p>
         `;
-        carrinhoItens.appendChild(li);
-      });
+        carrinhoItens.appendChild(emptyMessage);
+      } else {
+        // Adicionar itens ao carrinho com animações
+        cartItems.forEach((item, index) => {
+          total += item.price;
+          
+          const li = document.createElement('li');
+          li.className = 'p-4 flex items-start border-b border-gray-100 hover:bg-gray-50 transition-colors duration-300';
+          li.innerHTML = `
+            <img src="${item.img}" alt="${item.title}" class="w-16 h-16 object-cover rounded-lg shadow-sm mr-3">
+            <div class="flex-1">
+              <h3 class="font-medium text-[var(--secondary-color)]">${item.title}</h3>
+              <p class="text-gray-600 text-sm">${item.description.substring(0, 50)}...</p>
+              <p class="text-[var(--primary-color)] font-bold mt-1">R$ ${item.price.toFixed(2).replace('.', ',')}</p>
+            </div>
+            <button onclick="removeFromCart(${index})" class="text-gray-400 hover:text-[var(--primary-color)] transition-colors duration-300 p-2 rounded-full hover:bg-gray-100">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          `;
+          
+          // Adicionar classes de animação
+          li.classList.add('animate__animated', 'animate__fadeInRight');
+          li.style.animationDelay = `${index * 100}ms`;
+          
+          carrinhoItens.appendChild(li);
+        });
+      }
+      
+      // Atualizar total com animação
+      const oldTotal = parseFloat(carrinhoTotal.textContent.replace(',', '.')) || 0;
+      const newTotal = total;
+      
+      if (oldTotal !== newTotal) {
+        carrinhoTotal.parentElement.classList.add('animate__animated', 'animate__pulse');
+        setTimeout(() => {
+          carrinhoTotal.parentElement.classList.remove('animate__pulse');
+        }, 1000);
+      }
       
       carrinhoTotal.textContent = total.toFixed(2).replace('.', ',');
       cartCount.textContent = cartItems.length;
@@ -637,21 +846,82 @@
 
     // Remove item from cart
     function removeFromCart(index) {
-      cartItems.splice(index, 1);
-      updateCart();
+      // Animar o item antes de removê-lo
+      const items = document.querySelectorAll('#carrinho-itens li');
+      if (items[index]) {
+        items[index].classList.remove('animate__fadeInRight');
+        items[index].classList.add('animate__animated', 'animate__fadeOutRight');
+        
+        // Aguardar a animação terminar antes de remover
+        setTimeout(() => {
+          cartItems.splice(index, 1);
+          updateCart();
+        }, 500);
+      } else {
+        cartItems.splice(index, 1);
+        updateCart();
+      }
     }
 
     // Finalize order
     function finalizarPedido() {
       if (cartItems.length === 0) {
-        alert('Seu carrinho está vazio!');
+        // Usar um alerta personalizado em vez do alerta padrão
+        const carrinhoHeader = document.querySelector('.carrinho-header');
+        const alertDiv = document.createElement('div');
+        alertDiv.className = 'bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 animate__animated animate__shakeX';
+        alertDiv.innerHTML = `
+          <div class="flex items-center">
+            <i class="fas fa-exclamation-circle mr-2"></i>
+            <p>Seu carrinho está vazio!</p>
+          </div>
+        `;
+        
+        carrinhoHeader.insertAdjacentElement('afterend', alertDiv);
+        
+        // Remover o alerta após alguns segundos
+        setTimeout(() => {
+          alertDiv.classList.remove('animate__shakeX');
+          alertDiv.classList.add('animate__fadeOut');
+          setTimeout(() => alertDiv.remove(), 500);
+        }, 3000);
+        
         return;
       }
       
-      alert(`Pedido finalizado com sucesso! Total: R$ ${document.getElementById('carrinho-total').textContent}`);
-      cartItems = [];
-      updateCart();
-      toggleCarrinho();
+      // Animar todos os itens do carrinho
+      const items = document.querySelectorAll('#carrinho-itens li');
+      items.forEach((item, i) => {
+        setTimeout(() => {
+          item.classList.add('animate__animated', 'animate__bounceOut');
+        }, i * 100);
+      });
+      
+      // Mostrar mensagem de sucesso personalizada
+      setTimeout(() => {
+        const carrinhoItens = document.getElementById('carrinho-itens');
+        carrinhoItens.innerHTML = '';
+        
+        const successMessage = document.createElement('div');
+        successMessage.className = 'p-8 text-center text-green-500 animate__animated animate__fadeIn';
+        successMessage.innerHTML = `
+          <div class="bg-green-100 rounded-full h-20 w-20 flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-check-circle text-4xl text-green-500"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Pedido Finalizado!</h3>
+          <p class="text-gray-600">Total: R$ ${document.getElementById('carrinho-total').textContent}</p>
+          <p class="text-sm mt-4 text-gray-500">Seu pedido foi enviado para a cozinha</p>
+        `;
+        
+        carrinhoItens.appendChild(successMessage);
+        
+        // Resetar o carrinho após alguns segundos
+        setTimeout(() => {
+          cartItems = [];
+          updateCart();
+          toggleCarrinho();
+        }, 3000);
+      }, 800);
     }
 
     // Logoff function
@@ -693,4 +963,5 @@
       });
     });
   </script>
-
+</body>
+</html>
