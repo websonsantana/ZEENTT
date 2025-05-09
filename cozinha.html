@@ -6,475 +6,607 @@
   <title>Zeentt - Cozinha</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          screens: {
+            'xs': '480px',
+          },
+          colors: {
+            primary: '#d8315b',
+            secondary: '#00337a',
+            accent: '#1e3a8a',
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+        }
+      }
+    }
+  </script>
   <style>
-    /* Custom styles */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f8fafc;
+    :root {
+      --primary-color: #d8315b;
+      --secondary-color: #00337a;
+      --accent-color: #1e3a8a;
     }
     
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    /* Loader e animação de digitação */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s;
+    }
+    
+    #loader.fade-out {
+      opacity: 0;
+    }
+    
+    .loader-icon {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .loader-spinner {
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 4px solid #fff;
+      width: 100%;
+      height: 100%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .typing-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 1em;
+      background-color: currentColor;
+      margin-left: 2px;
+      animation: blink 1s infinite;
+      vertical-align: middle;
+    }
+    
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    
+    /* Logo icon */
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      position: relative;
+      margin-right: 8px;
+    }
+    
+    .logo-icon-inner {
+      width: 100%;
+      height: 100%;
+      background-color: var(--primary-color);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(216, 49, 91, 0.6);
+      animation: pulse-shadow 2s infinite;
+    }
+    
+    .logo-icon-inner:before {
+      content: 'Z';
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    }
+    
+    .logo-icon-inner:after {
+      content: '';
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 120%;
+      height: 120%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transform: rotate(25deg);
+      animation: shine 3s infinite;
+    }
+    
+    .logo-particles .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+    }
+    
+    .logo-particles .particle:nth-child(1) {
+      top: 20%;
+      left: 20%;
+      animation: float 3s infinite;
+    }
+    
+    .logo-particles .particle:nth-child(2) {
+      top: 20%;
+      right: 20%;
+      animation: float 2.5s infinite 0.3s;
+    }
+    
+    .logo-particles .particle:nth-child(3) {
+      bottom: 20%;
+      left: 20%;
+      animation: float 3.5s infinite 0.5s;
+    }
+    
+    .logo-particles .particle:nth-child(4) {
+      bottom: 20%;
+      right: 20%;
+      animation: float 3s infinite 0.7s;
+    }
+    
+    @keyframes pulse-shadow {
+      0%, 100% {
+        box-shadow: 0 0 10px rgba(216, 49, 91, 0.6);
+      }
+      50% {
+        box-shadow: 0 0 20px rgba(216, 49, 91, 0.9);
+      }
+    }
+    
+    @keyframes shine {
+      0% {
+        left: -100%;
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.1;
+      }
+      100% {
+        left: 100%;
+        opacity: 0;
+      }
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.7;
+      }
+      50% {
+        transform: translateY(-5px) scale(1.2);
+        opacity: 1;
+      }
+    }
+    
+    /* Sidebar e navegação */
     .sidebar {
-      background: linear-gradient(180deg, #00337a 0%, #00337a 100%);
+      transition: all 0.3s ease;
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
+      background: linear-gradient(180deg, var(--secondary-color), var(--accent-color));
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 250px;
+      z-index: 40;
     }
     
     .sidebar.open {
       transform: translateX(0);
     }
     
-    .sidebar li:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-    
     .top-bar {
-      background: linear-gradient(135deg, #00337a 0%, #00337a 100%);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
     }
     
+    /* Cards e elementos de UI */
     .pedido-card {
       transition: all 0.3s ease;
-      border-left: 4px solid;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
     
     .pedido-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-icon {
+      transition: all 0.2s ease;
+    }
+    
+    .btn-icon:hover {
       transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-    
-    .pedido-em-preparo {
-      border-left-color: #f59e0b;
-      background-color: #fffbeb;
-    }
-    
-    .pedido-finalizado {
-      border-left-color: #10b981;
-      background-color: #ecfdf5;
-    }
-    
-    .pedido-urgente {
-      animation: pulse 2s infinite;
-      border-left-color: #ef4444;
-      background-color: #fee2e2;
-    }
-    
-    @keyframes pulse {
-      0% {
-        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
-      }
-      70% {
-        box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
-      }
-      100% {
-        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
-      }
-    }
-    
-    .badge-status {
-      font-size: 0.75rem;
-      padding: 0.25rem 0.5rem;
-      border-radius: 9999px;
-    }
-    
-    .badge-preparo {
-      background-color: #f59e0b;
-      color: white;
-    }
-    
-    .badge-finalizado {
-      background-color: #10b981;
-      color: white;
-    }
-    
-    .badge-urgente {
-      background-color: #ef4444;
-      color: white;
-    }
-    
-    /* Overlay for sidebar */
-    .sidebar-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 30;
-    }
-    
-    .sidebar-overlay.active {
-      display: block;
-    }
-    
-    /* Tabs styling */
-    .tab-active {
-      border-bottom: 3px solid #00337a;
-      color: #00337a;
-      font-weight: 600;
-    }
-    
-    /* Time indicator */
-    .time-indicator {
-      font-size: 0.75rem;
-      color: #6b7280;
-    }
-    
-    /* Item list styling */
-    .item-list {
-      border-left: 2px solid #e5e7eb;
-      padding-left: 0.75rem;
-    }
-    
-    .item-quantity {
-      font-weight: 600;
-      color: #00337a;
     }
   </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-100 font-sans">
+  <!-- Tela de carregamento -->
+  <div id="loader" class="fixed inset-0 flex flex-col items-center justify-center z-50 bg-gradient-to-br from-[var(--secondary-color)] to-[var(--accent-color)]">
+    <div class="loader-icon">
+      <div class="loader-spinner"></div>
+    </div>
+    <h2 class="text-white text-2xl font-bold mt-4 mb-2">Carregando</h2>
+    <p class="text-blue-200 text-sm">Aguarde um momento...</p>
+  </div>
+
   <!-- Sidebar -->
-  <div id="sidebar" class="sidebar fixed top-0 left-0 h-full w-64 bg-[#00337a] text-white z-40 shadow-lg">
-    <div class="p-4 text-center border-b border-blue-700">
-      <h1 class="text-2xl font-bold">ZEENTT</h1>
+  <div id="sidebar" class="sidebar fixed top-0 left-0 h-full w-64 text-white z-40 shadow-lg">
+    <div class="p-4 flex flex-col items-center border-b border-blue-700/50">
+      <div class="flex items-center mb-2">
+        <div class="logo-icon">
+          <div class="logo-icon-inner">
+            <div class="logo-particles">
+              <div class="particle"></div>
+              <div class="particle"></div>
+              <div class="particle"></div>
+              <div class="particle"></div>
+            </div>
+          </div>
+        </div>
+        <h1 class="text-2xl font-bold ml-2">ZEENTT</h1>
+      </div>
       <p class="text-blue-200 text-sm">Sistema de Gestão</p>
     </div>
     <ul class="py-4">
-      <li class="px-4 py-3 hover:bg-opacity-10 hover:bg-white transition"><a href="menu.html" class="flex items-center"><i class="fas fa-home mr-3"></i> Início</a></li>
-      <li class="px-4 py-3 hover:bg-opacity-10 hover:bg-white transition"><a href="cadastro.html" class="flex items-center"><i class="fas fa-plus mr-3"></i> Cadastro</a></li>
-      <li class="px-4 py-3 hover:bg-opacity-10 hover:bg-white transition"><a href="cardapio.html" class="flex items-center"><i class="fas fa-utensils mr-3"></i> Cardápio</a></li>
-      <li class="px-4 py-3 hover:bg-opacity-10 hover:bg-white transition"><a href="pedido.html" class="flex items-center"><i class="fas fa-concierge-bell mr-3"></i> Pedidos</a></li>
-      <li class="px-4 py-3 bg-blue-900"><a href="cozinha.html" class="flex items-center"><i class="fas fa-blender mr-3"></i> Cozinha</a></li>
-      <li class="px-4 py-3 hover:bg-opacity-10 hover:bg-white transition"><a href="relatorio.html" class="flex items-center"><i class="fas fa-chart-bar mr-3"></i> Relatórios</a></li>
-      <li class="px-4 py-3 hover:bg-opacity-10 hover:bg-white transition"><a href="suporte.html" class="flex items-center"><i class="fas fa-headset mr-3"></i> Suporte</a></li>
-      <li class="px-4 py-3 hover:bg-opacity-10 hover:bg-white transition"><a href="informacoes.html" class="flex items-center"><i class="fas fa-info-circle mr-3"></i> Informações</a></li>
-      <li class="px-4 py-3 hover:bg-opacity-10 hover:bg-white transition"><a href="servico.html" class="flex items-center"><i class="fas fa-tools mr-3"></i> Serviços</a></li>
+      <li class="px-4 py-2 hover:bg-white/10 transition duration-300 rounded-lg mx-2 my-1">
+        <a href="menu.html" class="flex items-center">
+          <i class="fas fa-home mr-3 text-blue-200"></i> 
+          <span>Início</span>
+        </a>
+      </li>
+      <li class="px-4 py-2 hover:bg-white/10 transition duration-300 rounded-lg mx-2 my-1">
+        <a href="cadastro.html" class="flex items-center">
+          <i class="fas fa-plus-circle mr-3 text-blue-200"></i> 
+          <span>Cadastro</span>
+        </a>
+      </li>
+      <li class="px-4 py-2 hover:bg-white/10 transition duration-300 rounded-lg mx-2 my-1">
+        <a href="cardapio.html" class="flex items-center">
+          <i class="fas fa-utensils mr-3 text-blue-200"></i> 
+          <span>Cardápio</span>
+        </a>
+      </li>
+      <li class="px-4 py-2 hover:bg-white/10 transition duration-300 rounded-lg mx-2 my-1">
+        <a href="pedido.html" class="flex items-center">
+          <i class="fas fa-concierge-bell mr-3 text-blue-200"></i> 
+          <span>Pedidos</span>
+        </a>
+      </li>
+      <li class="px-4 py-2 bg-white/20 hover:bg-white/30 transition duration-300 rounded-lg mx-2 my-1">
+        <a href="cozinha.html" class="flex items-center">
+          <i class="fas fa-blender mr-3 text-[var(--primary-color)]"></i> 
+          <span>Cozinha</span>
+        </a>
+      </li>
+      <li class="px-4 py-2 hover:bg-white/10 transition duration-300 rounded-lg mx-2 my-1">
+        <a href="relatorio.html" class="flex items-center">
+          <i class="fas fa-chart-bar mr-3 text-blue-200"></i> 
+          <span>Relatórios</span>
+        </a>
+      </li>
+      <li class="px-4 py-2 hover:bg-white/10 transition duration-300 rounded-lg mx-2 my-1">
+        <a href="suporte.html" class="flex items-center">
+          <i class="fas fa-headset mr-3 text-blue-200"></i> 
+          <span>Suporte</span>
+        </a>
+      </li>
+      <li class="px-4 py-2 hover:bg-white/10 transition duration-300 rounded-lg mx-2 my-1">
+        <a href="informacoes.html" class="flex items-center">
+          <i class="fas fa-info-circle mr-3 text-blue-200"></i> 
+          <span>Informações</span>
+        </a>
+      </li>
+      <li class="px-4 py-2 hover:bg-white/10 transition duration-300 rounded-lg mx-2 my-1">
+        <a href="servico.html" class="flex items-center">
+          <i class="fas fa-tools mr-3 text-blue-200"></i> 
+          <span>Serviços</span>
+        </a>
+      </li>
     </ul>
   </div>
-
-  <!-- Sidebar Overlay -->
-  <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleMenu()"></div>
-
+  
+  <!-- Overlay for sidebar -->
+  <div id="sidebar-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-30" onclick="toggleMenu()"></div>
+  
   <!-- Top Bar -->
-  <header class="top-bar fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-4 py-3 text-white shadow-md">
-    <div class="left-icons">
-      <button onclick="toggleMenu()" class="p-2 rounded-full hover:bg-white/10 transition">
-        <i class="fas fa-bars text-xl"></i>
+  <header class="top-bar fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-3 sm:px-6 py-3 sm:py-4 text-white shadow-lg">
+    <div class="left-icons lg:hidden">
+      <button onclick="toggleMenu()" class="btn-icon p-2 rounded-full hover:bg-white/15 transition-all">
+        <i class="fas fa-bars text-lg sm:text-xl"></i>
       </button>
     </div>
-    <div class="logo">
-      <span class="text-xl font-bold">ZEENTT - Cozinha</span>
+    <div class="logo flex items-center">
+      <div class="logo-icon hidden xs:block">
+        <div class="logo-icon-inner">
+          <div class="logo-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+          </div>
+        </div>
+      </div>
+      <span id="zeentt-text" class="text-xl sm:text-2xl font-bold ml-0 sm:ml-2">ZEENTT</span>
     </div>
-    <div class="right-icons flex items-center space-x-3">
-      <button onclick="window.location.href='menu.html'" class="p-2 rounded-full hover:bg-white/10 transition">
-        <i class="fas fa-home text-xl"></i>
-      </button>
-      <button onclick="fazerLogoff()" class="p-2 rounded-full hover:bg-white/10 transition">
-        <i class="fas fa-sign-out-alt text-xl"></i>
+    
+    <!-- Menu horizontal para telas grandes -->
+    <nav class="hidden lg:flex items-center space-x-6 ml-10">
+      <a href="menu.html" class="text-white hover:text-blue-200 transition-colors duration-300 flex items-center">
+        <i class="fas fa-home mr-2"></i> Início
+      </a>
+      <a href="cadastro.html" class="text-white hover:text-blue-200 transition-colors duration-300 flex items-center">
+        <i class="fas fa-plus-circle mr-2"></i> Cadastro
+      </a>
+      <a href="cardapio.html" class="text-white hover:text-blue-200 transition-colors duration-300 flex items-center">
+        <i class="fas fa-utensils mr-2"></i> Cardápio
+      </a>
+      <a href="pedido.html" class="text-white hover:text-blue-200 transition-colors duration-300 flex items-center">
+        <i class="fas fa-concierge-bell mr-2"></i> Pedidos
+      </a>
+      <a href="cozinha.html" class="text-white hover:text-blue-200 transition-colors duration-300 flex items-center text-blue-200">
+        <i class="fas fa-blender mr-2"></i> Cozinha
+      </a>
+    </nav>
+    
+    <div class="right-icons flex items-center space-x-2 sm:space-x-4">
+      <div class="hidden sm:block lg:hidden">
+        <button onclick="window.location.href='menu.html'" class="btn-icon p-2 rounded-full hover:bg-white/15 transition-all">
+          <i class="fas fa-home text-lg sm:text-xl"></i>
+        </button>
+      </div>
+      <button onclick="fazerLogoff()" class="btn-icon p-2 rounded-full hover:bg-white/15 transition-all">
+        <i class="fas fa-sign-out-alt text-lg sm:text-xl"></i>
       </button>
     </div>
   </header>
-
-  <!-- Main Content -->
-  <main class="pt-20 pb-16 px-4">
-    <div class="max-w-6xl mx-auto">
-      <!-- Tabs Navigation -->
-      <div class="flex border-b border-gray-200 mb-6">
-        <button id="tab-preparo" class="tab-active py-2 px-4 mr-2 focus:outline-none">
-          Em Preparação <span id="count-preparo" class="badge-status badge-preparo ml-1">5</span>
-        </button>
-        <button id="tab-finalizados" class="py-2 px-4 focus:outline-none text-gray-500">
-          Finalizados <span id="count-finalizados" class="badge-status badge-finalizado ml-1">3</span>
-        </button>
-      </div>
-      
-      <!-- Search and Filter -->
-      <div class="mb-6 flex flex-col sm:flex-row gap-3">
-        <div class="relative flex-grow">
-          <input type="text" placeholder="Buscar pedido..." class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-          <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+  <!-- Conteúdo principal -->
+  <main class="mt-24 mb-24 px-4 container mx-auto">
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+      <h2 class="text-2xl font-bold text-[var(--secondary-color)] mb-4 flex items-center">
+        <i class="fas fa-blender text-[var(--primary-color)] mr-3"></i> Área da Cozinha
+      </h2>
+      <p class="text-gray-600 mb-4">Gerencie os pedidos que precisam ser preparados.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Coluna Preparando -->
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white p-3 font-bold text-lg flex items-center">
+          <i class="fas fa-fire mr-2"></i> Preparando
         </div>
-        <select class="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-          <option value="">Filtrar por...</option>
-          <option value="urgente">Urgentes</option>
-          <option value="normal">Normais</option>
-          <option value="mesa">Por mesa</option>
-          <option value="garcom">Por garçom</option>
-        </select>
-      </div>
-      
-      <!-- Pedidos em Preparação -->
-      <div id="pedidos-preparo" class="space-y-4">
-        <!-- Pedido 1 (Urgente) -->
-        <div class="pedido-card pedido-urgente rounded-lg p-4 shadow">
-          <div class="flex justify-between items-start mb-2">
-            <div>
-              <h3 class="font-bold text-lg">Pedido #1245</h3>
-              <p class="text-sm text-gray-600">Mesa 12 • Garçom: João</p>
+        <div class="divide-y divide-gray-100">
+          <div class="p-4 hover:bg-gray-50 transition-colors duration-200 animate__animated animate__fadeIn">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-lg text-gray-800">#12567</span>
+              <span class="text-sm text-gray-500">10:25</span>
             </div>
-            <div class="flex items-center">
-              <span class="badge-status badge-urgente mr-2">URGENTE</span>
-              <span class="badge-status badge-preparo">EM PREPARO</span>
+            <div class="mt-2 flex items-center text-sm text-gray-600">
+              <i class="fas fa-utensils mr-2 text-yellow-500"></i> 2x Combo Clássico
             </div>
-          </div>
-          
-          <div class="item-list mt-3 space-y-2">
-            <div class="flex justify-between">
-              <div>
-                <span class="item-quantity">2x</span> Pizza Calabresa Grande
-                <p class="text-xs text-gray-500 pl-4">Sem cebola, borda recheada</p>
-              </div>
-              <button class="text-green-600 hover:text-green-800" onclick="marcarItemPronto(this)">
-                <i class="fas fa-check-circle"></i> Pronto
-              </button>
-            </div>
-            <div class="flex justify-between">
-              <div>
-                <span class="item-quantity">1x</span> Refrigerante 2L
-                <p class="text-xs text-gray-500 pl-4">Coca-Cola</p>
-              </div>
-              <button class="text-green-600 hover:text-green-800" onclick="marcarItemPronto(this)">
-                <i class="fas fa-check-circle"></i> Pronto
+            <div class="mt-1 flex justify-end">
+              <button class="bg-green-500 hover:bg-green-600 text-white text-xs py-1 px-3 rounded-full transition-colors duration-300 flex items-center">
+                <i class="fas fa-check mr-1"></i> Finalizar
               </button>
             </div>
           </div>
           
-          <div class="flex justify-between items-center mt-3 pt-2 border-t border-gray-200">
-            <div class="time-indicator">
-              <i class="fas fa-clock"></i> Há 15 minutos
+          <div class="p-4 hover:bg-gray-50 transition-colors duration-200 animate__animated animate__fadeIn animate__delay-1s">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-lg text-gray-800">#12568</span>
+              <span class="text-sm text-gray-500">10:30</span>
             </div>
-            <div>
-              <button class="bg-blue-600 text-white px-3 py-1 rounded-md text-sm mr-2 hover:bg-blue-700" onclick="marcarPedidoPronto('1245')">
-                <i class="fas fa-check mr-1"></i> Finalizar Pedido
-              </button>
-              <button class="bg-gray-200 text-gray-700 px-3 py-1 rounded-md text-sm hover:bg-gray-300">
-                <i class="fas fa-print mr-1"></i> Imprimir
-              </button>
+            <div class="mt-2 flex items-center text-sm text-gray-600">
+              <i class="fas fa-utensils mr-2 text-yellow-500"></i> 1x Combo Especial
             </div>
-          </div>
-        </div>
-        
-        <!-- Pedido 2 -->
-        <div class="pedido-card pedido-em-preparo rounded-lg p-4 shadow">
-          <div class="flex justify-between items-start mb-2">
-            <div>
-              <h3 class="font-bold text-lg">Pedido #1243</h3>
-              <p class="text-sm text-gray-600">Mesa 8 • Garçom: Maria</p>
-            </div>
-            <div>
-              <span class="badge-status badge-preparo">EM PREPARO</span>
-            </div>
-          </div>
-          
-          <div class="item-list mt-3 space-y-2">
-            <div class="flex justify-between">
-              <div>
-                <span class="item-quantity">1x</span> Filé Mignon
-                <p class="text-xs text-gray-500 pl-4">Ao ponto, com arroz e batata</p>
-              </div>
-              <button class="text-green-600 hover:text-green-800" onclick="marcarItemPronto(this)">
-                <i class="fas fa-check-circle"></i> Pronto
-              </button>
-            </div>
-            <div class="flex justify-between">
-              <div>
-                <span class="item-quantity">1x</span> Salada Caesar
-              </div>
-              <button class="text-green-600 hover:text-green-800" onclick="marcarItemPronto(this)">
-                <i class="fas fa-check-circle"></i> Pronto
-              </button>
-            </div>
-            <div class="flex justify-between">
-              <div>
-                <span class="item-quantity">2x</span> Cerveja Artesanal
-                <p class="text-xs text-gray-500 pl-4">IPA</p>
-              </div>
-              <button class="text-green-600 hover:text-green-800" onclick="marcarItemPronto(this)">
-                <i class="fas fa-check-circle"></i> Pronto
+            <div class="mt-1 flex justify-end">
+              <button class="bg-green-500 hover:bg-green-600 text-white text-xs py-1 px-3 rounded-full transition-colors duration-300 flex items-center">
+                <i class="fas fa-check mr-1"></i> Finalizar
               </button>
             </div>
           </div>
           
-          <div class="flex justify-between items-center mt-3 pt-2 border-t border-gray-200">
-            <div class="time-indicator">
-              <i class="fas fa-clock"></i> Há 8 minutos
+          <div class="p-4 hover:bg-gray-50 transition-colors duration-200 animate__animated animate__fadeIn animate__delay-2s">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-lg text-gray-800">#12569</span>
+              <span class="text-sm text-gray-500">10:35</span>
             </div>
-            <div>
-              <button class="bg-blue-600 text-white px-3 py-1 rounded-md text-sm mr-2 hover:bg-blue-700" onclick="marcarPedidoPronto('1243')">
-                <i class="fas fa-check mr-1"></i> Finalizar Pedido
-              </button>
-              <button class="bg-gray-200 text-gray-700 px-3 py-1 rounded-md text-sm hover:bg-gray-300">
-                <i class="fas fa-print mr-1"></i> Imprimir
+            <div class="mt-2 flex items-center text-sm text-gray-600">
+              <i class="fas fa-utensils mr-2 text-yellow-500"></i> 3x Combo Família
+            </div>
+            <div class="mt-1 flex justify-end">
+              <button class="bg-green-500 hover:bg-green-600 text-white text-xs py-1 px-3 rounded-full transition-colors duration-300 flex items-center">
+                <i class="fas fa-check mr-1"></i> Finalizar
               </button>
             </div>
           </div>
         </div>
       </div>
       
-      <!-- Pedidos Finalizados (hidden by default) -->
-      <div id="pedidos-finalizados" class="space-y-4 hidden">
-        <!-- Pedido Finalizado 1 -->
-        <div class="pedido-card pedido-finalizado rounded-lg p-4 shadow">
-          <div class="flex justify-between items-start mb-2">
-            <div>
-              <h3 class="font-bold text-lg">Pedido #1240</h3>
-              <p class="text-sm text-gray-600">Mesa 5 • Garçom: Carlos</p>
+      <!-- Coluna Finalizado -->
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-3 font-bold text-lg flex items-center">
+          <i class="fas fa-check-circle mr-2"></i> Finalizado
+        </div>
+        <div class="divide-y divide-gray-100">
+          <div class="p-4 hover:bg-gray-50 transition-colors duration-200 animate__animated animate__fadeIn">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-lg text-gray-800">#12560</span>
+              <span class="text-sm text-gray-500">09:45</span>
             </div>
-            <div>
-              <span class="badge-status badge-finalizado">FINALIZADO</span>
+            <div class="mt-2 flex items-center text-sm text-gray-600">
+              <i class="fas fa-utensils mr-2 text-green-500"></i> 1x Combo Clássico
             </div>
-          </div>
-          
-          <div class="item-list mt-3 space-y-2">
-            <div>
-              <span class="item-quantity">1x</span> Lasanha à Bolonhesa
-            </div>
-            <div>
-              <span class="item-quantity">2x</span> Água Mineral
-            </div>
-            <div>
-              <span class="item-quantity">1x</span> Sorvete de Chocolate
+            <div class="mt-1 flex justify-end">
+              <span class="bg-gray-200 text-gray-700 text-xs py-1 px-3 rounded-full flex items-center">
+                <i class="fas fa-clock mr-1"></i> Finalizado às 10:05
+              </span>
             </div>
           </div>
           
-          <div class="flex justify-between items-center mt-3 pt-2 border-t border-gray-200">
-            <div class="time-indicator">
-              <i class="fas fa-clock"></i> Finalizado há 25 minutos
+          <div class="p-4 hover:bg-gray-50 transition-colors duration-200 animate__animated animate__fadeIn animate__delay-1s">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-lg text-gray-800">#12561</span>
+              <span class="text-sm text-gray-500">09:50</span>
             </div>
-            <div>
-              <button class="bg-gray-200 text-gray-700 px-3 py-1 rounded-md text-sm hover:bg-gray-300">
-                <i class="fas fa-print mr-1"></i> Reimprimir
-              </button>
+            <div class="mt-2 flex items-center text-sm text-gray-600">
+              <i class="fas fa-utensils mr-2 text-green-500"></i> 2x Combo Especial
+            </div>
+            <div class="mt-1 flex justify-end">
+              <span class="bg-gray-200 text-gray-700 text-xs py-1 px-3 rounded-full flex items-center">
+                <i class="fas fa-clock mr-1"></i> Finalizado às 10:15
+              </span>
+            </div>
+          </div>
+          
+          <div class="p-4 hover:bg-gray-50 transition-colors duration-200 animate__animated animate__fadeIn animate__delay-2s">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-lg text-gray-800">#12562</span>
+              <span class="text-sm text-gray-500">10:00</span>
+            </div>
+            <div class="mt-2 flex items-center text-sm text-gray-600">
+              <i class="fas fa-utensils mr-2 text-green-500"></i> 1x Combo Família
+            </div>
+            <div class="mt-1 flex justify-end">
+              <span class="bg-gray-200 text-gray-700 text-xs py-1 px-3 rounded-full flex items-center">
+                <i class="fas fa-clock mr-1"></i> Finalizado às 10:20
+              </span>
             </div>
           </div>
         </div>
       </div>
     </div>
   </main>
-
+  
   <!-- Footer -->
-  <footer class="fixed bottom-0 left-0 right-0 bg-white py-3 shadow-inner z-20">
-    <div class="container mx-auto px-4 flex justify-between items-center">
-      <p class="text-sm text-gray-600">&copy; 2025 ZEENTT - Todos os direitos reservados</p>
-      <div class="flex items-center space-x-2">
-        <span class="text-sm text-gray-600">Atualizado em:</span>
-        <span id="current-time" class="font-medium">00:00:00</span>
-        <button onclick="atualizarPedidos()" class="bg-blue-600 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-700">
-          <i class="fas fa-sync-alt mr-1"></i> Atualizar
-        </button>
+  <footer class="fixed bottom-0 left-0 right-0 bg-white py-2 md:py-3 shadow-inner z-20">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center justify-center md:justify-between text-center md:text-left">
+        <p class="text-xs sm:text-sm text-gray-600">&copy; 2025 ZEENTT - Todos os direitos reservados</p>
+        <div class="hidden md:flex items-center mt-2 md:mt-0 space-x-4">
+          <a href="#" class="text-gray-500 hover:text-[var(--primary-color)] transition-colors duration-300">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="text-gray-500 hover:text-[var(--primary-color)] transition-colors duration-300">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="text-gray-500 hover:text-[var(--primary-color)] transition-colors duration-300">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
       </div>
     </div>
   </footer>
-
+  
   <script>
     // Toggle sidebar
     function toggleMenu() {
       const sidebar = document.getElementById('sidebar');
       const overlay = document.getElementById('sidebar-overlay');
       sidebar.classList.toggle('open');
-      overlay.classList.toggle('active');
       
-      // Disable scroll when sidebar is open
+      // Mostrar/ocultar overlay
       if (sidebar.classList.contains('open')) {
+        overlay.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
       } else {
+        overlay.classList.add('hidden');
         document.body.style.overflow = 'auto';
       }
     }
-
-    // Logoff function with confirmation
+    
+    // Tela de carregamento e animação de digitação
+    window.addEventListener('load', function() {
+      // Ocultar a tela de carregamento após 2 segundos
+      setTimeout(() => {
+        const loader = document.getElementById('loader');
+        loader.classList.add('fade-out');
+        
+        setTimeout(() => {
+          loader.style.display = 'none';
+          // Iniciar animação de digitação após a tela de carregamento
+          const zeenttText = document.getElementById('zeentt-text');
+          typeEffect(zeenttText, 'ZEENTT', 150);
+          
+          // Animar os cards da cozinha
+          animateCards();
+        }, 500);
+      }, 1500);
+    });
+    
+    // Animação de digitação do texto ZEENTT
+    function typeEffect(element, text, speed) {
+      let i = 0;
+      element.textContent = '';
+      
+      // Criar um elemento de cursor piscante
+      const cursor = document.createElement('span');
+      cursor.className = 'typing-cursor';
+      cursor.textContent = '|';
+      element.appendChild(cursor);
+      
+      const timer = setInterval(function() {
+        if (i < text.length) {
+          // Inserir o texto antes do cursor
+          element.insertBefore(document.createTextNode(text.charAt(i)), cursor);
+          i++;
+        } else {
+          clearInterval(timer);
+          // Remover o cursor após a animação
+          setTimeout(() => {
+            cursor.remove();
+            // Adicionar classe de animação após a digitação
+            element.classList.add('animate__animated', 'animate__pulse');
+          }, 500);
+        }
+      }, speed);
+    }
+    
+    // Animar os cards da cozinha
+    function animateCards() {
+      // Animar os cards com efeito de entrada
+      const cards = document.querySelectorAll('.bg-white.rounded-lg');
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.classList.add('animate__animated', 'animate__fadeInUp');
+        }, index * 200);
+      });
+    }
+    
+    // Logoff function
     function fazerLogoff() {
       if (confirm('Tem certeza que deseja sair do sistema?')) {
-        // Implement logoff logic here
         window.location.href = 'login.html';
       }
     }
-    
-    // Tab switching
-    document.getElementById('tab-preparo').addEventListener('click', function() {
-      this.classList.add('tab-active');
-      this.classList.remove('text-gray-500');
-      document.getElementById('tab-finalizados').classList.remove('tab-active');
-      document.getElementById('tab-finalizados').classList.add('text-gray-500');
-      document.getElementById('pedidos-preparo').classList.remove('hidden');
-      document.getElementById('pedidos-finalizados').classList.add('hidden');
-    });
-    
-    document.getElementById('tab-finalizados').addEventListener('click', function() {
-      this.classList.add('tab-active');
-      this.classList.remove('text-gray-500');
-      document.getElementById('tab-preparo').classList.remove('tab-active');
-      document.getElementById('tab-preparo').classList.add('text-gray-500');
-      document.getElementById('pedidos-finalizados').classList.remove('hidden');
-      document.getElementById('pedidos-preparo').classList.add('hidden');
-    });
-    
-    // Mark item as ready
-    function marcarItemPronto(button) {
-      const itemDiv = button.closest('.flex.justify-between');
-      itemDiv.style.opacity = '0.6';
-      button.innerHTML = '<i class="fas fa-check mr-1"></i> Pronto';
-      button.classList.remove('text-green-600');
-      button.classList.add('text-gray-500');
-      button.onclick = null;
-    }
-    
-    // Mark entire order as ready
-    function marcarPedidoPronto(pedidoId) {
-      if (confirm(`Marcar pedido #${pedidoId} como finalizado?`)) {
-        // In a real app, you would send this to the server
-        const pedidoCard = document.querySelector(`.pedido-card h3:contains("#${pedidoId}")`).closest('.pedido-card');
-        pedidoCard.classList.remove('pedido-em-preparo', 'pedido-urgente');
-        pedidoCard.classList.add('pedido-finalizado');
-        
-        // Update status badge
-        const badge = pedidoCard.querySelector('.badge-status');
-        badge.classList.remove('badge-preparo', 'badge-urgente');
-        badge.classList.add('badge-finalizado');
-        badge.textContent = 'FINALIZADO';
-        
-        // Update buttons
-        const buttonsDiv = pedidoCard.querySelectorAll('button');
-        buttonsDiv[0].style.display = 'none'; // Hide "Finalizar Pedido" button
-        buttonsDiv[1].textContent = ' Reimprimir';
-        
-        // Update counters
-        const countPreparo = document.getElementById('count-preparo');
-        const countFinalizados = document.getElementById('count-finalizados');
-        countPreparo.textContent = parseInt(countPreparo.textContent) - 1;
-        countFinalizados.textContent = parseInt(countFinalizados.textContent) + 1;
-        
-        alert(`Pedido #${pedidoId} marcado como finalizado!`);
-      }
-    }
-    
-    // Update current time
-    function updateClock() {
-      const now = new Date();
-      const timeString = now.toLocaleTimeString();
-      document.getElementById('current-time').textContent = timeString;
-    }
-    
-    // Simulate order updates
-    function atualizarPedidos() {
-      // In a real app, this would fetch new orders from the server
-      alert('Pedidos atualizados com sucesso!');
-      updateClock();
-    }
-    
-    // Initialize
-    document.addEventListener('DOMContentLoaded', function() {
-      updateClock();
-      setInterval(updateClock, 1000);
-      
-      // Simulate new order notification (for demo purposes)
-      setTimeout(() => {
-        const notificationSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3');
-        notificationSound.play().catch(e => console.log('Autoplay prevented'));
-        
-        alert('Novo pedido recebido na cozinha!');
-      }, 10000);
-    });
   </script>
 </body>
 </html>
